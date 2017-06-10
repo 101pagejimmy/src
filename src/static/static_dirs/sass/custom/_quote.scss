@@ -1,0 +1,210 @@
+//
+// Quotes
+// --------------------------------------------------
+
+
+// Basic Styles
+// --------------------------------------------------
+
+.quote {
+  margin: 0;
+  text-align: left;
+  border: none;
+}
+
+
+// Quote Simple
+// --------------------------------------------------
+
+.quote-simple {
+  padding: 26px 35px 32px;
+  line-height: 27px;
+  border-radius: 6px;
+
+  q {
+    position: relative;
+
+    &:before, &:after {
+      content: open-quote;
+      position: absolute;
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1;
+      color: $brand-alto;
+    }
+
+    &:before {
+      quotes: "\201c" "\201d";
+      top: -5px;
+      left: -20px;
+    }
+
+    &:after {
+      quotes: "\201d" "\201c";
+      bottom: -30px;
+      right: -20px;
+    }
+  }
+
+  @media (max-width: $screen-sm-min - 1) {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  @media (min-width: $screen-sm-min) {
+    padding-left: 70px;
+    padding-right: 70px;
+
+    q {
+      &:before, &:after {
+        font-size: 48px;
+      }
+
+      &:before {
+        left: -40px;
+      }
+      &:after {
+        right: -40px;
+      }
+    }
+  }
+  @media (min-width: $screen-lg-min) {
+    padding: 46px 215px 72px;
+  }
+}
+
+
+// Quote Fullwidth
+// --------------------------------------------------
+
+.quote-fullwidth {
+  position: relative;
+
+  .quote-fullwidth-img-wrap {
+    position: relative;
+
+    img, &:before {
+      border-radius: 7px;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba($gray-base, .4);
+    }
+  }
+
+  .quote-fullwidth-body-top {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .quote-fullwidth-body-bottom {
+    margin-top: 20px;
+    max-width: 800px;
+  }
+
+  h5, .label-primary {
+    color: $white;
+  }
+
+  @media (max-width: $screen-xs-min - 1) {
+    h5 {
+      font-size: 14px;
+      letter-spacing: .2em;
+    }
+  }
+  @media (max-width: $screen-sm-min - 1) {
+    a.text-white {
+      color: $gray-base;
+
+      &:hover, &:focus {
+        color: $brand-primary;
+      }
+    }
+  }
+  @media (min-width: $screen-xs-min) {
+    .quote-fullwidth-body-top {
+      top: 30px;
+      left: 50px;
+    }
+  }
+  @media (min-width: $screen-sm-min) {
+    > * {
+      color: $white;
+    }
+
+    .quote-fullwidth-body-top,
+    .quote-fullwidth-body-bottom {
+      left: 55px;
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    .quote-fullwidth-body-top {
+      top: 30px;
+    }
+
+    .quote-fullwidth-body-bottom {
+      position: absolute;
+      bottom: 38px;
+      margin-top: 0;
+    }
+
+    q {
+      color: rgba($white, .6);
+    }
+
+    .quote-fullwidth-body-top,
+    .quote-fullwidth-body-bottom {
+      padding-right: 80px;
+    }
+  }
+  @media (min-width: $screen-md-min) {
+    .quote-fullwidth-body-top,
+    .quote-fullwidth-body-bottom {
+      padding-right: 160px;
+    }
+
+    .quote-fullwidth-body-top {
+      top: 50px;
+    }
+
+    .quote-fullwidth-body-bottom {
+      bottom: 68px;
+    }
+  }
+}
+
+
+// Quote Boxed
+// --------------------------------------------------
+
+.quote-boxed {
+  position: relative;
+  padding-right: 40px;
+  padding-bottom: 40px;
+  padding-left: 55px;
+
+  &-img-wrap {
+    position: absolute;
+    top: 25px;
+    left: -25px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 4px solid $white;
+    box-shadow:  0 5px 23px 0 rgba($gray-base, .4);
+    will-change: transform;
+  }
+
+  @media (min-width: $screen-lg-min) {
+    padding-left: 60px;
+  }
+}

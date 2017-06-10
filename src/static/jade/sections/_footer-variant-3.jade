@@ -1,0 +1,44 @@
+footer.page-footer.section-top-80.section-bottom-34.section-lg-top-70.section-lg-bottom-15
+  .shell
+    form.rd-mailform.range.range-xs-center.range-xs-middle
+      .cell-sm-7.cell-md-3.text-md-right
+        div
+          p.text-big.text-ubold.text-gray-base Subscribe to our Newsletter!
+        .offset-top-4
+          p.text-extra-small-10.text-spacing-500.text-uppercase Stay in tune
+
+      .cell-sm-7.cell-md-3.offset-top-30.offset-md-top-0
+        .form-group.form-group-xs.form-offset-bottom-none
+          label.form-label(for="subscribe-name") Your Name
+          input#subscribe-name.form-control(type="text" name="subscribe-name" data-constraints='@Required')
+
+      .cell-sm-7.cell-md-3.offset-top-15.offset-md-top-0
+        .form-group.form-group-xs.form-offset-bottom-none
+          label.form-label(for="subscribe-password") Password
+          input#subscribe-password.form-control(type="password" name="subscribe-password" data-constraints='@Required')
+
+      .cell-sm-7.cell-md-3.offset-top-15.offset-md-top-0
+        button.btn.btn-block.btn-primary(type="submit") SUBSCRIBE
+
+    .offset-top-60.offset-lg-top-90
+      hr.hr.bg-gallery
+
+    .range.range-xs-center.range-md-justify.offset-top-30.offset-md-top-15
+      .cell-sm-8.cell-md-3.cell-lg-2.text-md-left
+        a(href="index.html")
+          img(width='110', height='22', src='images/logo-dark-110x22.png', alt='')
+
+      .cell-sm-8.cell-md-6.cell-lg-8.offset-top-20.offset-md-top-0.text-md-center
+        p.text-extra-small.text-gray-base Copyright &#169; #[span(id="copyright-year").] #[a.text-primary.text-bold(href="index.html") SunTravel]. All Rights Reserved.
+
+      .cell-sm-8.cell-md-3.cell-lg-2.offset-top-20.offset-md-top-0.text-md-right
+        // List Inline
+        ul.list-inline.list-inline-13
+          li.text-center
+            a.icon.fa.fa-facebook-f.text-gray(href="#")
+          li.text-center
+            a.icon.fa.fa-twitter.text-gray(href="#")
+          li.text-center
+            a.icon.fa.fa-youtube.text-gray(href="#")
+          li.text-center
+            a.icon.fa.fa-linkedin.text-gray(href="#")

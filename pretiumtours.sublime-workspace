@@ -1,0 +1,1150 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Ge",
+				"get_occurrences"
+			],
+			[
+				"qury",
+				"query"
+			],
+			[
+				"Date",
+				"DateFilter"
+			],
+			[
+				"sec",
+				"select\tTag"
+			],
+			[
+				"mod",
+				"ModelForm"
+			],
+			[
+				"tour",
+				"tourlist"
+			],
+			[
+				"get",
+				"get_absolute_url"
+			],
+			[
+				"user",
+				"user_calendar"
+			],
+			[
+				"use",
+				"user"
+			],
+			[
+				"modl",
+				"models"
+			],
+			[
+				"t",
+				"tour_dates"
+			],
+			[
+				"eve",
+				"eventlist"
+			],
+			[
+				"event",
+				"event"
+			],
+			[
+				"ob",
+				"obj_1"
+			],
+			[
+				"date",
+				"datetime"
+			],
+			[
+				"Occurence",
+				"OccurrenceForm"
+			],
+			[
+				"Gui",
+				"GuideBookingForm"
+			],
+			[
+				"get_",
+				"get_queryset"
+			],
+			[
+				"gu",
+				"GuideBookingForm"
+			],
+			[
+				"col-s",
+				"col-sm-3"
+			],
+			[
+				"o",
+				"objects"
+			],
+			[
+				"tours",
+				"tours"
+			],
+			[
+				"mode",
+				"model"
+			],
+			[
+				"Even",
+				"Event"
+			],
+			[
+				"fil",
+				"filter"
+			],
+			[
+				"Ev",
+				"EventForm"
+			],
+			[
+				"f",
+				"fields"
+			],
+			[
+				"guide",
+				"guide_name"
+			],
+			[
+				"c",
+				"calendar"
+			],
+			[
+				"u",
+				"ul\tTag"
+			],
+			[
+				"padd",
+				"padding-top"
+			],
+			[
+				"padding",
+				"padding-bottom"
+			],
+			[
+				"backgr",
+				"background"
+			],
+			[
+				"Guide",
+				"Guide"
+			],
+			[
+				"col",
+				"col-sm-4"
+			],
+			[
+				"di",
+				"div\tTag"
+			],
+			[
+				"Tour",
+				"tourSize"
+			],
+			[
+				"ge",
+				"get_object"
+			],
+			[
+				"tou",
+				"tourSize"
+			],
+			[
+				"Post",
+				"POST"
+			],
+			[
+				"p",
+				"print"
+			],
+			[
+				"last",
+				"last_name"
+			],
+			[
+				"tex",
+				"text-decoration-color"
+			],
+			[
+				"gui",
+				"guide_name"
+			],
+			[
+				"gi",
+				"guide_name"
+			],
+			[
+				"first",
+				"first_name"
+			],
+			[
+				"Ba",
+				"BASE_DIR"
+			],
+			[
+				"mar",
+				"margin-left"
+			],
+			[
+				"pad",
+				"padding"
+			],
+			[
+				"docu",
+				"documents"
+			],
+			[
+				"rev",
+				"reverse_lazy"
+			],
+			[
+				"docume",
+				"Document"
+			],
+			[
+				"doc",
+				"document_id"
+			],
+			[
+				"d",
+				"Document"
+			],
+			[
+				"bor",
+				"border-radius"
+			],
+			[
+				"co",
+				"color"
+			],
+			[
+				"mrg",
+				"margin-bottom"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"mo",
+				"models"
+			],
+			[
+				"Ch",
+				"DOCUMENT_CHOICES"
+			],
+			[
+				"Do",
+				"Document"
+			],
+			[
+				"Doc",
+				"DocumentPostAdmin"
+			],
+			[
+				"sav",
+				"save_model"
+			],
+			[
+				"htt",
+				"Http404"
+			],
+			[
+				"BA",
+				"BASE_DIR"
+			],
+			[
+				"STA",
+				"STATIC_ROOT"
+			],
+			[
+				"margin",
+				"margin-top"
+			],
+			[
+				"h",
+				"HttpResponseRedirect"
+			],
+			[
+				"http",
+				"Http404"
+			],
+			[
+				"logi",
+				"login_required"
+			],
+			[
+				"document",
+				"DocumentListView"
+			],
+			[
+				"background-c",
+				"background-color"
+			],
+			[
+				"bott",
+				"border-bottom"
+			],
+			[
+				"backg",
+				"background-position"
+			],
+			[
+				"filte",
+				"FilterMixin"
+			],
+			[
+				"paddin",
+				"padding"
+			],
+			[
+				"url",
+				"get_absolute_url"
+			],
+			[
+				"ali",
+				"text-align"
+			],
+			[
+				"text-a",
+				"text-align"
+			],
+			[
+				"max",
+				"max-height"
+			],
+			[
+				"ST",
+				"STATIC_ROOT"
+			],
+			[
+				"pro",
+				"product_offerings"
+			],
+			[
+				"m",
+				"max_length"
+			],
+			[
+				"Scho",
+				"ScholarshipForm"
+			],
+			[
+				"refer",
+				"referral"
+			],
+			[
+				"Re",
+				"Referral"
+			],
+			[
+				"Ref",
+				"ReferralForm"
+			],
+			[
+				"Sch",
+				"ScholarshipForm"
+			],
+			[
+				"R",
+				"ReferralForm"
+			],
+			[
+				"Mo",
+				"Model"
+			],
+			[
+				"val",
+				"value"
+			],
+			[
+				"form",
+				"form"
+			],
+			[
+				"ref",
+				"referButton"
+			],
+			[
+				"Refer",
+				"referButton"
+			],
+			[
+				"marg",
+				"margin-top"
+			],
+			[
+				"las",
+				"lastname"
+			],
+			[
+				"fist",
+				"firstname"
+			],
+			[
+				"def",
+				"default"
+			],
+			[
+				"Get",
+				"get_object_or_404"
+			],
+			[
+				"in",
+				"instance"
+			],
+			[
+				"margi",
+				"margin-top"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"Job",
+				"Job"
+			],
+			[
+				"model",
+				"models"
+			],
+			[
+				"Model",
+				"Model_List"
+			],
+			[
+				"border-ra",
+				"border-radius"
+			],
+			[
+				"paddi",
+				"padding-left"
+			],
+			[
+				"le",
+				"margin-left"
+			],
+			[
+				"background",
+				"background-color"
+			],
+			[
+				"border",
+				"border-top"
+			],
+			[
+				"col-",
+				"col-sm-offset-3"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"back-gr",
+				"background-color"
+			],
+			[
+				"backgro",
+				"background-color"
+			],
+			[
+				"new_join",
+				"new_join_old"
+			],
+			[
+				"STATIC",
+				"STATIC_URL"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/templates/home.html",
+			"settings":
+			{
+				"buffer_size": 24292,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/tour/views.py",
+			"settings":
+			{
+				"buffer_size": 8425,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "import pytz\nimport datetime\nimport dateutil.parser\nfrom django.utils.six.moves.urllib.parse import quote\n\nfrom django.db.models import Q, F\nfrom django.core.urlresolvers import reverse\nfrom django.http import JsonResponse\nfrom django.shortcuts import get_object_or_404\nfrom django.utils import timezone\nfrom django.http import HttpResponseRedirect, Http404, HttpResponseBadRequest\nfrom django.views.decorators.http import require_POST\nfrom django.views.generic.base import TemplateResponseMixin\nfrom django.views.generic.detail import DetailView\nfrom django.views.generic.edit import (\n    UpdateView, CreateView, DeleteView, ModelFormMixin, ProcessFormView)\nfrom django.utils.http import is_safe_url\nfrom django.conf import settings\n\nfrom schedule.settings import (GET_EVENTS_FUNC, OCCURRENCE_CANCEL_REDIRECT,\n                               EVENT_NAME_PLACEHOLDER, CHECK_EVENT_PERM_FUNC,\n                               CHECK_OCCURRENCE_PERM_FUNC, USE_FULLCALENDAR)\nfrom schedule.forms import EventForm, OccurrenceForm\nfrom schedule.models import Calendar, Occurrence, Event, EventRelation\nfrom schedule.periods import weekday_names\nfrom schedule.utils import (\n    check_event_permissions,\n    check_calendar_permissions,\n    coerce_date_dict,\n    check_occurrence_permissions)\n\n\nclass CalendarViewPermissionMixin(object):\n    @classmethod\n    def as_view(cls, **initkwargs):\n        view = super(CalendarViewPermissionMixin, cls).as_view(**initkwargs)\n        return check_calendar_permissions(view)\n\n\nclass EventEditPermissionMixin(object):\n    @classmethod\n    def as_view(cls, **initkwargs):\n        view = super(EventEditPermissionMixin, cls).as_view(**initkwargs)\n        return check_event_permissions(view)\n\n\nclass OccurrenceEditPermissionMixin(object):\n    @classmethod\n    def as_view(cls, **initkwargs):\n        view = super(OccurrenceEditPermissionMixin, cls).as_view(**initkwargs)\n        return check_occurrence_permissions(view)\n\n\nclass CancelButtonMixin(object):\n    def post(self, request, *args, **kwargs):\n        next_url = kwargs.get('next')\n        self.success_url = get_next_url(request, next_url)\n        if \"cancel\" in request.POST:\n            return HttpResponseRedirect(self.success_url)\n        else:\n            return super(CancelButtonMixin, self).post(request, *args, **kwargs)\n\n\nclass CalendarMixin(CalendarViewPermissionMixin):\n    model = Calendar\n    slug_url_kwarg = 'calendar_slug'\n\n\nclass CalendarView(CalendarMixin, DetailView):\n    template_name = 'schedule/calendar.html'\n\n\nclass FullCalendarView(CalendarMixin, DetailView):\n    template_name = \"fullcalendar.html\"\n\n    def get_context_data(self, **kwargs):\n        context = super(FullCalendarView, self).get_context_data()\n        context['calendar_slug'] = self.kwargs.get('calendar_slug')\n        return context\n\n\nclass CalendarByPeriodsView(CalendarMixin, DetailView):\n    template_name = 'schedule/calendar_by_period.html'\n\n    def get_context_data(self, **kwargs):\n        context = super(CalendarByPeriodsView, self).get_context_data(**kwargs)\n        calendar = self.object\n        period_class = self.kwargs['period']\n        try:\n            date = coerce_date_dict(self.request.GET)\n        except ValueError:\n            raise Http404\n        if date:\n            try:\n                date = datetime.datetime(**date)\n            except ValueError:\n                raise Http404\n        else:\n            date = timezone.now()\n        event_list = GET_EVENTS_FUNC(self.request, calendar)\n\n        local_timezone = timezone.get_current_timezone()\n        period = period_class(event_list, date, tzinfo=local_timezone)\n\n        context.update({\n            'date': date,\n            'period': period,\n            'calendar': calendar,\n            'weekday_names': weekday_names,\n            'here': quote(self.request.get_full_path()),\n        })\n        return context\n\n\nclass OccurrenceMixin(CalendarViewPermissionMixin, TemplateResponseMixin):\n    model = Occurrence\n    pk_url_kwarg = 'occurrence_id'\n    form_class = OccurrenceForm\n\n\nclass OccurrenceEditMixin(CancelButtonMixin, OccurrenceEditPermissionMixin, OccurrenceMixin):\n    def get_initial(self):\n        initial_data = super(OccurrenceEditMixin, self).get_initial()\n        _, self.object = get_occurrence(**self.kwargs)\n        return initial_data\n\n\nclass OccurrenceView(OccurrenceMixin, DetailView):\n    template_name = 'schedule/occurrence.html'\n\n\nclass OccurrencePreview(OccurrenceMixin, ModelFormMixin, ProcessFormView):\n    template_name = 'schedule/occurrence.html'\n\n    def get_context_data(self, **kwargs):\n        context = super(OccurrencePreview, self).get_context_data()\n        context = {\n            'event': self.object.event,\n            'occurrence': self.object,\n        }\n        return context\n\n\nclass EditOccurrenceView(OccurrenceEditMixin, UpdateView):\n    template_name = 'schedule/edit_occurrence.html'\n\n\nclass CreateOccurrenceView(OccurrenceEditMixin, CreateView):\n    template_name = 'schedule/edit_occurrence.html'\n\n\nclass CancelOccurrenceView(OccurrenceEditMixin, ModelFormMixin, ProcessFormView):\n    template_name = 'schedule/cancel_occurrence.html'\n\n    def post(self, request, *args, **kwargs):\n        event, occurrence = get_occurrence(**kwargs)\n        self.success_url = kwargs.get(\n            'next',\n            get_next_url(request, event.get_absolute_url()))\n        if 'cancel' not in request.POST:\n            occurrence.cancel()\n        return HttpResponseRedirect(self.success_url)\n\n\nclass EventMixin(CalendarViewPermissionMixin):\n    model = Event\n    pk_url_kwarg = 'event_id'\n\n\nclass EventEditMixin(CancelButtonMixin, EventEditPermissionMixin, EventMixin):\n    pass\n\n\nclass EventView(EventMixin, DetailView):\n    template_name = 'schedule/event.html'\n\n\nclass EditEventView(EventEditMixin, UpdateView):\n    form_class = EventForm\n    template_name = 'schedule/create_event.html'\n\n    def form_valid(self, form):\n        event = form.save(commit=False)\n        old_event = Event.objects.get(pk=event.pk)\n        dts = datetime.timedelta(\n            minutes=int((event.start - old_event.start).total_seconds() / 60)\n        )\n        dte = datetime.timedelta(\n            minutes=int((event.end - old_event.end).total_seconds() / 60)\n        )\n        event.occurrence_set.all().update(\n            original_start=F('original_start') + dts,\n            original_end=F('original_end') + dte,\n        )\n        event.save()\n        return super(EditEventView, self).form_valid(form)\n\n\nclass CreateEventView(EventEditMixin, CreateView):\n    form_class = EventForm\n    template_name = 'schedule/create_event.html'\n\n    def get_initial(self):\n        date = coerce_date_dict(self.request.GET)\n        initial_data = None\n        if date:\n            try:\n                start = datetime.datetime(**date)\n                initial_data = {\n                    'start': start,\n                    'end': start + datetime.timedelta(minutes=30)\n                }\n            except TypeError:\n                raise Http404\n            except ValueError:\n                raise Http404\n        return initial_data\n\n    def form_valid(self, form):\n        event = form.save(commit=False)\n        event.creator = self.request.user\n        event.calendar = get_object_or_404(Calendar, slug=self.kwargs['calendar_slug'])\n        event.save()\n        return HttpResponseRedirect(event.get_absolute_url())\n\n\nclass DeleteEventView(EventEditMixin, DeleteView):\n    template_name = 'schedule/delete_event.html'\n\n    def get_context_data(self, **kwargs):\n        ctx = super(DeleteEventView, self).get_context_data(**kwargs)\n        ctx['next'] = self.get_success_url()\n        return ctx\n\n    def get_success_url(self):\n        \"\"\"\n        After the event is deleted there are three options for redirect, tried in\n        this order:\n        # Try to find a 'next' GET variable\n        # If the key word argument redirect is set\n        # Lastly redirect to the event detail of the recently create event\n        \"\"\"\n        url_val = 'fullcalendar' if USE_FULLCALENDAR else 'day_calendar'\n        next_url = self.kwargs.get('next') or reverse(url_val, args=[self.object.calendar.slug])\n        next_url = get_next_url(self.request, next_url)\n        return next_url\n\n\ndef get_occurrence(event_id, occurrence_id=None, year=None, month=None,\n                   day=None, hour=None, minute=None, second=None,\n                   tzinfo=None):\n    \"\"\"\n    Because occurrences don't have to be persisted, there must be two ways to\n    retrieve them. both need an event, but if its persisted the occurrence can\n    be retrieved with an id. If it is not persisted it takes a date to\n    retrieve it.  This function returns an event and occurrence regardless of\n    which method is used.\n    \"\"\"\n    if(occurrence_id):\n        occurrence = get_object_or_404(Occurrence, id=occurrence_id)\n        event = occurrence.event\n    elif None not in (year, month, day, hour, minute, second):\n        event = get_object_or_404(Event, id=event_id)\n        date = timezone.make_aware(datetime.datetime(int(year), int(month),\n                                   int(day), int(hour), int(minute),\n                                   int(second)), tzinfo)\n        occurrence = event.get_occurrence(date)\n        if occurrence is None:\n            raise Http404\n    else:\n        raise Http404\n    return event, occurrence\n\n\ndef check_next_url(next_url):\n    \"\"\"\n    Checks to make sure the next url is not redirecting to another page.\n    Basically it is a minimal security check.\n    \"\"\"\n    if not next_url or '://' in next_url:\n        return None\n    return next_url\n\n\ndef get_next_url(request, default):\n    next_url = default\n    if OCCURRENCE_CANCEL_REDIRECT:\n        next_url = OCCURRENCE_CANCEL_REDIRECT\n    _next_url = request.GET.get('next') if request.method in ['GET', 'HEAD'] else request.POST.get('next')\n    if _next_url and is_safe_url(url=_next_url, host=request.get_host()):\n        next_url = _next_url\n    return next_url\n\n\n@check_calendar_permissions\ndef api_occurrences(request):\n    start = request.GET.get('start')\n    end = request.GET.get('end')\n    calendar_slug = request.GET.get('calendar_slug')\n\n    try:\n        response_data = _api_occurrences(start, end, calendar_slug)\n    except (ValueError, Calendar.DoesNotExist) as e:\n        return HttpResponseBadRequest(e)\n\n    return JsonResponse(response_data, safe=False)\n\n\ndef _api_occurrences(start, end, calendar_slug):\n\n    if not start or not end:\n        raise ValueError('Start and end parameters are required')\n    # version 2 of full calendar\n    # TODO: improve this code with date util package\n    if '-' in start:\n        def convert(ddatetime):\n            if ddatetime:\n                ddatetime = ddatetime.split(' ')[0]\n                return datetime.datetime.strptime(ddatetime, '%Y-%m-%d')\n    else:\n        def convert(ddatetime):\n            return datetime.datetime.utcfromtimestamp(float(ddatetime))\n\n    start = convert(start)\n    end = convert(end)\n    # If USE_TZ is True, make start and end dates aware in UTC timezone\n    if settings.USE_TZ:\n        utc = pytz.UTC\n        start = utc.localize(start)\n        end = utc.localize(end)\n\n    if calendar_slug:\n        # will raise DoesNotExist exception if no match\n        calendars = [Calendar.objects.get(slug=calendar_slug)]\n    # if no calendar slug is given, get all the calendars\n    else:\n        calendars = Calendar.objects.all()\n    response_data = []\n    # Algorithm to get an id for the occurrences in fullcalendar (NOT THE SAME\n    # AS IN THE DB) which are always unique.\n    # Fullcalendar thinks that all their \"events\" with the same \"event.id\" in\n    # their system are the same object, because it's not really built around\n    # the idea of events (generators)\n    # and occurrences (their events).\n    # Check the \"persisted\" boolean value that tells it whether to change the\n    # event, using the \"event_id\" or the occurrence with the specified \"id\".\n    # for more info https://github.com/llazzaro/django-scheduler/pull/169\n    i = 1\n    if Occurrence.objects.all().count() > 0:\n        i = Occurrence.objects.latest('id').id + 1\n    event_list = []\n    for calendar in calendars:\n        # create flat list of events from each calendar\n        event_list += calendar.events.filter(start__lte=end).filter(\n            Q(end_recurring_period__gte=start) |\n            Q(end_recurring_period__isnull=True))\n    for event in event_list:\n        occurrences = event.get_occurrences(start, end)\n        for occurrence in occurrences:\n            occurrence_id = i + occurrence.event.id\n            existed = False\n\n            if occurrence.id:\n                occurrence_id = occurrence.id\n                existed = True\n\n            recur_rule = occurrence.event.rule.name \\\n                if occurrence.event.rule else None\n            recur_period_end = \\\n                occurrence.event.end_recurring_period.isoformat() \\\n                if occurrence.event.end_recurring_period else None\n\n            response_data.append({\n                'id': occurrence_id,\n                'title': occurrence.title,\n                'start': occurrence.start.isoformat(),\n                'end': occurrence.end.isoformat(),\n                'existed': existed,\n                'event_id': occurrence.event.id,\n                'color': occurrence.event.color_event,\n                'description': occurrence.description,\n                'rule': recur_rule,\n                'end_recurring_period': recur_period_end,\n                'creator': str(occurrence.event.creator),\n                'calendar': occurrence.event.calendar.slug,\n                'cancelled': occurrence.cancelled,\n            })\n    return response_data\n\n\n@require_POST\n@check_calendar_permissions\ndef api_move_or_resize_by_code(request):\n    response_data = {}\n    user = request.user\n    id = request.POST.get('id')\n    existed = bool(request.POST.get('existed') == 'true')\n    delta = datetime.timedelta(minutes=int(request.POST.get('delta')))\n    resize = bool(request.POST.get('resize', False))\n    event_id = request.POST.get('event_id')\n\n    response_data = _api_move_or_resize_by_code(\n        user,\n        id,\n        existed,\n        delta,\n        resize,\n        event_id)\n\n    return JsonResponse(response_data)\n\n\ndef _api_move_or_resize_by_code(user, id, existed, delta, resize, event_id):\n    response_data = {}\n    response_data['status'] = \"PERMISSION DENIED\"\n\n    if existed:\n        occurrence = Occurrence.objects.get(id=id)\n        occurrence.end += delta\n        if not resize:\n            occurrence.start += delta\n        if CHECK_OCCURRENCE_PERM_FUNC(occurrence, user):\n            occurrence.save()\n            response_data['status'] = \"OK\"\n    else:\n        event = Event.objects.get(id=event_id)\n        dts = 0\n        dte = delta\n        if not resize:\n            event.start += delta\n            dts = delta\n        event.end = event.end + delta\n        if CHECK_EVENT_PERM_FUNC(event, user):\n            event.save()\n            event.occurrence_set.all().update(\n                original_start=F('original_start') + dts,\n                original_end=F('original_end') + dte,\n            )\n            response_data['status'] = \"OK\"\n    return response_data\n\n\n@require_POST\n@check_calendar_permissions\ndef api_select_create(request):\n    response_data = {}\n    start = request.POST.get('start')\n    end = request.POST.get('end')\n    calendar_slug = request.POST.get('calendar_slug')\n\n    response_data = _api_select_create(start, end, calendar_slug)\n\n    return JsonResponse(response_data)\n\n\ndef _api_select_create(start, end, calendar_slug):\n    start = dateutil.parser.parse(start)\n    end = dateutil.parser.parse(end)\n\n    calendar = Calendar.objects.get(slug=calendar_slug)\n    Event.objects.create(\n        start=start,\n        end=end,\n        title=EVENT_NAME_PLACEHOLDER,\n        calendar=calendar,\n    )\n\n    response_data = {}\n    response_data['status'] = \"OK\"\n    return response_data\n",
+			"file": "src/schedule/views.py",
+			"file_size": 16021,
+			"file_write_time": 131391037539794086,
+			"settings":
+			{
+				"buffer_size": 16036,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/tour/templates/tour/guide_detail.html",
+			"settings":
+			{
+				"buffer_size": 10780,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "from __future__ import division, unicode_literals\nfrom django.utils.six import with_metaclass\n# -*- coding: utf-8 -*-\nfrom django.conf import settings as django_settings\nfrom dateutil import rrule\nimport datetime\n\nfrom django.contrib.contenttypes import fields\nfrom django.db import models\nfrom django.db.models.base import ModelBase\nfrom django.db.models import Q\nfrom django.contrib.contenttypes.models import ContentType\nfrom django.core.urlresolvers import reverse\nfrom django.template.defaultfilters import date\nfrom django.utils.translation import ugettext, ugettext_lazy as _\nfrom django.utils import timezone\nfrom django.utils.encoding import python_2_unicode_compatible\n\nfrom schedule.models.rules import Rule\nfrom schedule.models.calendars import Calendar\nfrom schedule.utils import OccurrenceReplacer\nfrom schedule.utils import get_model_bases\n\nfreq_dict_order = {\n    'YEARLY': 0,\n    'MONTHLY': 1,\n    'WEEKLY': 2,\n    'DAILY': 3,\n    'HOURLY': 4,\n    'MINUTELY': 5,\n    'SECONDLY': 6\n}\nparam_dict_order = {\n    'byyearday': 1,\n    'bymonth': 1,\n    'bymonthday': 2,\n    'byweekno': 2,\n    'byweekday': 3,\n    'byhour': 4,\n    'byminute': 5,\n    'bysecond': 6\n}\n\n\nclass EventManager(models.Manager):\n    def get_for_object(self, content_object, distinction='', inherit=True):\n        return EventRelation.objects.get_events_for_object(content_object, distinction, inherit)\n\n\n@python_2_unicode_compatible\nclass Event(with_metaclass(ModelBase, *get_model_bases('Event'))):\n    '''\n    This model stores meta data for a date.  You can relate this data to many\n    other models.\n    '''\n    start = models.DateTimeField(_(\"start\"), db_index=True)\n    end = models.DateTimeField(_(\"end\"), db_index=True, help_text=_(\"The end time must be later than the start time.\"))\n    title = models.CharField(_(\"title\"), max_length=255)\n    description = models.TextField(_(\"description\"), blank=True)\n    creator = models.ForeignKey(\n        django_settings.AUTH_USER_MODEL,\n        on_delete=models.CASCADE,\n        null=True,\n        blank=True,\n        verbose_name=_(\"creator\"),\n        related_name='creator')\n    created_on = models.DateTimeField(_(\"created on\"), auto_now_add=True)\n    updated_on = models.DateTimeField(_(\"updated on\"), auto_now=True)\n    rule = models.ForeignKey(\n        Rule,\n        on_delete=models.CASCADE,\n        null=True,\n        blank=True,\n        verbose_name=_(\"rule\"),\n        help_text=_(\"Select '----' for a one time only event.\"))\n    end_recurring_period = models.DateTimeField(_(\"end recurring period\"), null=True, blank=True, db_index=True,\n                                                help_text=_(\"This date is ignored for one time only events.\"))\n    calendar = models.ForeignKey(\n        Calendar,\n        on_delete=models.CASCADE,\n        null=True,\n        blank=True,\n        verbose_name=_(\"calendar\"))\n    color_event = models.CharField(_(\"Color event\"), blank=True, max_length=10)\n    objects = EventManager()\n\n    class Meta(object):\n        verbose_name = _('event')\n        verbose_name_plural = _('events')\n        app_label = 'schedule'\n        index_together = (\n            ('start', 'end'),\n        )\n\n    def __str__(self):\n        return ugettext('%(title)s: %(start)s - %(end)s') % {\n            'title': self.title,\n            'start': date(self.start, django_settings.DATE_FORMAT),\n            'end': date(self.end, django_settings.DATE_FORMAT),\n        }\n\n    @property\n    def seconds(self):\n        return (self.end - self.start).total_seconds()\n\n    @property\n    def minutes(self):\n        return float(self.seconds) / 60\n\n    @property\n    def hours(self):\n        return float(self.seconds) / 3600\n\n    def get_absolute_url(self):\n        return reverse('event', args=[self.id])\n\n    def get_occurrences(self, start, end, clear_prefetch=True):\n        \"\"\"\n        >>> rule = Rule(frequency = \"MONTHLY\", name = \"Monthly\")\n        >>> rule.save()\n        >>> event = Event(rule=rule, start=datetime.datetime(2008,1,1,tzinfo=pytz.utc), end=datetime.datetime(2008,1,2))\n        >>> event.rule\n        <Rule: Monthly>\n        >>> occurrences = event.get_occurrences(datetime.datetime(2008,1,24), datetime.datetime(2008,3,2))\n        >>> [\"%s to %s\" %(o.start, o.end) for o in occurrences]\n        ['2008-02-01 00:00:00+00:00 to 2008-02-02 00:00:00+00:00', '2008-03-01 00:00:00+00:00 to 2008-03-02 00:00:00+00:00']\n\n        Ensure that if an event has no rule, that it appears only once.\n\n        >>> event = Event(start=datetime.datetime(2008,1,1,8,0), end=datetime.datetime(2008,1,1,9,0))\n        >>> occurrences = event.get_occurrences(datetime.datetime(2008,1,24), datetime.datetime(2008,3,2))\n        >>> [\"%s to %s\" %(o.start, o.end) for o in occurrences]\n        []\n        \"\"\"\n\n        # Explanation of clear_prefetch:\n        #\n        # Periods, and their subclasses like Week, call\n        # prefetch_related('occurrence_set') on all events in their\n        # purview. This reduces the database queries they make from\n        # len()+1 to 2. However, having a cached occurrence_set on the\n        # Event model instance can sometimes cause Events to have a\n        # different view of the state of occurrences than the Period\n        # managing them.\n        #\n        # E.g., if you create an unsaved occurrence, move it to a\n        # different time [which saves the event], keep a reference to\n        # the moved occurrence, & refetch all occurrences from the\n        # Period without clearing the prefetch cache, you'll end up\n        # with two Occurrences for the same event but different moved\n        # states. It's a complicated scenario, but can happen. (See\n        # tests/test_occurrence.py#test_moved_occurrences, which caught\n        # this bug in the first place.)\n        #\n        # To prevent this, we clear the select_related cache by default\n        # before we call an event's get_occurrences, but allow Period\n        # to override this cache clear since it already fetches all\n        # occurrence_sets via prefetch_related in its get_occurrences.\n        if clear_prefetch:\n            persisted_occurrences = self.occurrence_set.select_related(None).all()\n        else:\n            persisted_occurrences = self.occurrence_set.all()\n        occ_replacer = OccurrenceReplacer(persisted_occurrences)\n        occurrences = self._get_occurrence_list(start, end)\n        final_occurrences = []\n        for occ in occurrences:\n            # replace occurrences with their persisted counterparts\n            if occ_replacer.has_occurrence(occ):\n                p_occ = occ_replacer.get_occurrence(occ)\n                # ...but only if they are within this period\n                if p_occ.start < end and p_occ.end >= start:\n                    final_occurrences.append(p_occ)\n            else:\n                final_occurrences.append(occ)\n        # then add persisted occurrences which originated outside of this period but now\n        # fall within it\n        final_occurrences += occ_replacer.get_additional_occurrences(start, end)\n        return final_occurrences\n\n    def get_rrule_object(self, tzinfo):\n        if self.rule is None:\n            return\n        params = self._event_params()\n        frequency = self.rule.rrule_frequency()\n        if timezone.is_naive(self.start):\n            dtstart = self.start\n        else:\n            dtstart = tzinfo.normalize(self.start).replace(tzinfo=None)\n\n        if self.end_recurring_period is None:\n            until = None\n        elif timezone.is_naive(self.end_recurring_period):\n            until = self.end_recurring_period\n        else:\n            until = tzinfo.normalize(\n                self.end_recurring_period.astimezone(tzinfo)).replace(tzinfo=None)\n\n        return rrule.rrule(frequency, dtstart=dtstart, until=until, **params)\n\n    def _create_occurrence(self, start, end=None):\n        if end is None:\n            end = start + (self.end - self.start)\n        return Occurrence(event=self, start=start, end=end, original_start=start, original_end=end)\n\n    def get_occurrence(self, date):\n        use_naive = timezone.is_naive(date)\n        tzinfo = timezone.utc\n        if timezone.is_naive(date):\n            date = timezone.make_aware(date, timezone.utc)\n        if date.tzinfo:\n            tzinfo = date.tzinfo\n        rule = self.get_rrule_object(tzinfo)\n        if rule:\n            next_occurrence = rule.after(tzinfo.normalize(date).replace(tzinfo=None), inc=True)\n            next_occurrence = tzinfo.localize(next_occurrence)\n        else:\n            next_occurrence = self.start\n        if next_occurrence == date:\n            try:\n                return Occurrence.objects.get(event=self, original_start=date)\n            except Occurrence.DoesNotExist:\n                if use_naive:\n                    next_occurrence = timezone.make_naive(next_occurrence, tzinfo)\n                return self._create_occurrence(next_occurrence)\n\n    def _get_occurrence_list(self, start, end):\n        \"\"\"\n        Returns a list of occurrences that fall completely or partially inside\n        the timespan defined by start (inclusive) and end (exclusive)\n        \"\"\"\n        if self.rule is not None:\n            duration = self.end - self.start\n            use_naive = timezone.is_naive(start)\n\n            # Use the timezone from the start date\n            tzinfo = timezone.utc\n            if start.tzinfo:\n                tzinfo = start.tzinfo\n\n            # Limit timespan to recurring period\n            occurrences = []\n            if self.end_recurring_period and self.end_recurring_period < end:\n                end = self.end_recurring_period\n\n            start_rule = self.get_rrule_object(tzinfo)\n            start = start.replace(tzinfo=None)\n            if timezone.is_aware(end):\n                end = tzinfo.normalize(end).replace(tzinfo=None)\n\n            o_starts = []\n\n            # Occurrences that start before the timespan but ends inside or after timespan\n            closest_start = start_rule.before(start, inc=False)\n            if closest_start is not None and closest_start + duration > start:\n                o_starts.append(closest_start)\n\n            # Occurrences starts that happen inside timespan (end-inclusive)\n            occs = start_rule.between(start, end, inc=True)\n            # The occurrence that start on the end of the timespan is potentially\n            # included above, lets remove if thats the case.\n            if len(occs) > 0:\n                if occs[-1] == end:\n                    occs.pop()\n            # Add the occurrences found inside timespan\n            o_starts.extend(occs)\n\n            # Create the Occurrence objects for the found start dates\n            for o_start in o_starts:\n                o_start = tzinfo.localize(o_start)\n                if use_naive:\n                    o_start = timezone.make_naive(o_start, tzinfo)\n                o_end = o_start + duration\n                occurrence = self._create_occurrence(o_start, o_end)\n                if occurrence not in occurrences:\n                    occurrences.append(occurrence)\n            return occurrences\n        else:\n            # check if event is in the period\n            if self.start < end and self.end > start:\n                return [self._create_occurrence(self.start)]\n            else:\n                return []\n\n    def _occurrences_after_generator(self, after=None):\n        \"\"\"\n        returns a generator that produces unpresisted occurrences after the\n        datetime ``after``. (Optionally) This generator will return up to\n        ``max_occurrences`` occurrences or has reached ``self.end_recurring_period``, whichever is smallest.\n        \"\"\"\n\n        tzinfo = timezone.utc\n        if after is None:\n            after = timezone.now()\n        elif not timezone.is_naive(after):\n            tzinfo = after.tzinfo\n        rule = self.get_rrule_object(tzinfo)\n        if rule is None:\n            if self.end > after:\n                yield self._create_occurrence(self.start, self.end)\n            return\n        date_iter = iter(rule)\n        difference = self.end - self.start\n        loop_counter = 0\n        for o_start in date_iter:\n            o_start = tzinfo.localize(o_start)\n            o_end = o_start + difference\n            if o_end > after:\n                yield self._create_occurrence(o_start, o_end)\n\n            loop_counter += 1\n\n    def occurrences_after(self, after=None, max_occurrences=None):\n        \"\"\"\n        returns a generator that produces occurrences after the datetime\n        ``after``.  Includes all of the persisted Occurrences. (Optionally) This generator will return up to\n        ``max_occurrences`` occurrences or has reached ``self.end_recurring_period``, whichever is smallest.\n        \"\"\"\n        if after is None:\n            after = timezone.now()\n        occ_replacer = OccurrenceReplacer(self.occurrence_set.all())\n        generator = self._occurrences_after_generator(after)\n        trickies = list(self.occurrence_set.filter(original_start__lte=after, start__gte=after).order_by('start'))\n        for index, nxt in enumerate(generator):\n            if max_occurrences and index > max_occurrences - 1:\n                break\n            if (len(trickies) > 0 and (nxt is None or nxt.start > trickies[0].start)):\n                yield trickies.pop(0)\n            yield occ_replacer.get_occurrence(nxt)\n\n    @property\n    def event_start_params(self):\n        start = self.start\n        params = {\n            'byyearday': start.timetuple().tm_yday,\n            'bymonth': start.month,\n            'bymonthday': start.day,\n            'byweekno': start.isocalendar()[1],\n            'byweekday': start.weekday(),\n            'byhour': start.hour,\n            'byminute': start.minute,\n            'bysecond': start.second\n        }\n        return params\n\n    @property\n    def event_rule_params(self):\n        return self.rule.get_params()\n\n    def _event_params(self):\n        freq_order = freq_dict_order[self.rule.frequency]\n        rule_params = self.event_rule_params\n        start_params = self.event_start_params\n        event_params = {}\n\n        if len(rule_params) == 0:\n            event_params['count'] = 0\n            return event_params\n\n        for param in rule_params:\n            # start date influences rule params\n            if (param in param_dict_order and param_dict_order[param] > freq_order and\n                    param in start_params):\n                sp = start_params[param]\n                if sp == rule_params[param] or (\n                        hasattr(rule_params[param], '__iter__') and\n                        sp in rule_params[param]):\n                    event_params[param] = [sp]\n                else:\n                    event_params[param] = rule_params[param]\n            else:\n                event_params[param] = rule_params[param]\n\n        return event_params\n\n    @property\n    def event_params(self):\n        event_params = self._event_params()\n        start = self.effective_start\n        if not start:\n            empty = True\n        elif self.end_recurring_period and start > self.end_recurring_period:\n            empty = True\n        return event_params, empty\n\n    @property\n    def effective_start(self):\n        if self.pk and self.end_recurring_period:\n            occ_generator = self._occurrences_after_generator(self.start)\n            try:\n                return next(occ_generator).start\n            except StopIteration:\n                pass\n        elif self.pk:\n            return self.start\n        return None\n\n    @property\n    def effective_end(self):\n        if self.pk and self.end_recurring_period:\n            params, empty = self.event_params\n            if empty or not self.effective_start:\n                return None\n            elif self.end_recurring_period:\n                occ = None\n                occ_generator = self._occurrences_after_generator(self.start)\n                for occ in occ_generator:\n                    pass\n                return occ.end\n        elif self.pk:\n            return datetime.max\n        return None\n\n\nclass EventRelationManager(models.Manager):\n    '''\n    >>> import datetime\n    >>> EventRelation.objects.all().delete()\n    >>> CalendarRelation.objects.all().delete()\n    >>> data = {\n    ...         'title': 'Test1',\n    ...         'start': datetime.datetime(2008, 1, 1),\n    ...         'end': datetime.datetime(2008, 1, 11)\n    ...        }\n    >>> Event.objects.all().delete()\n    >>> event1 = Event(**data)\n    >>> event1.save()\n    >>> data['title'] = 'Test2'\n    >>> event2 = Event(**data)\n    >>> event2.save()\n    >>> user1 = User(username='alice')\n    >>> user1.save()\n    >>> user2 = User(username='bob')\n    >>> user2.save()\n    >>> event1.create_relation(user1, 'owner')\n    >>> event1.create_relation(user2, 'viewer')\n    >>> event2.create_relation(user1, 'viewer')\n    '''\n    # Currently not supported\n    # Multiple level reverse lookups of generic relations appears to be\n    # unsupported in Django, which makes sense.\n    #\n    # def get_objects_for_event(self, event, model, distinction=None):\n    #     '''\n    #     returns a queryset full of instances of model, if it has an EventRelation\n    #     with event, and distinction\n    #     >>> event = Event.objects.get(title='Test1')\n    #     >>> EventRelation.objects.get_objects_for_event(event, User, 'owner')\n    #     [<User: alice>]\n    #     >>> EventRelation.objects.get_objects_for_event(event, User)\n    #     [<User: alice>, <User: bob>]\n    #     '''\n    #     if distinction:\n    #         dist_q = Q(eventrelation__distinction = distinction)\n    #     else:\n    #         dist_q = Q()\n    #     ct = ContentType.objects.get_for_model(model)\n    #     return model.objects.filter(\n    #         dist_q,\n    #         eventrelation__content_type = ct,\n    #         eventrelation__event = event\n    #     )\n\n    def get_events_for_object(self, content_object, distinction='', inherit=True):\n        '''\n        returns a queryset full of events, that relate to the object through, the\n        distinction\n\n        If inherit is false it will not consider the calendars that the events\n        belong to. If inherit is true it will inherit all of the relations and\n        distinctions that any calendar that it belongs to has, as long as the\n        relation has inheritable set to True.  (See Calendar)\n\n        >>> event = Event.objects.get(title='Test1')\n        >>> user = User.objects.get(username = 'alice')\n        >>> EventRelation.objects.get_events_for_object(user, 'owner', inherit=False)\n        [<Event: Test1: Tuesday, Jan. 1, 2008-Friday, Jan. 11, 2008>]\n\n        If a distinction is not declared it will not vet the relations based on\n        distinction.\n        >>> EventRelation.objects.get_events_for_object(user, inherit=False)\n        [<Event: Test1: Tuesday, Jan. 1, 2008-Friday, Jan. 11, 2008>, <Event: Test2: Tuesday, Jan. 1, 2008-Friday, Jan. 11, 2008>]\n\n        Now if there is a Calendar\n        >>> calendar = Calendar(name = 'MyProject')\n        >>> calendar.save()\n\n        And an event that belongs to that calendar\n        >>> event = Event.objects.get(title='Test2')\n        >>> calendar.events.add(event)\n\n        If we relate this calendar to some object with inheritable set to true,\n        that relation will be inherited\n        >>> user = User.objects.get(username='bob')\n        >>> cr = calendar.create_relation(user, 'viewer', True)\n        >>> EventRelation.objects.get_events_for_object(user, 'viewer')\n        [<Event: Test1: Tuesday, Jan. 1, 2008-Friday, Jan. 11, 2008>, <Event: Test2: Tuesday, Jan. 1, 2008-Friday, Jan. 11, 2008>]\n        '''\n        ct = ContentType.objects.get_for_model(type(content_object))\n        if distinction:\n            dist_q = Q(eventrelation__distinction=distinction)\n            cal_dist_q = Q(calendar__calendarrelation__distinction=distinction)\n        else:\n            dist_q = Q()\n            cal_dist_q = Q()\n        if inherit:\n            inherit_q = Q(\n                cal_dist_q,\n                calendar__calendarrelation__object_id=content_object.id,\n                calendar__calendarrelation__content_type=ct,\n                calendar__calendarrelation__inheritable=True,\n            )\n        else:\n            inherit_q = Q()\n        event_q = Q(dist_q, eventrelation__object_id=content_object.id, eventrelation__content_type=ct)\n        return Event.objects.filter(inherit_q | event_q)\n\n    def create_relation(self, event, content_object, distinction=''):\n        \"\"\"\n        Creates a relation between event and content_object.\n        See EventRelation for help on distinction.\n        \"\"\"\n        return EventRelation.objects.create(\n            event=event,\n            distinction=distinction,\n            content_object=content_object)\n\n\n@python_2_unicode_compatible\nclass EventRelation(with_metaclass(ModelBase, *get_model_bases('EventRelation'))):\n    '''\n    This is for relating data to an Event, there is also a distinction, so that\n    data can be related in different ways.  A good example would be, if you have\n    events that are only visible by certain users, you could create a relation\n    between events and users, with the distinction of 'visibility', or\n    'ownership'.\n\n    event: a foreign key relation to an Event model.\n    content_type: a foreign key relation to ContentType of the generic object\n    object_id: the id of the generic object\n    content_object: the generic foreign key to the generic object\n    distinction: a string representing a distinction of the relation, User could\n    have a 'viewer' relation and an 'owner' relation for example.\n\n    DISCLAIMER: while this model is a nice out of the box feature to have, it\n    may not scale well.  If you use this keep that in mind.\n    '''\n    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_(\"event\"))\n    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)\n    object_id = models.IntegerField()\n    content_object = fields.GenericForeignKey('content_type', 'object_id')\n    distinction = models.CharField(_(\"distinction\"), max_length=20)\n\n    objects = EventRelationManager()\n\n    class Meta(object):\n        verbose_name = _(\"event relation\")\n        verbose_name_plural = _(\"event relations\")\n        app_label = 'schedule'\n\n    def __str__(self):\n        return '%s(%s)-%s' % (self.event.title, self.distinction, self.content_object)\n\n\n@python_2_unicode_compatible\nclass Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):\n    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_(\"event\"))\n\n\n    #_________IN THE WORKS FOR BOOKING_____________________________\n\n    registrars = IntegerField()\n\n    #_________IN THE WORKS FOR BOOKING_____________________________\n\n\n    title = models.CharField(_(\"title\"), max_length=255, blank=True)\n    description = models.TextField(_(\"description\"), blank=True)\n    start = models.DateTimeField(_(\"start\"), db_index=True)\n    end = models.DateTimeField(_(\"end\"), db_index=True)\n    cancelled = models.BooleanField(_(\"cancelled\"), default=False)\n    original_start = models.DateTimeField(_(\"original start\"))\n    original_end = models.DateTimeField(_(\"original end\"))\n    created_on = models.DateTimeField(_(\"created on\"), auto_now_add=True)\n    updated_on = models.DateTimeField(_(\"updated on\"), auto_now=True)\n\n    class Meta(object):\n        verbose_name = _(\"occurrence\")\n        verbose_name_plural = _(\"occurrences\")\n        app_label = 'schedule'\n        index_together = (\n            ('start', 'end'),\n        )\n\n    def __init__(self, *args, **kwargs):\n        super(Occurrence, self).__init__(*args, **kwargs)\n        if not self.title and self.event_id:\n            self.title = self.event.title\n        if not self.description and self.event_id:\n            self.description = self.event.description\n\n    def moved(self):\n        return self.original_start != self.start or self.original_end != self.end\n\n    moved = property(moved)\n\n    def move(self, new_start, new_end):\n        self.start = new_start\n        self.end = new_end\n        self.save()\n\n    def cancel(self):\n        self.cancelled = True\n        self.save()\n\n    def uncancel(self):\n        self.cancelled = False\n        self.save()\n\n    @property\n    def seconds(self):\n        return (self.end - self.start).total_seconds()\n\n    @property\n    def minutes(self):\n        return float(self.seconds) / 60\n\n    @property\n    def hours(self):\n        return float(self.seconds) / 3600\n\n    def get_absolute_url(self):\n        if self.pk is not None:\n            return reverse('occurrence', kwargs={'occurrence_id': self.pk,\n                                                 'event_id': self.event.id})\n        return reverse('occurrence_by_date', kwargs={\n            'event_id': self.event.id,\n            'year': self.start.year,\n            'month': self.start.month,\n            'day': self.start.day,\n            'hour': self.start.hour,\n            'minute': self.start.minute,\n            'second': self.start.second,\n        })\n\n    def get_cancel_url(self):\n        if self.pk is not None:\n            return reverse('cancel_occurrence', kwargs={'occurrence_id': self.pk,\n                                                        'event_id': self.event.id})\n        return reverse('cancel_occurrence_by_date', kwargs={\n            'event_id': self.event.id,\n            'year': self.start.year,\n            'month': self.start.month,\n            'day': self.start.day,\n            'hour': self.start.hour,\n            'minute': self.start.minute,\n            'second': self.start.second,\n        })\n\n    def get_edit_url(self):\n        if self.pk is not None:\n            return reverse('edit_occurrence', kwargs={'occurrence_id': self.pk,\n                                                      'event_id': self.event.id})\n        return reverse('edit_occurrence_by_date', kwargs={\n            'event_id': self.event.id,\n            'year': self.start.year,\n            'month': self.start.month,\n            'day': self.start.day,\n            'hour': self.start.hour,\n            'minute': self.start.minute,\n            'second': self.start.second,\n        })\n\n    def __str__(self):\n        return ugettext(\"%(start)s to %(end)s\") % {\n            'start': date(self.start, django_settings.DATE_FORMAT),\n            'end': date(self.end, django_settings.DATE_FORMAT)\n        }\n\n    def __lt__(self, other):\n        return self.end < other.end\n\n    def __eq__(self, other):\n        return (isinstance(other, Occurrence) and\n                self.original_start == other.original_start and\n                self.original_end == other.original_end)\n",
+			"file": "src/schedule/models/events.py",
+			"file_size": 26682,
+			"file_write_time": 131415364403244217,
+			"settings":
+			{
+				"buffer_size": 26714,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				"Syntax Check"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 621.0,
+		"last_filter": "css",
+		"selected_items":
+		[
+			[
+				"css",
+				"Set Syntax: CSS"
+			],
+			[
+				"",
+				"Set Syntax: CSS"
+			]
+		],
+		"width": 686.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/taylo/Desktop/pretiumtours/src",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/models",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/static/tour",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour"
+	],
+	"file_history":
+	[
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/models.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/base.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/home_working.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/guide_detail.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/farmtofamily/settings.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/js/script.js",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/base_working.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/home.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/guidelist_working.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/js/core.min.js",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/guide_list.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/.gitignore",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/js/custom.js",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/css/style.css",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/base.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/components/bower_components/jquery-ui/composer.json",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/base/css.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/base/js.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/forms.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/views.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/fullcalendar_modal.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/_daily_table.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/calendar_week.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/create_event.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/navbar.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/_dialogs.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/occurrence.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/static_dirs/js/core.min.js",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templatetags/__init__.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templatetags/tour_extras.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/calendar.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/delete_event.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/calendar_day.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/event.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/models/calendars.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/farmtofamily/urls.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/calendar_list.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/models/events.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/edit_occurrence.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/guide_thumbnail.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/review/models.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/fullcalendar_script.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/review/admin.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/fullcalendar.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/footer.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/calendar_year.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/calendar_compact_month.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/calendar_month.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/calendar_tri_month.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/views.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/requirements.txt",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/profiles/schedule.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/happenings/templates/happenings/middle.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/happenings/templates/happenings/event_month_list.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/happenings/templates/happenings/event_detail.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/happenings/templates/happenings/event_day_list.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/review/templates/review/review_form.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/_event_options.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/create_tour_guide.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/index.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/404.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/landing_page.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/login.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/navbar_working.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/horny/baby.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/static_dirs/css/custom.css",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/static_dirs/css/bootstrap.min.css",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/login_working.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/registration_form.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/registration_form_working.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/static_dirs/css/style.css",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/static/tour/style.css",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/css/main.css",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/static/farm/style.css",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/password_reset_form.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/password_reset_form_working.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/review/templates/review/review_detail.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/static_dirs/css/footer-static-bottom.css",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/cancel_occurrence.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/javascript.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/head_css.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/guide_profile.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/base.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/landing_working.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/urls.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/static_dirs/img/f2fLandingPicture.jpg",
+		"/C/Users/taylo/Desktop/pretiumtours/src/review/templates/review/review_list.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/booking/urls.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/booking/templates/booking/booking_list.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/booking/models.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/booking/templates/booking/booking_form.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/booking/templates/booking/booking_detail.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/static_dirs/js/custom.js",
+		"/C/Users/taylo/Desktop/pretiumtours/src/README.md",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/admin.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/review/urls.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/review/forms.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/todo.txt",
+		"/C/Users/taylo/Desktop/pretiumtours/src/review/templates/review/review_confirm_delete.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/messages.html",
+		"/C/Users/taylo/Desktop/pretiumtours/Scripts/activate.bat",
+		"/C/Users/taylo/Desktop/pretiumtours/src/manage.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/farmtofamily/wsgi.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/farm/urls.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/pretiumtours/wsgi.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/pretiumtours/settings.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/farm/views.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/farm/landing_page.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/farm/templates/farm/create_tour_guide.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/farm/forms.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/farm/models.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/farm/templates/farm/store.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/farm/admin.py",
+		"/C/Users/taylo/Desktop/ecommerce/src/products/models.py",
+		"/C/Users/taylo/Desktop/ecommerce/src/products/forms.py",
+		"/C/Users/taylo/Desktop/ecommerce/src/products/urls.py",
+		"/C/Users/taylo/Desktop/ecommerce/src/products/views.py",
+		"/C/Users/taylo/Desktop/ecommerce/src/products/templates/products/product_list.html",
+		"/C/Users/taylo/Desktop/ecommerce/src/newsletter/views.py",
+		"/C/Users/taylo/Desktop/freeosu/src/books/views.py",
+		"/C/Users/taylo/Desktop/freeosu/src/templates/home.html",
+		"/C/Users/taylo/Desktop/freeosu/src/books/models.py",
+		"/C/Users/taylo/Desktop/freeosu/src/books/templates/books/document_list.html",
+		"/C/Users/taylo/Desktop/freeosu/src/freeosu/settings.py",
+		"/C/Users/taylo/Desktop/freeosu/src/books/forms.py",
+		"/C/Users/taylo/Desktop/freeosu/src/templates/navbar.html",
+		"/C/Users/taylo/Desktop/freeosu/src/freeosu/urls.py",
+		"/C/Users/taylo/Desktop/freeosu/src/books/admin.py"
+	],
+	"find":
+	{
+		"height": 58.0
+	},
+	"find_in_files":
+	{
+		"height": 176.0,
+		"where_history":
+		[
+			"C:\\Users\\taylo\\Desktop\\pretiumtours\\src\\",
+			"C:\\Users\\taylo\\Desktop\\pretiumtours\\src\\PretiumTourSite",
+			"C:\\Users\\taylo\\Desktop\\pretiumtours\\",
+			"C:\\Users\\taylo\\Desktop\\pretiumtours\\src",
+			"C:\\Users\\taylo\\Desktop\\ecommerce\\src",
+			"C:\\Users\\taylo\\Desktop\\freeosu\\src",
+			"",
+			"C:\\Users\\taylo\\Desktop\\freeosu\\src",
+			"<current file>",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"EventRelationManager",
+			"guidefilterform",
+			"demos/sty",
+			"css/material",
+			"moments",
+			"script",
+			"jquery",
+			"core",
+			"materialdesign",
+			"user-01",
+			"{% sta",
+			"input grou",
+			"1.12",
+			"jquery-ui.min",
+			"user-01",
+			"src",
+			"do you want to edit this",
+			"padding",
+			"\">\n",
+			"tomato",
+			"script",
+			"border: 1px",
+			"border",
+			"book Tour",
+			"all",
+			"modal",
+			"src",
+			"user-01",
+			"src",
+			"start",
+			"\">\n",
+			"calendarview",
+			"event count",
+			"scripts",
+			"modal",
+			"img",
+			"materialdesignic",
+			"calan",
+			"eventRel",
+			"openCanceldialog",
+			"openCenceldialog",
+			"home",
+			"creator",
+			"create_event_url",
+			"12345",
+			"fullcal",
+			"fullcalendar",
+			"demos/style.css",
+			"timepicker",
+			"datepicker",
+			"map",
+			"ven",
+			"vent",
+			"event",
+			"map",
+			"cal",
+			"create_event",
+			"project_sample",
+			"php",
+			"google",
+			"other",
+			"profile",
+			"find the per",
+			"find the ",
+			"form",
+			"src",
+			"footer",
+			"src",
+			"background",
+			"background-04",
+			"background-05",
+			"book a ",
+			"index",
+			"farmtofamily",
+			"calendar",
+			"morning",
+			"v",
+			"bootstarp core javascript",
+			"v",
+			"body",
+			"django.contrib.contenttypes",
+			"django.contrib.contenttypes.generic",
+			"booki",
+			"guidebooking",
+			"farm to family",
+			">\n",
+			"trun",
+			"-",
+			"offset",
+			"amount",
+			"create_post",
+			"staffreq",
+			"tour_size",
+			"print",
+			"get_absolute_url",
+			"image",
+			"detailview",
+			"list_filter",
+			"timestamp",
+			"max_length",
+			"href",
+			" <div class=\"col-sm-3\">\n\n<input type=\"text\" class=\"form-control\" id=\"whereto\" placeholder=\"Where do you want to go?\" value='{{ request.GET.q }}'>\n</div>",
+			"landing",
+			"job",
+			"farm.views",
+			"guide_name",
+			"Store",
+			"guidemanager",
+			"pretium",
+			"farm",
+			"registration",
+			"farmtofamily",
+			"farmto",
+			"farmtofamily",
+			"f2f",
+			"farmtofamily",
+			" ",
+			"farmtofamily",
+			"create",
+			"modelformset_factory",
+			"VariationListView",
+			"add another",
+			"VariationInventoryFormSet",
+			"form_fac",
+			"pk",
+			"cycle",
+			"electronics",
+			"field"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"pretiumtours",
+			"",
+			"freeosu",
+			"farmtofamily"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"folders":
+	[
+		{
+			"path": "C:\\Users\\taylo\\Desktop\\pretiumtours\\src"
+		}
+	],
+	"groups":
+	[
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/templates/home.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 24292,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10588,
+								10588
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/tour/views.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8425,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6720,
+								6730
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4071.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/schedule/views.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16036,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1560,
+								1560
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 276.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/tour/templates/tour/guide_detail.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10780,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5330,
+								5330
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3008.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/schedule/models/events.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 26714,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								22854,
+								22880
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 12693.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 31.0
+	},
+	"input":
+	{
+		"height": 55.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 174.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 875.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"C:\\Users\\taylo\\Desktop\\ecommerce\\ecommerce2.sublime-project"
+			]
+		],
+		"width": 837.0
+	},
+	"select_symbol":
+	{
+		"height": 686.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 686.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 457.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

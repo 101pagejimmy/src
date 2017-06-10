@@ -1,0 +1,55 @@
+ {% load static %}
+
+ <style>
+{% block style %}
+
+.navbar{
+
+background-color: red;
+
+background-color: blue;
+
+background-color: green;
+
+}
+
+
+{% endblock style %}
+</style>
+
+ <header class="page-header" style="background-color: black;">
+        <div id="nav" class="rd-navbar-wrap">
+          <nav data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" data-md-stick-up-offset="1px" data-lg-stick-up-offset="1px" class="rd-navbar rd-navbar-light rd-navbar--is-touch rd-navbar-original rd-navbar-static" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fullwidth" data-lg-layout="rd-navbar-static"">
+              <!-- RD Navbar Panel-->
+            <div class="rd-navbar-inner">
+              <!-- RD Navbar Panel-->
+              <div class="rd-navbar-panel">
+                <!-- RD Navbar Toggle-->
+                <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
+                <!-- RD Navbar Brand-->
+                <div class="rd-navbar-brand veil reveal-md-block"><a href="/" class="brand-name"><img width="130" height="15" src="{% static 'pretiumlogo.png' %}" alt=""></a></div>
+                <!-- RD Navbar Brand-->
+                <div class="rd-navbar-braFnd veil-md reveal-tablet-md-inline-block"><a href="index.html" class="brand-name"><img width="130" height="15" src="" alt=""></a></div>
+              </div>
+              <div class="rd-navbar-nav-wrap" style="background-color: black">
+                <!-- RD Navbar Nav-->
+                <ul class="rd-navbar-nav">
+                  <li class="active"><a href="/">Home</a></li>
+                  <li><a href="#">About</a></li>
+                  <li><a href="#">Contact</a></li>
+                  {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'registration_register' %}">Register</a></li>
+                      {% if not request.user.is_authenticated and not "/accounts/login" in request.get_full_path %}
+                        <li><a href="{% url 'auth_login' %}">Login</a></li>
+                         {% endif %}
+                    {% endif %}
+                </ul>
+              </div>
+            </div>
+            </div>
+          </nav>
+        </div>
+</header>
+

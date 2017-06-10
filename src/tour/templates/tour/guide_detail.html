@@ -1,0 +1,371 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load review_tags %}
+{% load scheduletags %}
+{% load scheduletags i18n %}
+{% load staticfiles %}
+{% load static %}
+
+
+
+<style>
+  {% block style %}
+
+  body {
+    background: #f5f5f5;
+  }
+
+  #main-body {
+    background-color: white
+  }
+
+  h1  {
+    font-family: Century, sans-serif;
+  }
+
+  h2 {
+    font-family:  Century, sans-serif;
+  }
+
+  p {
+    font-family:  Century, sans-serif;
+  }
+
+  #selection {
+    border-radius: 4px;
+    width:100px;
+  }
+
+  a:link {
+    text-decoration: none;
+  }
+
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none; /* This makes sure that we can still click outside of the modal to close it */
+}
+
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+    pointer-events: all;
+}
+
+  {% endblock style %}
+</style>
+
+
+
+
+{% block content %}
+
+{% include 'navbar.html' %}
+{% include "schedule/_dialogs.html" %}
+<div class="container" id="main-body">
+
+
+
+  <br>
+
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+    <li><a data-toggle="tab" href="#menu1">Schedule</a></li>
+    <li><a data-toggle="tab" href="#menu2">Reviews</a></li>
+  <!--   <li><a data-toggle="tab" href="#menu3">Booking</a></li> -->
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+
+
+       <div class="container">
+  <br>
+
+
+        {% if object.get_image_url %}
+
+
+        {% total_review_average object 100 as percentage %}
+
+            <div class="col-sm-3">
+              <div>
+                <img id='img' class='img-responsive' src='{{ object.get_image_url }}' />
+              </div> 
+                <h2>{{instance.first_name}} {{instance.last_name}}</h2>
+                <hr>
+                <p>
+                  Language: {{instance.language}}<br>
+                  Personality: {{instance.language}}<br>
+                  Rating: {{ percentage|floatformat:"0" }}/100
+                </p>
+
+
+
+                           
+                          
+                    
+
+
+<br>
+
+
+                <a data-toggle="modal" href="#myModal" class="btn btn-primary">Book Tour</a>
+                  <div class="modal fade offset-top-35" id="myModal">
+                    <div class="modal-dialog offset-top-35">
+                      <div class="modal-content offset-top-35">
+                        <div class="modal-header offset-top-35">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                          <h4 class="modal-title offset-top-35">Book a Tour</h4>
+                        </div>
+                        <div class="modal-body offset-top-35">
+
+                          <form method="POST" id="post-form">
+                           
+                           <!--  -->
+
+                            <br>
+                            <label for='schedule'><strong>Tour Dates:</strong></label>
+                            <a name="schedule"><a>
+                            <br>
+                            <form>
+                              <select name="{{event}}" id="{{event}}">
+                                {% for tour in tours_list %}
+                                <option id="event" value="event">{{tour.title}}</option>
+                                {% endfor %}
+                              </select>
+                            </form>
+                            <br>
+
+                             <form>
+                            {% for event in tours_list %}
+                              <label for='{{event.title}}'><strong>{{event.title}}:</strong></label>
+                                <select name="{{event.title}}" id="{{event.title}}">
+                                  {% for tour in tours %}
+                                    {% for occurance in tour %}
+                                    <option id="event" value="event">Start: {{occurance.start}} - End: {{occurance.end}}</option>
+                                    {% endfor %}
+                                  {% endfor %}
+                                </select>
+                            {% endfor %}
+                            </form>
+                            <br>
+
+
+
+                            {% csrf_token %}
+                            <div class="fieldWrapper" id="the_post">
+                            {{form.tourSize}}                           
+                            </div>
+                            <div id="results"></div>
+
+                          
+                          <p>Avaliable Spots: {{instance.tourSize}}</p>
+
+                        </div>
+                        <div class="modal-footer">
+                          <a href="#" data-dismiss="modal" class="btn">Close</a>
+                           <input id="button" type="submit" class="btn btn-primary" value="Book">     
+                        </div>
+                      </div>
+                    </div>
+                </div>
+             </div>
+ 
+            {% endif %}
+
+            <div class="col-sm-offset-1 col-sm-7">
+              <h1>Tour Description</h1>
+              <hr>
+              <p class="lead">{{instance.tour_description|linebreaks }}</p>
+            </div>
+
+    </div>
+
+
+
+
+          <hr>
+
+<div class="container">
+              <h1>Reviews</h1>
+            
+            <div class="container">
+
+              {% user_has_reviewed instance request.user.id as has_reviewed %}
+              {% if has_reviewed %}
+                  <em><p>You have already reviewed {{ instance.first_name }}.</p></em>
+              {% else %}
+                  <p><a href="{% url 'review_create' content_type='guide' object_id=instance.pk %}">Review {{ instance.first_name }}</a></p>
+              {% endif %}
+
+
+                
+                <div class="col-sm-11">
+
+                  {% get_review_count object as review_count %}
+                  <strong><p>{{ review_count }} users have reviewed {{instance.first_name}} so far & {% total_review_average object 100 as percentage %}
+                    {{ percentage|floatformat:"0" }}% of our users recommend {{instance.first_name}}!</p></strong>
+                    <hr>
+                </div>
+                
+            </div>
+                <br>
+                
+                <div class="container">
+                  {% get_review_count object as review_count %}
+                  <div class="col-sm-11">
+
+                    {% get_reviews object as reviews %}
+
+                      {% for review in reviews|slice:":8" %}
+                        <br>
+                        <div class="col-sm-6">
+
+                          <p>
+                            {% if review.content %}
+                              By <strong>{{ review.user}}</strong> <br>
+                              <font size="3">{{ review.content|truncatewords:'50'|linebreaks }}</font>
+                            {% else %}
+                              Reviewed without description.
+                            {% endif %}
+                          </p>
+                          <a href="{% url 'review_detail' pk=review.pk %}">Read More...</a>
+                          <hr>
+                        </div>
+                      {% endfor %}
+
+                  </div>
+
+                </div>
+    </div>
+              <div class="container">
+                <div class="col-sm-11">
+                  <hr>
+                </div>
+              </div>
+
+              <div class="container">
+                <h1>Things to Remember</h1>
+                <div class="col-sm-10">
+                  <p>{{instance.remember|linebreaks }}</p>
+                </div>
+              </div> 
+
+
+  </div>
+  <div id="menu1" class="tab-pane fade">
+
+<br>
+
+{% if instance.guide_name == request.user  %}
+
+<label for='schedule'><strong>Tour Dates:</strong></label>
+<a name="schedule" href="{{calendar}}/hardiet">Update Schedule
+<!-- <a name="schedule" href="calendar/calendar/daily/hardiet">Update Schedule -->
+  <span class="glyphicon glyphicon-plus" ></span>
+</a>
+
+{% endif %}
+<br>
+<br>
+<div class="col-sm-4">
+{{guide_tours}}
+</div>
+<br>
+
+<hr>
+<form>
+{% for event in tours %}
+
+
+ <select name="{{event}}" id="{{event}}">
+{% for tour in event %}
+<option id="event" value="event">Start: {{tour.start}} - End: {{tour.end}}</option>
+{% endfor %}
+</select>
+</form>
+{% endfor %}
+<br>
+
+  </div>
+  
+
+
+  <div id="menu2" class="tab-pane fade">
+
+    <div class="container">
+
+            <br>     
+            <div class="container">
+
+              {% user_has_reviewed instance request.user.id as has_reviewed %}
+              {% if has_reviewed %}
+                  <em><p>You have already reviewed {{ instance.first_name }}.</p></em>
+              {% else %}
+                  <p><a href="{% url 'review_create' content_type='guide' object_id=instance.pk %}">Review {{ instance.first_name }}</a></p>
+              {% endif %}
+
+
+                
+                <div class="col-sm-11">
+
+                  {% get_review_count object as review_count %}
+                  <strong><p>{{ review_count }} users have reviewed {{instance.first_name}} so far & {% total_review_average object 100 as percentage %}
+                    {{ percentage|floatformat:"0" }}% of our users recommend {{instance.first_name}}!</p></strong>
+                    <hr>
+                </div>
+                
+            </div>
+                <br>
+                
+                <div class="container">
+                  {% get_review_count object as review_count %}
+                  <div class="col-sm-11">
+
+                    {% get_reviews object as reviews %}
+
+                      {% for review in reviews %}
+                        <br>
+                        <div class="col-sm-6">
+
+                          <p>
+                            {% if review.content %}
+                              By <strong>{{ review.user}}</strong> <br>
+                              <font size="3">{{ review.content|truncatewords:'50'|linebreaks }}</font>
+                            {% else %}
+                              Reviewed without description.
+                            {% endif %}
+                          </p>
+                          <a href="{% url 'review_detail' pk=review.pk %}">Read More...</a>
+                          <hr>
+                        </div>
+                      {% endfor %}
+
+                  </div>
+
+                </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+
+
+
+ 
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Create review" %}{% endblock %}
+
+{% block content %}
+<br><br>
+
+   <div class="container">
+    <div class="col-sm-6 col-sm-offset-3">
+    <h1>{% trans "Create review" %}</h1>
+ 
+    <form method="post" action=".">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="{% trans 'Save' %}" />
+    </form>
+    </div>
+    </div>
+{% endblock %}

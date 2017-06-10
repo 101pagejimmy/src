@@ -1,0 +1,70 @@
+{% load staticfiles %}
+{% load i18n static %}
+<html lang="en" class="wide wow-animation smoothscroll">
+<head>
+<title>{% block head_title %}PretiumTours{% endblock head_title %}</title>
+
+
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:400,400i,700,700i,900,900i">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="icon" href="static/favicon.ico" type="image/x-icon">
+
+
+
+
+
+<!-- Django-Shedular -->
+<script type="text/javascript" src="{% static 'jquery/dist/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'jquery-ui/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'schedule.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
+<!-- Django-Shedular -->
+
+
+<!-- Foundation & FontAwesome -->
+<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.2.3/css/foundation.css">
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/trianglify/0.1.2/trianglify.min.js"></script>
+
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+
+
+<style>
+{% block style %}{% endblock style %}
+</style>
+
+</head>
+
+<body>
+
+    
+<div id="fb-root"></div>
+
+			
+{% block content %}{% endblock content %}
+{% include 'footer.html' %}
+
+</div>
+
+
+
+<script>
+$.noConflict();
+	$(document).ready(function(){
+		{% block jquery %}
+		{% endblock %}
+	});
+</script>
+
+
+</body>
+
+</html>

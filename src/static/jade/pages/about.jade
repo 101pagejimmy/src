@@ -1,0 +1,224 @@
+extends  ../_skeleton
+
+block title
+  title About Us
+
+block page
+  // Page Header
+  header.page-header
+    +rd-navbar-default({
+      "style": "rd-navbar-light",
+      "logo": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "logoFixed": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "activeLink": 3,
+      "attr": {
+        "data-layout": "rd-navbar-fixed",
+        "data-sm-layout": "rd-navbar-fixed",
+        "data-md-layout": "rd-navbar-fullwidth",
+        "data-lg-layout": "rd-navbar-static"
+      }
+    })
+
+    // RD Parallax
+    section.section-height-mac.context-dark
+      +rd-parallax({
+        "on": "false",
+        "MdOn": "true",
+        "firstLayerType": "media",
+        "firstLayerSpeed": "0.25",
+        "src": "images/backgrounds/background-21-1920x900.jpg",
+        "secondLayerType": "html",
+        "secondLayerSpeed": "0",
+        "fade": "false"
+      })
+        .bg-overlay-darker
+          .shell.section-34.section-md-100.section-lg-top-170.section-lg-bottom-165
+            h1.veil.reveal-md-inline-block About Us
+            .offset-top-4
+              h6.text-italic Learn More About SunTravel
+
+  // Page Content
+  main.page-content
+
+    // About Us
+    section.section-80.section-md-top-125
+      .shell
+        .range.range-xs-center.range-lg-justify
+          .cell-sm-6.cell-sm-push-1.cell-lg-5.text-sm-left
+            h3 Traveling. Tours. Adventure.
+
+            .offset-top-15
+              p.
+                We are committed to offering travel services of the highest
+                quality, combining our energy and enthusiasm, with our
+                years of experience. Our greatest satisfaction comes in
+                serving large numbers of satisfied clients who have
+                experienced the joys and inspiration of travel.
+
+            .offset-top-20.offset-md-top-45
+              a.btn.btn-primary(href="tours-grid.html") view tours
+
+          .cell-sm-5.cell-lg-preffix-1.offset-top-60.offset-sm-top-0.text-center
+            .range.range-xs-bottom.range-xs-left.range-md-center
+              .cell-xs-5.cell-xs-preffix-1.cell-sm-preffix-0.cell-sm-6.cell-md-4
+                a.reveal-inline-block(href="#")
+                  img.img-responsive.img-semi-transparent-inverse.center-block(src="images/places/place-01-118x89.png" width="118" height="89" alt="")
+              .cell-xs-5.cell-sm-6.cell-md-4.offset-top-30.offset-xs-top-0
+                a.reveal-inline-block(href="#")
+                  img.img-responsive.img-semi-transparent-inverse.center-block(src="images/places/place-02-79x89.png" width="79" height="89" alt="")
+              .cell-xs-5.cell-xs-preffix-1.cell-sm-preffix-0.cell-sm-6.cell-md-4.offset-top-30.offset-md-top-0
+                a.reveal-inline-block(href="#")
+                  img.img-responsive.img-semi-transparent-inverse.center-block(src="images/places/place-03-138x98.png" width="138" height="98" alt="")
+
+              .cell-xs-5.cell-sm-6.cell-md-4.offset-top-30
+                a.reveal-inline-block(href="#")
+                  img.img-responsive.img-semi-transparent-inverse.center-block(src="images/places/place-04-144x93.png" width="144" height="93" alt="")
+              .cell-xs-5.cell-xs-preffix-1.cell-sm-preffix-0.cell-sm-6.cell-md-4.offset-top-30
+                a.reveal-inline-block(href="#")
+                  img.img-responsive.img-semi-transparent-inverse.center-block(src="images/places/place-05-138x96.png" width="138" height="96" alt="")
+              .cell-xs-5.cell-sm-6.cell-md-4.offset-top-30
+                a.reveal-inline-block(href="#")
+                  img.img-responsive.img-semi-transparent-inverse.center-block(src="images/places/place-06-138x98.png" width="138" height="98" alt="")
+
+              .cell-xs-5.cell-xs-preffix-1.cell-sm-preffix-0.cell-sm-6.cell-md-4.offset-top-30
+                a.reveal-inline-block(href="#")
+                  img.img-responsive.img-semi-transparent-inverse.center-block(src="images/places/place-07-154x69.png" width="154" height="69" alt="")
+              .cell-xs-5.cell-sm-6.cell-md-4.offset-top-30
+                a.reveal-inline-block(href="#")
+                  img.img-responsive.img-semi-transparent-inverse.center-block(src="images/places/place-08-139x74.png" width="139" height="74" alt="")
+              .cell-xs-5.cell-xs-preffix-1.cell-sm-preffix-0.cell-sm-6.cell-md-4.offset-top-30
+                a.reveal-inline-block(href="#")
+                  img.img-responsive.img-semi-transparent-inverse.center-block(src="images/places/place-09-132x84.png" width="132" height="84" alt="")
+
+
+    // Our Team
+    section.section-80.section-md-top-70.bg-wild-wand.bg-wild-wand-team-member
+      .shell
+        div
+          h3 Our Team
+        .offset-top-10
+          p An experienced team of people passionate about traveling
+
+
+        .offset-top-40
+          // Owl Carousel
+          .owl-carousel.owl-dots-primary(data-items='1' data-sm-items='2' data-md-items='3' data-stage-padding='5' data-loop='false' data-margin='30' data-mouse-drag="false" data-dots="true" data-nav="true")
+            .owl-item
+              // Team Member
+              .team-member
+                .team-member-img-wrap.team-member-img-wrap-border-darker
+                  img.img-circle.img-responsive.center-block(src="images/users/user-01-100x100.jpg" width="100" height="100" alt="")
+                .team-member-body
+                  .offset-top-20
+                    .team-member-title.text-small.text-ubold.text-uppercase.text-spacing-200.text-gray-base John Richardson
+                  .offset-top-8
+                    .team-member-description.text-spacing-300.text-italic.text-uppercase.text-silver-chalice FOUNDER & MANAGING DIRECTOR
+                  .offset-top-20
+                    p.text-small.text-italic.text-silver-chalice A successful business owner, social entrepreneur, and business strategist, John is one of the most important persons at SunTravel, who founded it years ago.
+                .team-member-hover-content.offset-top-20.offset-lg-top-0
+                  // Button trigger modal
+                  button.btn.btn-primary(type='button', data-toggle='modal', data-target='#teamMember') View FULL INFO
+
+              .offset-top-20
+                // List Inline
+                ul.list-inline.list-primary.list-inline-13
+                  li.text-center
+                    a.icon.fa.fa-facebook-f.text-gray(href="#")
+                  li.text-center
+                    a.icon.fa.fa-twitter.text-gray(href="#")
+                  li.text-center
+                    a.icon.fa.fa-youtube.text-gray(href="#")
+                  li.text-center
+                    a.icon.fa.fa-linkedin.text-gray(href="#")
+
+            .owl-item
+              // Team Member
+              .team-member
+                .team-member-img-wrap.team-member-img-wrap-border-darker
+                  img.img-circle.img-responsive.center-block(src="images/users/user-02-100x100.jpg" width="100" height="100" alt="")
+                .team-member-body
+                  .offset-top-20
+                    .team-member-title.text-small.text-ubold.text-uppercase.text-spacing-200.text-gray-base Leslie Silva
+                  .offset-top-8
+                    .team-member-description.text-spacing-300.text-italic.text-uppercase.text-silver-chalice SENIOR TRAVEL AGENT
+                  .offset-top-20
+                    p.text-small.text-italic.text-silver-chalice Leslie started out in the travel industry straight from school, working for the National Union of Students Travel Service, and quickly learned all the aspects of business travel.
+                .team-member-hover-content.offset-top-20.offset-lg-top-0
+                  // Button trigger modal
+                  button.btn.btn-primary(type='button', data-toggle='modal', data-target='#teamMember') View FULL INFO
+
+              .offset-top-20
+                // List Inline
+                ul.list-inline.list-primary.list-inline-13
+                  li.text-center
+                    a.icon.fa.fa-facebook-f.text-gray(href="#")
+                  li.text-center
+                    a.icon.fa.fa-twitter.text-gray(href="#")
+                  li.text-center
+                    a.icon.fa.fa-youtube.text-gray(href="#")
+                  li.text-center
+                    a.icon.fa.fa-linkedin.text-gray(href="#")
+
+            .owl-item
+              // Team Member
+              .team-member
+                .team-member-img-wrap.team-member-img-wrap-border-darker
+                  img.img-circle.img-responsive.center-block(src="images/users/user-03-100x100.jpg" width="100" height="100" alt="")
+                .team-member-body
+                  .offset-top-20
+                    .team-member-title.text-small.text-ubold.text-uppercase.text-spacing-200.text-gray-base Kent Fleming
+                  .offset-top-8
+                    .team-member-description.text-spacing-300.text-italic.text-uppercase.text-silver-chalice HOTEL AGENT
+                  .offset-top-20
+                    p.text-small.text-italic.text-silver-chalice Kent started with SunTravel in May 2013, when he decided to change something in his life by entering the tour and hotel booking industry.
+                .team-member-hover-content.offset-top-20.offset-lg-top-0
+                  // Button trigger modal
+                  button.btn.btn-primary(type='button', data-toggle='modal', data-target='#teamMember') View FULL INFO
+
+              .offset-top-20
+                // List Inline
+                ul.list-inline.list-primary.list-inline-13
+                  li.text-center
+                    a.icon.fa.fa-facebook-f.text-gray(href="#")
+                  li.text-center
+                    a.icon.fa.fa-twitter.text-gray(href="#")
+                  li.text-center
+                    a.icon.fa.fa-youtube.text-gray(href="#")
+                  li.text-center
+                    a.icon.fa.fa-linkedin.text-gray(href="#")
+
+            .owl-item
+              // Team Member
+              .team-member
+                .team-member-img-wrap.team-member-img-wrap-border-darker
+                  img.img-circle.img-responsive.center-block(src="images/users/user-01-100x100.jpg" width="100" height="100" alt="")
+                .team-member-body
+                  .offset-top-20
+                    .team-member-title.text-small.text-ubold.text-uppercase.text-spacing-200.text-gray-base John Richardson
+                  .offset-top-8
+                    .team-member-description.text-spacing-300.text-italic.text-uppercase.text-silver-chalice FOUNDER & MANAGING DIRECTOR
+                  .offset-top-20
+                    p.text-small.text-italic.text-silver-chalice A successful business owner, social entrepreneur, and business strategist, John is one of the most important persons at SunTravel, who founded it years ago.
+                .team-member-hover-content.offset-top-20.offset-lg-top-0
+                  // Button trigger modal
+                  button.btn.btn-primary(type='button', data-toggle='modal', data-target='#teamMember') View FULL INFO
+
+              .offset-top-20
+                // List Inline
+                ul.list-inline.list-primary.list-inline-13
+                  li.text-center
+                    a.icon.fa.fa-facebook-f.text-gray(href="#")
+                  li.text-center
+                    a.icon.fa.fa-twitter.text-gray(href="#")
+                  li.text-center
+                    a.icon.fa.fa-youtube.text-gray(href="#")
+                  li.text-center
+                    a.icon.fa.fa-linkedin.text-gray(href="#")
+
+        .offset-top-20.offset-md-top-45
+          a.btn.btn-primary(href="our-team.html") View More
+
+  include ../sections/_team-member-more
+
+  // Page Footer
+  include ../sections/_footer-default

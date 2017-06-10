@@ -1,0 +1,196 @@
+//
+// Modals Custom
+// --------------------------------------------------
+
+
+.modal.modal-custom {
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  overflow: hidden;
+  padding-right: 0 !important;
+  border-radius: 8px;
+  transition: .3s all ease;
+  visibility: hidden;
+  opacity: 0;
+  @include transform(translate(-50%, -100%));
+
+  &.in {
+    visibility: visible;
+    opacity: 1;
+    @include transform(translate(-50%, -50%));
+  }
+
+  .modal-dialog {
+    width: auto;
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+
+  .modal-content {
+    box-shadow: none;
+  }
+
+  code {
+    position: relative;
+    padding: 0;
+    font-size: 14px;
+    font-family: $font-family-base;
+    color: $brand-primary;
+    background-color: transparent;
+    border-radius: 0;
+    z-index: -1;
+  }
+
+  .close {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    z-index: 1;
+    padding: 11px 15px;
+    font-size: 18px;
+    opacity: 1;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 5px;
+    color: $gray-base;
+    background: $brand-gallery;
+  }
+
+  .modal-body-column-content {
+    padding: 40px 30px 50px;
+
+    div > p {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .modal-header,
+  .modal-body {
+    padding: 0;
+  }
+
+  .modal-content,
+  .modal-header {
+    border: none;
+  }
+
+  @media (max-height: 500px) {
+    .modal-content {
+      overflow: scroll;
+      max-height: 300px;
+    }
+  }
+  @media (min-width: $screen-xs-min) {
+    .modal-dialog {
+      min-width: 470px;
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+  }
+  @media (min-width: $screen-sm-min) {
+    .modal-body {
+      .bg-image {
+        position: relative;
+
+        &:before {
+          content: '';
+          position: absolute;
+          top: -191px;
+          left: -15px;
+          width: 100%;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          border-top-left-radius: 8px;
+          border-bottom-left-radius: 5px;
+        }
+      }
+
+      .bg-image-1 {
+        &:before {
+          height: 380px;
+          background-image: url(../images/pages/home-01-385x390.jpg);
+        }
+      }
+
+      .bg-image-2 {
+        &:before {
+          top: -185px;
+          left: -30px;
+          height: 369px;
+          background-image: url(../images/users/user-01-300x385.jpg);
+        }
+      }
+    }
+
+    .modal-dialog {
+      min-width: 770px;
+      max-width: 770px;
+    }
+
+    .modal-body-column-content {
+      padding-top: 40px;
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+  }
+  @media (min-width: $screen-md-min) {
+    .modal-body {
+      .bg-image-1 {
+        &:before {
+          top: -196px;
+          height: 390px;
+          width: 108%;
+        }
+      }
+      .bg-image-2 {
+        &:before {
+          top: -191px;
+          height: 385px;
+          width: 108%;
+        }
+      }
+    }
+    .modal-body-column-content {
+      padding-top: 48px;
+      padding-left: 45px;
+      padding-right: 45px;
+    }
+    .modal-dialog {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+
+// Modal Team Member
+// --------------------------------------------------
+
+.modal.modal-custom.modal-team-member {
+  .team-member {
+    &:before {
+      display: none;
+    }
+  }
+
+  .modal-body-column-content {
+    padding-bottom: 40px;
+  }
+
+  @media (max-width: $screen-sm-min - 1) {
+    .modal-body-column-content {
+      padding-top: 0;
+      padding-bottom: 25px;
+    }
+  }
+  @media (min-width: $screen-md-min) {
+    .modal-body-column-content {
+      padding-top: 50px;
+      padding-left: 25px;
+      padding-right: 10px;
+    }
+  }
+}

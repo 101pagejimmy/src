@@ -1,0 +1,594 @@
+//
+// Custom form styles
+// --------------------------------------------------
+
+.rd-mailform {
+  position: relative;
+}
+
+// Normalize non-controls
+// --------------------------------------------------
+
+label {
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+// Common form controls
+// --------------------------------------------------
+
+.input-sm,
+.input-lg,
+.form-control {
+  font-size: $input-font-size;
+
+  &, &:focus {
+    box-shadow: none;
+  }
+}
+
+textarea.form-control {
+  height: $textarea-default-height;
+  min-height: $textarea-default-min-height;
+  max-height: $textarea-default-max-height;
+  resize: vertical;
+  line-height: 1.2;
+}
+
+.form-group.form-group-xs textarea.form-control {
+  padding-top: 12px;
+}
+
+.form-control {
+  -webkit-appearance: none;
+  border-radius: 30px;
+  line-height: $input-height-base - ($padding-base-vertical + 1px)*2;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+// Form groups
+// -------------------------
+
+.form-group {
+  position: relative;
+
+  &.form-group-xs {
+    margin-bottom: 10px;
+
+    .form-label {
+      top: 20px;
+      left: 28px;
+    }
+    .form-control {
+      height: 40px;
+      padding-top: 6px;
+      padding-bottom: 6px;
+      padding-left: 25px;
+    }
+  }
+
+  &.form-group-xxs {
+    margin-bottom: 10px;
+
+    .form-label, .form-control {
+      font-size: 12px;
+    }
+
+    .form-label {
+      top: 15px;
+      left: 15px;
+    }
+
+    .form-control {
+      height: 30px;
+      padding-top: 3px;
+      padding-bottom: 3px;
+      padding-left: 13px;
+    }
+  }
+
+  @media (max-width: $screen-sm-min - 1) {
+    margin-bottom: 5px;
+  }
+}
+
+.form-group.form-offset-bottom-none {
+  margin-bottom: 0;
+}
+
+// Form labels
+// -------------------------
+
+.form-label {
+  position: absolute;
+  top: 25px;
+  left: $padding-base-horizontal;
+  font-size: $input-font-size;
+  color: $input-color-placeholder;
+  pointer-events: none;
+  z-index: 1;
+  transition: .3s;
+  @include transform(translateY(-50%));
+
+  &.focus {
+    opacity: 0;
+  }
+
+  &.auto-fill {
+    color: $input-color;
+  }
+}
+
+.form-label-outside {
+  @media (min-width: $screen-sm-min) {
+    position: static;
+    &, &.focus, &.auto-fill {
+      @include transform(none);
+      color: $input-color-placeholder;
+      font-size: $input-font-size;
+    }
+  }
+}
+
+// Form validation
+// -------------------------
+.form-validation {
+  position: absolute;
+  right: 22px;
+  top: 2px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 11px;
+  color: $brand-danger;
+  margin-top: 2px;
+  transition: .3s;
+  z-index: 1;
+}
+
+// Error Styling
+//
+.has-error {
+  @include form-control-validation-custom($state-danger-text, $state-danger-bg, $state-danger-bg);
+}
+
+// Success Styling
+//
+.has-success {
+  @include form-control-validation-custom($state-success-text, $state-success-bg, $state-success-bg);
+}
+
+// Warning Styling
+//
+.has-warning {
+  @include form-control-validation-custom($state-warning-text, $state-warning-bg, $state-warning-bg);
+}
+
+// Info Styling
+//
+.has-info {
+  @include form-control-validation-custom($state-info-text, $state-info-bg, $state-info-bg);
+}
+
+
+// Form output
+// -------------------------
+
+#form-output-global {
+  position: fixed;
+  bottom: 30px;
+  left: 15px;
+  visibility: hidden;
+  @include transform(translateX(-500px));
+  transition: .3s all ease;
+  z-index: 9999999;
+
+  &.active {
+    @include transform(translateX(0));
+    visibility: visible;
+  }
+
+  @media (min-width: $screen-xs) {
+    left: 30px;
+  }
+}
+
+.form-output {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 2px;
+  transition: .3s;
+  opacity: 0;
+  visibility: hidden;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  &.error {
+    color: $brand-danger;
+  }
+  &.success {
+    color: $brand-success;
+  }
+}
+
+// Radio and Checkbox Custom
+// -------------------------
+
+// Base Styles
+//
+.radio .radio-custom,
+.radio-inline .radio-custom,
+.checkbox .checkbox-custom,
+.checkbox-inline .checkbox-custom {
+  opacity: 0;
+
+  &, &-dummy {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    margin-left: -20px;
+    margin-top: 5px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  &-dummy {
+    pointer-events: none;
+    background: transparent;
+    box-shadow: none;
+    border: 1px solid $gray-base;
+
+    &:after {
+      position: absolute;
+      opacity: 0;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.radio-custom:checked + .radio-custom-dummy:after,
+.checkbox-custom:checked + .checkbox-custom-dummy:after {
+  opacity: 1;
+}
+
+// Custom Radio Styles
+//
+.radio,
+.radio-inline {
+  .radio-custom-dummy {
+    border-radius: 50%;
+
+    &:after {
+      content: '';
+      top: 3px;
+      right: 3px;
+      bottom: 3px;
+      left: 3px;
+      background: $gray-darker;
+      border-radius: 50%;
+    }
+  }
+}
+
+// Custom Checkbox Styles
+//
+.checkbox,
+.checkbox-inline {
+  padding-left: 20px;
+  .checkbox-custom-dummy {
+    pointer-events: none;
+    border-radius: 1px;
+    margin-left: 0;
+    left: 0;
+
+    &:after {
+      content: '\f00c';
+      font-family: 'FontAwesome';
+      font-size: 10px;
+      line-height: 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: $brand-primary;
+    }
+  }
+}
+
+.page {
+  .checkbox-inline-right {
+    margin-top: -15px;
+    padding-right: 20px;
+
+    .checkbox-custom, .checkbox-custom-dummy {
+      @include transform(translate(103px, 4px));
+    }
+
+    @media (min-width: $screen-xs-min) {
+      margin-top: 0;
+      padding-right: 10px;
+    }
+  }
+
+  .checkbox-inline-left {
+    &, span {
+      line-height: 1;
+    }
+
+    .checkbox-custom-dummy {
+      margin-top: 3px;
+    }
+
+    > span {
+      padding-left: 7px;
+    }
+  }
+}
+
+
+// Form Inline Search
+//
+.form-inline-search {
+  @media (min-width: $screen-sm-min) {
+    font-size: 0;
+
+    .form-group-xs {
+      .form-control {
+        border-radius: 0;
+      }
+    }
+
+    .form-inline-item {
+      display: inline-block;
+      margin: 0;
+
+      &:first-child {
+        position: relative;
+
+        &:after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          right: 1px;
+          height: 20px;
+          width: 1px;
+          background: $gray-lighter;
+          @include transform(translateY(-50%));
+        }
+
+        .form-control {
+          border-top-left-radius: 30px;
+          border-bottom-left-radius: 30px;
+        }
+      }
+
+      &:nth-child(3) {
+        position: relative;
+
+        &:after {
+          content: '→';
+          position: absolute;
+          top: 50%;
+          left: -10px;
+          margin-top: -3px;
+          font-size: 20px;
+          @include transform(translateY(-50%));
+        }
+      }
+
+      &:nth-last-child(2) {
+        position: relative;
+
+        &:after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 4px;
+          height: 20px;
+          width: 1px;
+          background: $gray-lighter;
+          @include transform(translateY(-50%));
+        }
+      }
+
+      &:last-child {
+        vertical-align: top;
+
+        .btn {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+
+      .btn {
+        height: 40px;
+
+        @media (max-width: $screen-md-min - 1) {
+          min-width: 100px;
+        }
+      }
+
+      .form-control {
+        border-left: none;
+        border-right: none;
+      }
+    }
+
+    .form-inline-item-xs {
+      max-width: 100px;
+    }
+  }
+  @media (min-width: $screen-md-min) {
+    .form-inline-item-xs {
+      max-width: 115px;
+    }
+  }
+}
+
+.ie-11 .form-inline-search {
+  .form-group:first-child {
+    margin-right: -1px;
+  }
+}
+
+
+// Form Blog Search
+//
+
+.form-blog-search {
+  position: relative;
+  
+  .form-search-submit {
+    position: absolute;
+    top: -1px;
+    left: 14px;
+    bottom: 0;
+    z-index: 1;
+    font-size: 16px;
+    color: $brand-silver-chalice;
+    background: transparent;
+    border: none;
+    transition: .3s all ease;
+
+    &:hover {
+      color: $brand-primary;
+    }
+  }
+
+
+  .form-group {
+    .form-label {
+      top: 20px;
+      left: 47px;
+    }
+
+    .form-control {
+      padding-left: 46px;
+      background: $brand-wild-wand;
+      border-color: $brand-wild-wand;
+    }
+  }
+
+  @media (min-width: $screen-md-min) {
+    .form-search-submit {
+      left: 10px;
+    }
+
+    .form-group {
+      .form-label {
+        left: 40px;
+      }
+    }
+  }
+  @media (min-width: $screen-lg-min) {
+    .form-search-submit {
+      left: 14px;
+    }
+
+    .form-group {
+      .form-label {
+        left: 47px;
+      }
+    }
+  }
+}
+
+.tablet, .mobile {
+  .form-blog-search {
+    .form-search-submit {
+      left: 2px;
+    }
+  }
+}
+
+.tablet, .mobile {
+  .form-blog-search.form-blog-search-type-2 {
+    .form-search-submit {
+      left: 7.5px;
+    }
+  }
+}
+
+
+// Form Comment
+//
+
+.form-comment {
+  position: relative;
+
+  .form-label, .form-control {
+    color: $brand-silver-chalice;
+  }
+
+  .form-group.form-group-xs .form-label {
+    top: 19px;
+    left: 22px;
+  }
+
+  .form-control {
+    border-radius: 3px;
+    border-color: $brand-alto;
+  }
+
+  button {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    background: transparent;
+    border: none;
+    @include transform(translateY(-50%));
+  }
+
+  &.form-comment-comment-inner {
+    button {
+      right: 8px;
+    }
+  }
+}
+
+.tablet, .mobile {
+  .form-comment button {
+    right: 2px;
+  }
+}
+
+
+// Form Search Results
+//
+
+.form-search-results {
+  position: relative;
+
+  .form-group.form-group-xs .form-control {
+    padding-right: 90px;
+  }
+
+  .form-search-submit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    padding: 0 30px;
+    font-size: 16px;
+    color: $white;
+    background: $brand-primary;
+    border: none;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    transition: .3s all ease;
+
+    &:hover {
+      background: darken($brand-primary, 10%);
+    }
+  }
+}

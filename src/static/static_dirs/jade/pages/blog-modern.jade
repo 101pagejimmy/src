@@ -1,0 +1,146 @@
+extends  ../_skeleton
+
+block title
+  title Blog Modern
+
+block page
+  // Page Header
+  header.page-header
+    +rd-navbar-default({
+      "style": "rd-navbar-light",
+      "logo": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "logoFixed": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "activeLink": 6,
+      "attr": {
+        "data-layout": "rd-navbar-fixed",
+        "data-sm-layout": "rd-navbar-fixed",
+        "data-md-layout": "rd-navbar-fullwidth",
+        "data-lg-layout": "rd-navbar-static"
+      }
+    })
+
+    // RD Parallax
+    section.section-height-mac.context-dark
+      +rd-parallax({
+        "on": "false",
+        "MdOn": "true",
+        "firstLayerType": "media",
+        "firstLayerSpeed": "0.25",
+        "src": "images/backgrounds/background-22-1920x900.jpg",
+        "secondLayerType": "html",
+        "secondLayerSpeed": "0",
+        "fade": "false"
+      })
+        .bg-overlay-darker
+          .shell.section-34.section-md-100.section-lg-top-170.section-lg-bottom-165
+            h1.veil.reveal-md-inline-block Our Blog
+            .offset-top-4
+              h6.text-italic Latest News in Travel and Tourism
+
+  // Page Content
+  main.page-content
+
+    // Our Blog
+    section
+      .range.range-condensed
+        .cell-lg-6
+          // Post Modern
+          .post-modern.post-modern-lg.text-left
+            .post-modern-img-wrap
+              img.img-responsive.center-block(src="images/blog/post-01-959x802.jpg" width="959" height="802" alt="")
+            .post-modern-caption
+              .post-modern-title.h3.text-ubold
+                a.text-white(href="blog-single-post.html") Dubai: The Las Vegas of the Middle East or Something Completely Different?
+              .post-modern-meta.offset-top-25
+                ul.list-inline.list-inline-dashed.list-inline-dashed-sm.text-silver-chalice
+                  li.text-uppercase JUNE 20, 2016
+                  li.p.text-uppercase by #[a(href='testimonials.html') EMMA STONE]
+
+          .range.range-condensed.offset-top-0
+            .cell-xs-6
+              // Post Modern
+              .post-modern.text-left
+                .post-modern-img-wrap
+                  img.img-responsive.center-block(src="images/blog/post-06-478x400.jpg" width="478" height="400" alt="")
+                .post-modern-caption
+                  .post-modern-title.text-big.text-ubold
+                    a.text-white(href="blog-single-post.html") Is it Possible to Travel Too Much and Can It be Harmful for You?
+                  .post-modern-meta.offset-top-15
+                    ul.list-inline.list-inline-dashed.list-inline-dashed-xs.text-extra-small-10.text-silver-chalice
+                      li.text-uppercase JUNE 20, 2016
+                      li.p.text-uppercase by #[a(href='testimonials.html') EMMA STONE]
+
+            .cell-xs-6
+              // Post Modern
+              .post-modern.text-left
+                .post-modern-img-wrap
+                  img.img-responsive.center-block(src="images/blog/post-02-478x400.jpg" width="478" height="400" alt="")
+                .post-modern-caption
+                  .post-modern-title.text-big.text-ubold
+                    a.text-white(href="blog-single-post.html") 9 Easy Ways to Save on Traveling #[br.veil.reveal-lg-inline-block] While Being on Vacation
+                  .post-modern-meta.offset-top-15
+                    ul.list-inline.list-inline-dashed.list-inline-dashed-xs.text-extra-small-10.text-silver-chalice
+                      li.text-uppercase JUNE 20, 2016
+                      li.p.text-uppercase by #[a(href='testimonials.html') EMMA STONE]
+
+        .cell-xs-6.cell-lg-3
+          // Post Modern
+          .post-modern.text-left
+            .post-modern-img-wrap
+              img.img-responsive.center-block(src="images/blog/post-03-479x400.jpg" width="479" height="400" alt="")
+            .post-modern-caption
+              .post-modern-title.text-big.text-ubold
+                a.text-white(href="blog-single-post.html") How to Find the Best Travel Deals for Your Next Vacation
+              .post-modern-meta.offset-top-15
+                ul.list-inline.list-inline-dashed.list-inline-dashed-xs.text-extra-small-10.text-silver-chalice
+                  li.text-uppercase JUNE 20, 2016
+                  li.p.text-uppercase by #[a(href='testimonials.html') EMMA STONE]
+          // Post Modern
+          .post-modern.text-left
+            .post-modern-img-wrap
+              img.img-responsive.center-block(src="images/blog/post-05-479x400.jpg" width="479" height="400" alt="")
+            .post-modern-caption
+              .post-modern-title.text-big.text-ubold
+                a.text-white(href="blog-single-post.html") How to Choose Your Ideal Travel #[br.veil.reveal-lg-inline-block] Destination
+              .post-modern-meta.offset-top-15
+                ul.list-inline.list-inline-dashed.list-inline-dashed-xs.text-extra-small-10.text-silver-chalice
+                  li.text-uppercase JUNE 20, 2016
+                  li.p.text-uppercase by #[a(href='testimonials.html') EMMA STONE]
+          // Post Modern
+          .post-modern.text-left
+            .post-modern-img-wrap
+              img.img-responsive.center-block(src="images/blog/post-03-479x400.jpg" width="479" height="400" alt="")
+            .post-modern-caption
+              .post-modern-title.text-big.text-ubold
+                a.text-white(href="blog-single-post.html") The Best Destinations of 2016: #[br.veil.reveal-lg-inline-block] Short Review by SunTravel Tour Guides
+              .post-modern-meta.offset-top-15
+                ul.list-inline.list-inline-dashed.list-inline-dashed-xs.text-extra-small-10.text-silver-chalice
+                  li.text-uppercase JUNE 20, 2016
+                  li.p.text-uppercase by #[a(href='testimonials.html') EMMA STONE]
+
+        .cell-xs-6.cell-lg-3
+          // Post Modern
+          .post-modern.text-left
+            .post-modern-img-wrap
+              img.img-responsive.center-block(src="images/blog/post-02-478x400.jpg" width="478" height="400" alt="")
+            .post-modern-caption
+              .post-modern-title.text-big.text-ubold
+                a.text-white(href="blog-single-post.html") Planning a Trip to a Place Where You’ve Never Been or Know Nothing About
+              .post-modern-meta.offset-top-15
+                ul.list-inline.list-inline-dashed.list-inline-dashed-xs.text-extra-small-10.text-silver-chalice
+                  li.text-uppercase JUNE 20, 2016
+                  li.p.text-uppercase by #[a(href='testimonials.html') EMMA STONE]
+          // Post Modern
+          .post-modern.text-left
+            .post-modern-img-wrap
+              img.img-responsive.center-block(src="images/blog/post-04-478x799.jpg" width="478" height="799" alt="")
+            .post-modern-caption
+              .post-modern-title.h3.text-ubold
+                a.text-white(href="blog-single-post.html") SunTravel Experience: 72 Hours in Toronto and How to Spend Them
+              .post-modern-meta.offset-top-25
+                ul.list-inline.list-inline-dashed.list-inline-dashed-sm.text-silver-chalice
+                  li.text-uppercase JUNE 20, 2016
+                  li.p.text-uppercase by #[a(href='testimonials.html') EMMA STONE]
+
+  // Page Footer
+  include ../sections/_footer-default

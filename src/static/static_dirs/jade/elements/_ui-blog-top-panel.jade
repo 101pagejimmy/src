@@ -1,0 +1,9 @@
+//- panel - object of Blog Top Panel
+
+mixin blog-top-panel(panel)
+  // List Inline
+  ul.list-inline.list-primary-filled.text-center
+    - for (i = 0; i < panel.length; i++)
+      li
+        a.shadow-drop-lg(href= panel[i].href)
+          span.icon(class= panel[i].iconStyle)

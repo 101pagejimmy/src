@@ -1,0 +1,385 @@
+extends  ../_skeleton
+
+//- Includes
+include ../elements/_ui-post-boxed
+include ../elements/_ui-blog-top-panel
+
+block title
+  title Blog Grid Sidebar
+
+block page
+  // Page Header
+  header.page-header
+    +rd-navbar-default({
+      "style": "rd-navbar-light",
+      "logo": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "logoFixed": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "activeLink": 6,
+      "attr": {
+        "data-layout": "rd-navbar-fixed",
+        "data-sm-layout": "rd-navbar-fixed",
+        "data-md-layout": "rd-navbar-fullwidth",
+        "data-lg-layout": "rd-navbar-static"
+      }
+    })
+
+    // RD Parallax
+    section.section-height-mac.context-dark
+      +rd-parallax({
+        "on": "false",
+        "MdOn": "true",
+        "firstLayerType": "media",
+        "firstLayerSpeed": "0.25",
+        "src": "images/backgrounds/background-22-1920x900.jpg",
+        "secondLayerType": "html",
+        "secondLayerSpeed": "0",
+        "fade": "false"
+      })
+        .bg-overlay-darker
+          .shell.section-34.section-md-100.section-lg-top-170.section-lg-bottom-165
+            h1.veil.reveal-md-inline-block Our Blog
+            .offset-top-4
+              h6.text-italic Latest News in Travel and Tourism
+
+  // Page Content
+  main.page-content
+
+    // Our Blog
+    section.section-80.bg-wild-wand
+      .shell
+        .range.range-xs-center
+          .cell-sm-11.cell-md-9.cell-md-push-1
+            .range.range-xs-justify
+              .cell-sm-6.cell-sm-3.text-sm-left
+                .reveal-inline-block.inset-sm-left-20.inset-md-left-0
+                  .pull-left.inset-right-10
+                    p.text-extra-small.text-uppercase.text-gray-base Sort By:
+                  .pull-right.shadow-drop-xs.reveal-inline-block.select-xs
+                    //Select 2
+                    select.form-control.select-filter(data-minimum-results-for-search="Infinity" data-constraints="@Required")
+                      option(value="2") Newest
+                      option(value="3") Eldest
+
+                  .clearfix
+              .cell-sm-6.cell-sm-3.offset-top-20.offset-sm-top-0.text-sm-right
+                .reveal-inline-block.inset-sm-right-20.inset-md-right-0
+                  .pull-left.inset-right-10
+                    p.text-extra-small.text-uppercase.text-gray-base View:
+                  .pull-right
+                    +blog-top-panel([
+                      {
+                        "iconStyle": "icon-sm icon-square bg-white mdi mdi-view-stream text-silver",
+                        "href": "blog-list-sidebar-left.html"
+                      },
+                      {
+                        "iconStyle": "icon-sm icon-square bg-white mdi mdi-format-list-bulleted text-silver",
+                        "href": "blog-list-variant-2-sidebar-left.html"
+                      },
+                      {
+                        "iconStyle": "icon-sm icon-square bg-primary mdi mdi-view-module text-white",
+                        "href": "blog-grid-sidebar-left.html"
+                      }
+                    ])
+
+            .range.range-xs-center.range-sm-left.range-md-center.offset-top-50.offset-md-top-25
+              .cell-sm-6.cell-md-4
+                .inset-left-10.inset-right-10.inset-xs-left-50.inset-xs-right-50.inset-sm-left-20.inset-sm-right-20.inset-md-left-0.inset-md-right-0
+                  +post-box({
+                    "postStyle": "reveal-block text-left",
+                    "href": "blog-single-post-sidebar-left.html",
+                    "img": {
+                      "src": "images/blog/post-01-270x240.jpg",
+                      "width": "270",
+                      "height": "240"
+                    },
+                    "title": {
+                      "style": "text-ubold",
+                      "linkStyle": "text-gray-base",
+                      "text": "Dubai: The Las Vegas of the Middle East?"
+                    },
+                    "list": {
+                      "style": "list-inline-dashed list-inline-dashed-xs text-extra-small-10 offset-top-12 text-silver-chalice"
+                    }
+                  },
+                  [
+                    {
+                      "style": "text-uppercase",
+                      "text": "JUNE 20, 2016"
+                    },
+                    {
+                      "href": "testimonials.html",
+                      "style": "text-uppercase",
+                      "text": "EMMA STONE"
+                    }
+                  ])
+
+              .cell-sm-6.cell-md-4.offset-top-30.offset-sm-top-0
+                .inset-left-10.inset-right-10.inset-xs-left-50.inset-xs-right-50.inset-sm-left-20.inset-sm-right-20.inset-md-left-0.inset-md-right-0
+                  +post-box({
+                    "postStyle": "reveal-block text-left",
+                    "href": "blog-single-post-sidebar-left.html",
+                    "img": {
+                      "src": "images/blog/post-02-270x240.jpg",
+                      "width": "270",
+                      "height": "240"
+                    },
+                    "title": {
+                      "style": "text-ubold",
+                      "linkStyle": "text-gray-base",
+                      "text": "How to Find the Best Travel Deals"
+                    },
+                    "list": {
+                      "style": "list-inline-dashed list-inline-dashed-xs text-extra-small-10 offset-top-12 text-silver-chalice"
+                    }
+                  },
+                  [
+                    {
+                      "style": "text-uppercase",
+                      "text": "JUNE 20, 2016"
+                    },
+                    {
+                      "href": "testimonials.html",
+                      "style": "text-uppercase",
+                      "text": "EMMA STONE"
+                    }
+                  ])
+
+              .cell-sm-6.cell-md-4.offset-top-30.offset-md-top-0
+                .inset-left-10.inset-right-10.inset-xs-left-50.inset-xs-right-50.inset-sm-left-20.inset-sm-right-20.inset-md-left-0.inset-md-right-0
+                  +post-box({
+                    "postStyle": "reveal-block text-left",
+                    "href": "blog-single-post-sidebar-left.html",
+                    "img": {
+                      "src": "images/blog/post-03-270x240.jpg",
+                      "width": "270",
+                      "height": "240"
+                    },
+                    "title": {
+                      "style": "text-ubold",
+                      "linkStyle": "text-gray-base",
+                      "text": "Planning a Trip to a Place Where You’ve Never Been"
+                    },
+                    "list": {
+                      "style": "list-inline-dashed list-inline-dashed-xs text-extra-small-10 offset-top-12 text-silver-chalice"
+                    }
+                  },
+                  [
+                    {
+                      "style": "text-uppercase",
+                      "text": "JUNE 20, 2016"
+                    },
+                    {
+                      "href": "testimonials.html",
+                      "style": "text-uppercase",
+                      "text": "EMMA STONE"
+                    }
+                  ])
+
+              .cell-sm-6.cell-md-4.offset-top-30
+                .inset-left-10.inset-right-10.inset-xs-left-50.inset-xs-right-50.inset-sm-left-20.inset-sm-right-20.inset-md-left-0.inset-md-right-0
+                  +post-box({
+                    "postStyle": "reveal-block text-left",
+                    "href": "blog-single-post-sidebar-left.html",
+                    "img": {
+                      "src": "images/blog/post-04-270x240.jpg",
+                      "width": "270",
+                      "height": "240"
+                    },
+                    "title": {
+                      "style": "text-ubold",
+                      "linkStyle": "text-gray-base",
+                      "text": "How to Choose Your Ideal Travel Destination"
+                    },
+                    "list": {
+                      "style": "list-inline-dashed list-inline-dashed-xs text-extra-small-10 offset-top-12 text-silver-chalice"
+                    }
+                  },
+                  [
+                    {
+                      "style": "text-uppercase",
+                      "text": "JUNE 20, 2016"
+                    },
+                    {
+                      "href": "testimonials.html",
+                      "style": "text-uppercase",
+                      "text": "EMMA STONE"
+                    }
+                  ])
+
+              .cell-sm-6.cell-md-4.offset-top-30
+                .inset-left-10.inset-right-10.inset-xs-left-50.inset-xs-right-50.inset-sm-left-20.inset-sm-right-20.inset-md-left-0.inset-md-right-0
+                  +post-box({
+                    "postStyle": "reveal-block text-left",
+                    "href": "blog-single-post-sidebar-left.html",
+                    "img": {
+                      "src": "images/blog/post-05-270x240.jpg",
+                      "width": "270",
+                      "height": "240"
+                    },
+                    "title": {
+                      "style": "text-ubold",
+                      "linkStyle": "text-gray-base",
+                      "text": "SunTravel Experience: 72 Hours in Toronto"
+                    },
+                    "list": {
+                      "style": "list-inline-dashed list-inline-dashed-xs text-extra-small-10 offset-top-12 text-silver-chalice"
+                    }
+                  },
+                  [
+                    {
+                      "style": "text-uppercase",
+                      "text": "JUNE 20, 2016"
+                    },
+                    {
+                      "href": "testimonials.html",
+                      "style": "text-uppercase",
+                      "text": "EMMA STONE"
+                    }
+                  ])
+
+              .cell-sm-6.cell-md-4.offset-top-30
+                .inset-left-10.inset-right-10.inset-xs-left-50.inset-xs-right-50.inset-sm-left-20.inset-sm-right-20.inset-md-left-0.inset-md-right-0
+                  +post-box({
+                    "postStyle": "reveal-block text-left",
+                    "href": "blog-single-post-sidebar-left.html",
+                    "img": {
+                      "src": "images/blog/post-06-270x240.jpg",
+                      "width": "270",
+                      "height": "240"
+                    },
+                    "title": {
+                      "style": "text-ubold",
+                      "linkStyle": "text-gray-base",
+                      "text": "Is it Possible to Travel Too <br class='veil reveal-lg-inline-block'>Much?"
+                    },
+                    "list": {
+                      "style": "list-inline-dashed list-inline-dashed-xs text-extra-small-10 offset-top-12 text-silver-chalice"
+                    }
+                  },
+                  [
+                    {
+                      "style": "text-uppercase",
+                      "text": "JUNE 20, 2016"
+                    },
+                    {
+                      "href": "testimonials.html",
+                      "style": "text-uppercase",
+                      "text": "EMMA STONE"
+                    }
+                  ])
+
+              .cell-sm-6.cell-md-4.offset-top-30
+                .inset-left-10.inset-right-10.inset-xs-left-50.inset-xs-right-50.inset-sm-left-20.inset-sm-right-20.inset-md-left-0.inset-md-right-0
+                  +post-box({
+                    "postStyle": "reveal-block text-left",
+                    "href": "blog-single-post-sidebar-left.html",
+                    "img": {
+                      "src": "images/blog/post-01-270x240.jpg",
+                      "width": "270",
+                      "height": "240"
+                    },
+                    "title": {
+                      "style": "text-ubold",
+                      "linkStyle": "text-gray-base",
+                      "text": "9 Easy Ways to Save on Traveling While Being on Vacation"
+                    },
+                    "list": {
+                      "style": "list-inline-dashed list-inline-dashed-xs text-extra-small-10 offset-top-12 text-silver-chalice"
+                    }
+                  },
+                  [
+                    {
+                      "style": "text-uppercase",
+                      "text": "JUNE 20, 2016"
+                    },
+                    {
+                      "href": "testimonials.html",
+                      "style": "text-uppercase",
+                      "text": "EMMA STONE"
+                    }
+                  ])
+
+              .cell-sm-6.cell-md-4.offset-top-30
+                .inset-left-10.inset-right-10.inset-xs-left-50.inset-xs-right-50.inset-sm-left-20.inset-sm-right-20.inset-md-left-0.inset-md-right-0
+                  +post-box({
+                    "postStyle": "reveal-block text-left",
+                    "href": "blog-single-post-sidebar-left.html",
+                    "img": {
+                      "src": "images/blog/post-02-270x240.jpg",
+                      "width": "270",
+                      "height": "240"
+                    },
+                    "title": {
+                      "style": "text-ubold",
+                      "linkStyle": "text-gray-base",
+                      "text": "The Best Destinations of 2016: Short Review"
+                    },
+                    "list": {
+                      "style": "list-inline-dashed list-inline-dashed-xs text-extra-small-10 offset-top-12 text-silver-chalice"
+                    }
+                  },
+                  [
+                    {
+                      "style": "text-uppercase",
+                      "text": "JUNE 20, 2016"
+                    },
+                    {
+                      "href": "testimonials.html",
+                      "style": "text-uppercase",
+                      "text": "EMMA STONE"
+                    }
+                  ])
+
+              .cell-sm-6.cell-md-4.offset-top-30
+                .inset-left-10.inset-right-10.inset-xs-left-50.inset-xs-right-50.inset-sm-left-20.inset-sm-right-20.inset-md-left-0.inset-md-right-0
+                  +post-box({
+                    "postStyle": "reveal-block text-left",
+                    "href": "blog-single-post-sidebar-left.html",
+                    "img": {
+                      "src": "images/blog/post-03-270x240.jpg",
+                      "width": "270",
+                      "height": "240"
+                    },
+                    "title": {
+                      "style": "text-ubold",
+                      "linkStyle": "text-gray-base",
+                      "text": "What is Pre-Trip Anxiety and How to Survive it"
+                    },
+                    "list": {
+                      "style": "list-inline-dashed list-inline-dashed-xs text-extra-small-10 offset-top-12 text-silver-chalice"
+                    }
+                  },
+                  [
+                    {
+                      "style": "text-uppercase",
+                      "text": "JUNE 20, 2016"
+                    },
+                    {
+                      "href": "testimonials.html",
+                      "style": "text-uppercase",
+                      "text": "EMMA STONE"
+                    }
+                  ])
+
+            .offset-top-50
+              // Classic Pagination
+              nav
+                ul.pagination-classic
+                  li.active
+                    span 1
+                  li
+                    a(href='#') 2
+                  li
+                    a(href='#') 3
+                  li
+                    a(href='#') 4
+                  li
+                    a(href='#') ...
+                  li
+                    a(href='#') 12
+
+          .cell-sm-11.cell-md-3.offset-top-50.offset-md-top-0.text-md-left
+            include ../sections/_section-blog-sidebar
+
+  // Page Footer
+  include ../sections/_footer-default

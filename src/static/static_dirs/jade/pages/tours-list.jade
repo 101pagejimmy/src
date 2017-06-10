@@ -1,0 +1,278 @@
+extends  ../_skeleton
+
+//- Includes
+include ../elements/_ui-blog-top-panel
+
+block title
+  title Tours List
+
+block page
+  // Page Header
+  header.page-header
+    +rd-navbar-default({
+      "style": "rd-navbar-light",
+      "logo": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "logoFixed": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "activeLink": 2,
+      "attr": {
+        "data-layout": "rd-navbar-fixed",
+        "data-sm-layout": "rd-navbar-fixed",
+        "data-md-layout": "rd-navbar-fullwidth",
+        "data-lg-layout": "rd-navbar-static"
+      }
+    })
+
+    // RD Parallax
+    section.section-height-mac.context-dark
+      +rd-parallax({
+        "on": "false",
+        "MdOn": "true",
+        "firstLayerType": "media",
+        "firstLayerSpeed": "0.25",
+        "src": "images/backgrounds/background-38-1920x900.jpg",
+        "secondLayerType": "html",
+        "secondLayerSpeed": "0",
+        "fade": "false"
+      })
+        .bg-overlay-darker
+          .shell.section-34.section-md-100.section-lg-top-170.section-lg-bottom-165
+            h1.veil.reveal-md-inline-block All Tours For You
+            .offset-top-4
+              h6.text-italic 650 tours found
+
+  // Page Content
+  main.page-content
+
+    // Tours List
+    section.section-80.bg-wild-wand
+      .shell
+        .range.range-xs-center
+          .cell-sm-11.cell-md-9.cell-md-push-1
+            .range.range-xs-justify
+              .cell-sm-6.cell-sm-3.text-sm-left
+                .reveal-inline-block.inset-sm-left-20.inset-md-left-0
+                  .pull-left.inset-right-10
+                    p.text-extra-small.text-uppercase.text-gray-base Sort By:
+                  .pull-right.shadow-drop-xs.reveal-inline-block.select-xs
+                    //Select 2
+                    select.form-control.select-filter(data-minimum-results-for-search="Infinity" data-constraints="@Required")
+                      option(value="2") Popularity
+                      option(value="3") Newest
+
+                  .clearfix
+              .cell-sm-6.cell-sm-3.offset-top-20.offset-sm-top-0.text-sm-right
+                .reveal-inline-block.inset-sm-right-20.inset-md-right-0
+                  .pull-left.inset-right-10
+                    p.text-extra-small.text-uppercase.text-gray-base View:
+                  .pull-right
+                    +blog-top-panel([
+                      {
+                        "iconStyle": "icon-sm icon-square bg-primary mdi mdi-format-list-bulleted text-white",
+                        "href": "tours-list.html"
+                      },
+                      {
+                        "iconStyle": "icon-sm icon-square bg-white mdi mdi-view-module text-silver",
+                        "href": "tours-grid.html"
+                      }
+                    ])
+
+            .range.range-xs-center.range-sm-left.range-md-center.offset-top-50.offset-md-top-25
+              .cell-xs-10.cell-sm-6.cell-lg-12
+                // Box Offer
+                .box-offer.box-offer-sm.box-offer-left
+                  .box-offer-img-wrap
+                    a(href="tours-single.html")
+                      img.img-responsive.center-block(src="images/offers/box-offer-01-270x280.jpg" width="270" height="280" alt="")
+                  .box-offer-caption.text-left
+                    .box-offer-caption-inner-wrap
+                      .box-offer-caption-inner-left
+                        div
+                          p.text-extra-small.text-silver-chalice 19.07 - 26.07  /  7 DAYS
+                        .offset-top-4
+                          .box-offer-title.text-ubold
+                            a.text-gray-base(href="tours-single.html") Turkey
+                          .offset-top-8
+                            // List Inline
+                            ul.list-inline.list-inline-3
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+
+                      .box-offer-caption-inner-right.text-right
+                        div
+                          p.text-extra-small.text-spacing-500.text-silver-chalice PRICE
+                        .offset-top-4
+                          // List Inline
+                          ul.list-inline.inset-right-5
+                            li.text-extra-small.text-gray-base.text-strike.text-middle $3,000
+                            li.box-offer-price.text-gray-base.text-ubold.text-primary.text-middle $2,000
+
+                    .clearfix
+
+                    .offset-top-12.box-offer-caption-inner-wrap.box-offer-caption-inner-wrap-bottom
+                      .box-offer-caption-inner-left.box-offer-description
+                        p.text-small.text-silver-chalice Turkey revels in its role as continental uniter, defying traditional fault lines as it blends the very best of Europe and Asia. While iconic East and West...
+                      .box-offer-caption-inner-right.text-lg-right.offset-top-20.offset-lg-top-0
+                        a.btn.btn-width-110.btn-primary(href="tours-single.html") VIEW MORE
+                    .clearfix
+
+              .cell-xs-10.cell-sm-6.cell-lg-12.offset-top-30.offset-sm-top-0.offset-lg-top-20
+                // Box Offer
+                .box-offer.box-offer-sm.box-offer-left
+                  .box-offer-img-wrap
+                    a(href="tours-single.html")
+                      img.img-responsive.center-block(src="images/offers/box-offer-02-270x280.jpg" width="270" height="280" alt="")
+                  .box-offer-caption.text-left
+                    .box-offer-caption-inner-wrap
+                      .box-offer-caption-inner-left
+                        div
+                          p.text-extra-small.text-silver-chalice 21.07 - 26.07  /  5 DAYS
+                        .offset-top-4
+                          .box-offer-title.text-ubold
+                            a.text-gray-base(href="tours-single.html") Spain
+                          .offset-top-8
+                            // List Inline
+                            ul.list-inline.list-inline-3
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+
+                      .box-offer-caption-inner-right.text-right
+                        div
+                          p.text-extra-small.text-spacing-500.text-silver-chalice PRICE
+                        .offset-top-4
+                          // List Inline
+                          ul.list-inline.inset-right-5
+                            li.box-offer-price.text-gray-base.text-ubold.text-primary.text-middle $3,000
+
+                    .clearfix
+
+                    .offset-top-12.box-offer-caption-inner-wrap.box-offer-caption-inner-wrap-bottom
+                      .box-offer-caption-inner-left.box-offer-description
+                        p.text-small.text-silver-chalice Spain is a country of many different peoples, each with their own culture, attitudes, cuisine and landscape. From the iconic Gaudi buildings of Barcelona...
+                      .box-offer-caption-inner-right.text-lg-right.offset-top-20.offset-lg-top-0
+                        a.btn.btn-width-110.btn-primary(href="tours-single.html") VIEW MORE
+                    .clearfix
+
+
+              .cell-xs-10.cell-sm-6.cell-lg-12.offset-top-30.offset-lg-top-20
+                // Box Offer
+                .box-offer.box-offer-sm.box-offer-left
+                  .box-offer-img-wrap
+                    a(href="tours-single.html")
+                      img.img-responsive.center-block(src="images/offers/box-offer-03-270x280.jpg" width="270" height="280" alt="")
+                  .box-offer-caption.text-left
+                    .box-offer-caption-inner-wrap
+                      .box-offer-caption-inner-left
+                        div
+                          p.text-extra-small.text-silver-chalice 2.08 - 15.08  /  13 DAYS
+                        .offset-top-4
+                          .box-offer-title.text-ubold
+                            a.text-gray-base(href="tours-single.html") United Kingdom
+                          .offset-top-8
+                            // List Inline
+                            ul.list-inline.list-inline-3
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+
+                      .box-offer-caption-inner-right.text-right
+                        div
+                          p.text-extra-small.text-spacing-500.text-silver-chalice PRICE
+                        .offset-top-4
+                          // List Inline
+                          ul.list-inline.inset-right-5
+                            li.text-extra-small.text-gray-base.text-strike.text-middle $7,000
+                            li.box-offer-price.text-gray-base.text-ubold.text-primary.text-middle $5,000
+
+                    .clearfix
+
+                    .offset-top-12.box-offer-caption-inner-wrap.box-offer-caption-inner-wrap-bottom
+                      .box-offer-caption-inner-left.box-offer-description
+                        p.text-small.text-silver-chalice Visit Britain with SunTravel and discover the finest destinations it has to offer! Join a host of like-minded young travelling companions on one of our itineraries...
+                      .box-offer-caption-inner-right.text-lg-right.offset-top-20.offset-lg-top-0
+                        a.btn.btn-width-110.btn-primary(href="tours-single.html") VIEW MORE
+                    .clearfix
+
+
+              .cell-xs-10.cell-sm-6.cell-lg-12.offset-top-30.offset-lg-top-20
+                // Box Offer
+                .box-offer.box-offer-sm.box-offer-left
+                  .box-offer-img-wrap
+                    a(href="tours-single.html")
+                      img.img-responsive.center-block(src="images/offers/box-offer-04-270x280.jpg" width="270" height="280" alt="")
+                  .box-offer-caption.text-left
+                    .box-offer-caption-inner-wrap
+                      .box-offer-caption-inner-left
+                        div
+                          p.text-extra-small.text-silver-chalice 19.07 - 28.07  /  9 DAYS
+                        .offset-top-4
+                          .box-offer-title.text-ubold
+                            a.text-gray-base(href="tours-single.html") Eastern Europe
+                          .offset-top-8
+                            // List Inline
+                            ul.list-inline.list-inline-3
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+                              li
+                                a.icon.fa.fa-star.text-primary(href="#")
+
+                      .box-offer-caption-inner-right.text-right
+                        div
+                          p.text-extra-small.text-spacing-500.text-silver-chalice PRICE
+                        .offset-top-4
+                          // List Inline
+                          ul.list-inline.inset-right-5
+                            li.box-offer-price.text-gray-base.text-ubold.text-primary.text-middle $2,500
+
+                    .clearfix
+
+                    .offset-top-12.box-offer-caption-inner-wrap.box-offer-caption-inner-wrap-bottom
+                      .box-offer-caption-inner-left.box-offer-description
+                        p.text-small.text-silver-chalice Start in Berlin and end in Budapest! With the in-depth cultural tour The Best of Eastern Europe, you have a 9 day tour taking you from Berlin to Budapest...
+                      .box-offer-caption-inner-right.text-lg-right.offset-top-20.offset-lg-top-0
+                        a.btn.btn-width-110.btn-primary(href="tours-single.html") VIEW MORE
+                    .clearfix
+
+
+            .offset-top-50
+              // Classic Pagination
+              nav
+                ul.pagination-classic
+                  li.active
+                    span 1
+                  li
+                    a(href='#') 2
+                  li
+                    a(href='#') 3
+                  li
+                    a(href='#') 4
+                  li
+                    a(href='#') ...
+                  li
+                    a(href='#') 12
+
+          .cell-sm-10.cell-md-3.offset-top-50.offset-md-top-0.text-md-left
+            include ../sections/_section-tour-sidebar
+
+  // Page Footer
+  include ../sections/_footer-default

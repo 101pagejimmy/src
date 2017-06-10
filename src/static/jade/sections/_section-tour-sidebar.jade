@@ -1,0 +1,72 @@
+// Aside
+aside.blog-aside.box.box-xs.reveal-block.bg-white
+  p.text-gray-base.text-ubold.text-uppercase.text-spacing-200 Search
+  .offset-top-20
+    // RD Search Form
+    form.rd-mailform
+      .form-blog-search
+        button.form-search-submit
+          span
+            img.img-responsive.center-block(src="images/icons/icon-34-16x21.png" width="16" height="21" alt="")
+        .form-group.form-group-xs
+          label.form-label.form-search-label.form-label-sm(for='tours-destination') Your Destination
+          input#tours-destination.form-search-input.input-sm.form-control(type='text')
+      .form-blog-search
+        button.form-search-submit
+          span
+            img.img-responsive.center-block(src="images/icons/icon-35-19x17.png" width="19" height="17" alt="")
+        .form-group.form-group-xs
+          label.form-label.form-search-label.form-label-sm(for='tours-arrival') Arrival
+          input#tours-arrival.form-search-input.input-sm.form-control(type='text')
+      .form-blog-search
+        button.form-search-submit
+          span
+            img.img-responsive.center-block(src="images/icons/icon-36-19x17.png" width="19" height="17" alt="")
+        .form-group.form-group-xs
+          label.form-label.form-search-label.form-label-sm(for='tours-departure') Departure
+          input#tours-departure.form-search-input.input-sm.form-control(type='text')
+
+  .offset-top-40
+    hr.hr.bg-gallery
+
+  .offset-top-35
+    p.text-gray-base.text-ubold.text-uppercase.text-spacing-200 PRICE RANGE
+
+    .offset-top-15
+      //RD Range
+      .rd-range(data-min='800', data-max='5000', data-start='[800, 3200]',
+                data-step='1', data-tooltip='true', data-min-diff='800',
+                data-input='.rd-range-input-value-1', data-input-2='.rd-range-input-value-2')
+
+  .offset-top-60
+    hr.hr.bg-gallery
+
+  .offset-top-30
+    p.text-gray-base.text-ubold.text-uppercase.text-spacing-200 Categories
+
+    .offset-top-15
+      // List
+      ul.list.list-1.list-checkboxs.text-left
+        li
+          label.checkbox-inline.checkbox-inline-left
+            input.checkbox-custom(name='remember', value='checkbox-1', type='checkbox')
+            span.text-small Sea Tours (721)
+        li
+          label.checkbox-inline.checkbox-inline-left
+            input.checkbox-custom(name='remember', value='checkbox-1', type='checkbox')
+            span.text-small Romantic Tours (156)
+        li
+          label.checkbox-inline.checkbox-inline-left
+            input.checkbox-custom(name='remember', value='checkbox-1', type='checkbox')
+            span.text-small Honeymoon Tours (74)
+        li
+          label.checkbox-inline.checkbox-inline-left
+            input.checkbox-custom(name='remember', value='checkbox-1', type='checkbox')
+            span.text-small Country Tours (513)
+        li
+          label.checkbox-inline.checkbox-inline-left
+            input.checkbox-custom(name='remember', value='checkbox-1', type='checkbox')
+            span.text-small Mountain Tours
+
+    .offset-top-25
+      a.btn.btn-primary.btn-width-110(href="#") Search

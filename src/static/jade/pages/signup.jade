@@ -1,0 +1,84 @@
+extends  ../_skeleton
+
+block title
+  title Sign Up
+
+block page
+  // Page Header
+  header.page-header
+    +rd-navbar-default({
+      "style": "rd-navbar-light",
+      "logo": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "logoFixed": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "activeLink": 4,
+      "attr": {
+        "data-layout": "rd-navbar-fixed",
+        "data-sm-layout": "rd-navbar-fixed",
+        "data-md-layout": "rd-navbar-fullwidth",
+        "data-lg-layout": "rd-navbar-static"
+      }
+    })
+
+  // Page Content
+  main.page-content
+
+    // Sign Up
+    section
+      +rd-parallax({
+        "on": "false",
+        "MdOn": "true",
+        "firstLayerType": "media",
+        "firstLayerSpeed": "0.25",
+        "src": "images/backgrounds/background-25-1920x900.jpg",
+        "secondLayerType": "html",
+        "secondLayerSpeed": "0",
+        "fade": "false"
+      })
+        .shell.section-80.section-md-top-135.section-md-bottom-165
+          .range.range-xs-center
+            .cell-xs-9.cell-sm-7.cell-md-5.cell-lg-4
+              // Box
+              .box.box-lg.reveal-block.bg-white.inset-lg-left-60.inset-lg-right-60
+                h5.text-ubold.text-sm-left Sign Up
+
+                .offset-top-25
+                  form.rd-mailform
+                    .form-group.form-group-xs
+                      label.form-label(for="signup-email") Email
+                      input#signup-email.form-control(type="email" name="signup-email" data-constraints='@Email @Required')
+                    .form-group.form-group-xs.offset-top-12
+                      label.form-label(for="signup-password") Password
+                      input#signup-password.form-control(type="password" name="signup-password" data-constraints='@Required')
+                    .form-group.form-group-xs.offset-top-12
+                      label.form-label(for="signup-re-enter-password") Re-enter password
+                      input#signup-re-enter-password.form-control(type="password" name="signup-re-enter-password" data-constraints='@Required')
+                    .offset-top-20
+                      button.btn.btn-block.btn-icon.btn-icon-right.btn-primary(type="submit")
+                        span sign up
+                        span.icon.icon-xxs.mdi.mdi-chevron-right(style="float:none; margin-top:-1px;")
+
+                    .offset-top-0
+                      p.text-extra-small Already have an account? #[a.text-primary(href="login.html") Log In] now!
+
+                    .offset-top-4.section-hidden
+                      p.divider-both-lines.text-silver-chalice.text-bold.text-italic or
+
+                    .offset-top-15
+                      a.btn.btn-block.btn-icon.btn-icon-both.btn-twitter.btn-wide-left-icon(href="#")
+                        span.icon.icon-xxs.fa.fa-twitter
+                        span LOG IN WITH TWITTER
+                        span.icon.icon-xxs.mdi.mdi-chevron-right
+                    .offset-top-8
+                      a.btn.btn-block.btn-icon.btn-icon-both.btn-facebook.btn-wide-left-icon(href="#")
+                        span.icon.icon-xxs.fa.fa-facebook
+                        span.inset-left-15 LOG IN WITH FACEBOOK
+                        span.icon.icon-xxs.mdi.mdi-chevron-right
+                    .offset-top-8
+                      a.btn.btn-block.btn-icon.btn-icon-both.btn-google-plus.btn-wide-left-icon(href="#")
+                        span.icon.icon-xxs.fa.fa-google-plus(style="margin-left:-3px;")
+                        span LOG IN WITH Google+
+                        span.icon.icon-xxs.mdi.mdi-chevron-right
+
+
+  // Page Footer
+  include ../sections/_footer-default

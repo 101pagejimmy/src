@@ -1,0 +1,103 @@
+//
+// Pagination
+// --------------------------------------------------
+
+
+// Pagination Classic
+// --------------------------------------------------
+
+.pagination-classic {
+  @include list-unstyled();
+
+  > li {
+    display: inline-block;
+
+    > a, span {
+      padding: 4px 10px 7px;
+      border-radius: 2px;
+      color: $brand-silver-chalice;
+      transition: .3s all ease;
+    }
+
+    &+ li {
+      margin-left: 7px;
+    }
+
+    &.active, &:hover {
+      span, a {
+        color: $white;
+        background: $brand-primary;
+      }
+    }
+  }
+}
+
+
+// Pagination Modern
+// --------------------------------------------------
+
+.pagination-modern {
+  &.list-inline {
+    margin-left: -2px;
+    margin-right: -2px;
+
+    > li {
+      padding-left: 2px;
+      padding-right: 2px;
+      vertical-align: middle;
+
+      .form-group {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .prev, .next {
+    .icon {
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 30px;
+      border: 2px solid #e6e6e6;
+      color: $gray-base;
+      transition: .3s all ease;
+    }
+
+    &:hover {
+      .icon {
+        border-color: darken(#e6e6e6, 10%);
+      }
+    }
+  }
+
+  .prev {
+    margin-right: 45px;
+  }
+
+  .next {
+    margin-left: 45px;
+  }
+
+  .form-group {
+    max-width: 30px;
+
+    &.form-group-xs {
+      .form-label, .form-control {
+        font-size: 16px;
+        color: $gray-base;
+      }
+
+      .form-label {
+        left: 10px;
+        top: 14px;
+      }
+
+      .form-control {
+        height: 30px;
+        padding: 2px 6px;
+        text-align: center;
+        border-radius: 2px;
+        border-color: $brand-alto;
+      }
+    }
+  }
+}

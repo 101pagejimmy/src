@@ -1,0 +1,76 @@
+extends  ../_skeleton
+
+//- Includes
+include ../elements/_ui-accordion-classic
+
+block title
+  title FAQ
+
+block page
+  // Page Header
+  header.page-header
+    +rd-navbar-default({
+      "style": "rd-navbar-light",
+      "logo": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "logoFixed": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "activeLink": 3,
+      "attr": {
+        "data-layout": "rd-navbar-fixed",
+        "data-sm-layout": "rd-navbar-fixed",
+        "data-md-layout": "rd-navbar-fullwidth",
+        "data-lg-layout": "rd-navbar-static"
+      }
+    })
+
+    // RD Parallax
+    section.section-height-mac.context-dark
+      +rd-parallax({
+        "on": "false",
+        "MdOn": "true",
+        "firstLayerType": "media",
+        "firstLayerSpeed": "0.25",
+        "src": "images/backgrounds/background-24-1920x900.jpg",
+        "secondLayerType": "html",
+        "secondLayerSpeed": "0",
+        "fade": "false"
+      })
+        .bg-overlay-darker
+          .shell.section-34.section-md-100.section-lg-top-170.section-lg-bottom-165
+            h1.veil.reveal-md-inline-block FAQ
+            .offset-top-4
+              h6.text-italic Some of your questions
+
+  // Page Content
+  main.page-content
+
+    // FAQ
+    section.section-80.bg-wild-wand
+      .shell
+        .box.box-accordion.bg-white(style="width:100%;")
+          +accordion-classic(["Why should I use your travel agency?", "How do I pay for my reservations and hotel stay?", "Are there any other costs or fees?", "Do I have to pay in full straight away?", "Could a minor flight unaccompanied?", "Can I travel with a one-way ticket to any country?", "Can I change the dates on my ticket or destination?", "Can I purchase insurance for my trip?", "When can I cancel my reservation if I'm not traveling?", "How can I earn a free airline ticket?"])
+            div
+              p When you work with SunTravel, you are gaining access to over 10 years of travel experience, important travel connections from around the world, access to exclusive tours, hotels, resorts and properties plus, undeniably, the top customer service a traveler could want.
+              .offset-top-20
+                p Our professional Travel Advisors and Agents listen to what your idea of an ideal trip is and then by finding out more about you and your likes, they can customize a detailed, personalized itinerary for you.  We believe travel should be more than hopping on a plane and going to a hotel or resort. Let our travel agents and private tour guides plan a special trip, designed around you and your travel dreams.
+            div
+              p All hotels and resorts accept most major credit cards (American Express, Visa, and MasterCard) and in most cases, payment is made at the end of your stay. In some cases, a deposit may be needed to secure your reservation. In all cases, payment is made directly to the hotel or resort.
+            div
+              p For simple reservations, there is no fee. For more extensive journeys, we plan it all with YOU in mind. Every trip is unique, tailored to YOU. No two trips are ever exactly the same! This type of service requires hours of research, planning, and preparation. Therefore, we charge a planning fee, contact us for more details.
+            div
+              p This depends. Some 'special offers' require payment to be made at the time of booking. Some other fares could be paid a few days after the reservation is done. Travel Tip - Pay early. We issue the ticket early and you avoid possible fare increases.
+            div
+              p Minors between the ages of 7-12 years old could travel alone with an escort service offered by the airline of your choice. There may be an extra charge by the airline. For connecting flights, they are allowed to travel only on an early flight and it has to be at least one or more flights after the one they are flying.
+            div
+              p If you are not a citizen of that country, you cannot travel with a one-way ticket. You need to have a round-trip ticket.
+            div
+              p The ticket has to be unused in order to change destination. Depending on the type of ticket you have you can change the destination.
+            div
+              p Yes, you can. We offer services of various companies as Access America or Travel Guard. These insurances cover any reason to cancel your trip and refund your money. It’s highly recommended for international travelers. You can also visit websites of our insurance partners to get your travel insurance today.
+            div
+              p You must cancel or change your reservation at least 24 hours in advance from the date of departure. If changes are not done within the time limit the ticket will not have any value and can't be used.
+            div
+              p After you travel a certain amount of air miles the airline company will issue a free ticket- the number of travel miles needed to earn a ticket differs between carriers.
+
+
+  // Page Footer
+  include ../sections/_footer-default

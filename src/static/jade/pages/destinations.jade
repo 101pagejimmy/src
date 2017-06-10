@@ -1,0 +1,346 @@
+extends  ../_skeleton
+
+block title
+  title Destinations
+
+block page
+  // Page Header
+  header.page-header
+    +rd-navbar-default({
+      "style": "rd-navbar-light",
+      "logo": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "logoFixed": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "activeLink": 4,
+      "attr": {
+        "data-layout": "rd-navbar-fixed",
+        "data-sm-layout": "rd-navbar-fixed",
+        "data-md-layout": "rd-navbar-fullwidth",
+        "data-lg-layout": "rd-navbar-static"
+      }
+    })
+
+    // RD Parallax
+    section.section-height-mac.context-dark
+      +rd-parallax({
+        "on": "false",
+        "MdOn": "true",
+        "firstLayerType": "media",
+        "firstLayerSpeed": "0.25",
+        "src": "images/backgrounds/background-31-1920x900.jpg",
+        "secondLayerType": "html",
+        "secondLayerSpeed": "0",
+        "fade": "false"
+      })
+        .bg-overlay-darker
+          .shell.section-34.section-md-100.section-lg-top-115.section-lg-bottom-145
+            h1.veil.reveal-md-inline-block Destinations
+            .offset-top-4
+              h6.text-italic Where to go
+
+            .group.group-xs.offset-top-60.btn-tags-variant-2
+              a.btn.btn-icon.btn-icon-left.btn-width-100.btn-transparent.btn-active(href="#")
+                span.icon.icon-xxs.fa.fa-map-marker
+                span Africa
+              a.btn.btn-icon.btn-icon-left.btn-width-100.btn-transparent(href="#")
+                span.icon.icon-xxs.fa.fa-map-marker
+                span Eurasia
+              a.btn.btn-icon.btn-icon-left.btn-width-100.btn-transparent(href="#")
+                span.icon.icon-xxs.fa.fa-map-marker
+                span America
+              a.btn.btn-icon.btn-icon-left.btn-width-100.btn-transparent(href="#")
+                span.icon.icon-xxs.fa.fa-map-marker
+                span Australia
+
+  // Page Content
+  main.page-content
+
+    // Destinations
+    section.section-80.bg-wild-wand
+      .shell.shell-custom
+        .range.range-xs-center
+          .cell-sm-10.cell-md-12
+            // Box
+            .box.box-search.bg-white.reveal-block
+              .box-search-wrap
+                // RD Search Form
+                form.form-search.rd-search(action='search-results.html', method='GET')
+                  button.form-search-submit(type='submit')
+                    span.fa.fa-search
+                  .form-group.form-group-xs
+                    label.form-label.form-search-label.form-label-sm(for='destinations-form-search-widget') Search
+                    input#destinations-form-search-widget.form-search-input.input-sm.form-control.input-sm(type='text', name='s', autocomplete='off')
+              .box-search-body.text-left
+                .range.range-xs-left
+                  .cell-xs-6.cell-md-4.cell-lg-2
+                    div
+                      p.text-big.text-ubold.text-gray-base A
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Angola
+                        li
+                          a.text-gray(href='#') Algeria
+
+                  .cell-xs-6.cell-md-4.cell-lg-2.offset-top-40.offset-xs-top-0
+                    div
+                      p.text-big.text-ubold.text-gray-base B
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Burkina Faso
+                        li
+                          a.text-gray(href='#') Botswana
+                        li
+                          a.text-gray(href='#') Benin
+                        li
+                          a.text-gray(href='#') Burundi
+
+                  .cell-xs-6.cell-md-4.cell-lg-2.offset-top-40.offset-md-top-0
+                    div
+                      p.text-big.text-ubold.text-gray-base C
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Cameroon
+                        li
+                          a.text-gray(href='#') Central African Republic
+                        li
+                          a.text-gray(href='#') Cape Verde
+                        li
+                          a.text-gray(href='#') Comoros
+                        li
+                          a.text-gray(href='#') Chad
+                        li
+                          a.text-gray(href='#') Congo
+                        li
+                          a.text-gray(href='#') Côte d'Ivoire
+
+                  .cell-xs-6.cell-md-4.cell-lg-2.offset-top-40.offset-lg-top-0
+                    div
+                      p.text-big.text-ubold.text-gray-base D
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Djibouti
+
+                  .cell-xs-6.cell-md-4.cell-lg-2.offset-top-40.offset-lg-top-0
+                    div
+                      p.text-big.text-ubold.text-gray-base E
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Eritrea
+                        li
+                          a.text-gray(href='#') Ethiopia
+                        li
+                          a.text-gray(href='#') Equatorial Guinea
+                        li
+                          a.text-gray(href='#') Egypt
+
+                  .cell-xs-6.cell-md-4.cell-lg-2.offset-top-40.offset-lg-top-0
+                    div
+                      p.text-big.text-ubold.text-gray-base G
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Gabon
+                        li
+                          a.text-gray(href='#') Gambia
+                        li
+                          a.text-gray(href='#') Guinea
+                        li
+                          a.text-gray(href='#') Ghana
+                        li
+                          a.text-gray(href='#') Guinea-Bissau
+
+                  .cell-xs-6.cell-md-4.cell-lg-2.offset-top-40.offset-lg-top-30
+                    div
+                      p.text-big.text-ubold.text-gray-base K
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Kenya
+
+                  .cell-xs-6.cell-md-4.cell-lg-2.offset-top-40.offset-lg-top-30
+                    div
+                      p.text-big.text-ubold.text-gray-base L
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Lesotho
+                        li
+                          a.text-gray(href='#') Liberia
+                        li
+                          a.text-gray(href='#') Libya
+
+                  .cell-xs-6.cell-md-4.cell-lg-2.offset-top-40.offset-lg-top-30
+                    div
+                      p.text-big.text-ubold.text-gray-base M
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Mali
+                        li
+                          a.text-gray(href='#') Mauritania
+                        li
+                          a.text-gray(href='#') Mauritius
+                        li
+                          a.text-gray(href='#') Morocco
+                        li
+                          a.text-gray(href='#') Madagascar
+                        li
+                          a.text-gray(href='#') Mozambique
+                        li
+                          a.text-gray(href='#') Malawi
+
+                  .cell-xs-6.cell-md-4.cell-lg-2.offset-top-40.offset-lg-top-30
+                    div
+                      p.text-big.text-ubold.text-gray-base N
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Nigeria
+                        li
+                          a.text-gray(href='#') Namibia
+                        li
+                          a.text-gray(href='#') Niger
+
+                  .cell-xs-6.cell-md-4.cell-lg-2.offset-top-40.offset-lg-top-30
+                    div
+                      p.text-big.text-ubold.text-gray-base R
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Rwanda
+
+                  .cell-xs-6.cell-md-4.cell-lg-2.offset-top-40.offset-lg-top-30
+                    div
+                      p.text-big.text-ubold.text-gray-base S
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Senegal
+                        li
+                          a.text-gray(href='#') Seychelles
+                        li
+                          a.text-gray(href='#') Sierra Leone
+                        li
+                          a.text-gray(href='#') Somaliland
+                        li
+                          a.text-gray(href='#') South Sudan
+                        li
+                          a.text-gray(href='#') Sudan
+                        li
+                          a.text-gray(href='#') Swaziland
+                        li
+                          a.text-gray(href='#') Somalia
+                        li
+                          a.text-gray(href='#') São Tomé & Príncipe
+
+                  .cell-xs-6.cell-md-4.cell-lg-2.offset-top-40.offset-lg-top-0
+                    div
+                      p.text-big.text-ubold.text-gray-base T
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Togo
+                        li
+                          a.text-gray(href='#') Tunisia
+                        li
+                          a.text-gray(href='#') Tanzania
+
+                  .cell-xs-6.cell-md-4.cell-lg-2.offset-top-40.offset-lg-top-0
+                    div
+                      p.text-big.text-ubold.text-gray-base U
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Uganda
+
+                  .cell-xs-6.cell-md-4.cell-lg-2.offset-top-40.offset-lg-top-0
+                    div
+                      p.text-big.text-ubold.text-gray-base Z
+
+                    .offset-top-8
+                      hr.hr.bg-gallery
+
+                    .offset-top-20
+                      // List
+                      ul.list.p.text-small
+                        li
+                          a.text-gray(href='#') Zimbabwe
+                        li
+                          a.text-gray(href='#') Zambia
+
+  // Page Footer
+  include ../sections/_footer-default

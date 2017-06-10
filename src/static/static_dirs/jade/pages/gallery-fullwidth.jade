@@ -1,0 +1,110 @@
+extends  ../_skeleton
+
+block title
+  title Gallery Fullwidth
+
+block page
+  // Page Header
+  header.page-header
+    +rd-navbar-default({
+      "style": "rd-navbar-light",
+      "logo": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "logoFixed": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "activeLink": 5,
+      "attr": {
+        "data-layout": "rd-navbar-fixed",
+        "data-sm-layout": "rd-navbar-fixed",
+        "data-md-layout": "rd-navbar-fullwidth",
+        "data-lg-layout": "rd-navbar-static"
+      }
+    })
+
+    // RD Parallax
+    section.section-height-mac.context-dark
+      +rd-parallax({
+        "on": "false",
+        "MdOn": "true",
+        "firstLayerType": "media",
+        "firstLayerSpeed": "0.25",
+        "src": "images/backgrounds/background-29-1920x900.jpg",
+        "secondLayerType": "html",
+        "secondLayerSpeed": "0",
+        "fade": "false"
+      })
+        .bg-overlay-darker
+          .shell.section-34.section-md-100.section-lg-top-170.section-lg-bottom-165
+            h1.veil.reveal-md-inline-block Gallery
+            .offset-top-4
+              h6.text-italic Photos of Our Destinations
+
+  // Page Content
+  main.page-content
+
+    // Gallery Fullwidth
+    section
+      .range.range-condensed.range-xs-center.range-sm-left(data-photo-swipe-gallery='gallery')
+        .cell-xs-6.cell-md-4.cell-lg-3
+          // Thumbnail Rayen
+          a.thumbnail-classic.thumbnail-classic-fullwidth(data-photo-swipe-item='', data-size='1170x781', href='images/gallery/portfolio-06-1170x781_original.jpg' data-author="Swiss Alps, Switzerland")
+            span.figure
+              img(width='370', height='240', src='images/gallery/portfolio-13-478x400.jpg', alt='')
+              span.figcaption.text-left
+                span.text-ubold.text-white Swiss Alps, Switzerland
+
+        .cell-xs-6.cell-md-4.cell-lg-3.offset-top-0
+          // Thumbnail Rayen
+          a.thumbnail-classic.thumbnail-classic-fullwidth(data-photo-swipe-item='', data-size='1170x781', href='images/gallery/portfolio-10-1170x780_original.jpg' data-author="Longs Peak, the USA")
+            span.figure
+              img(width='370', height='240', src='images/gallery/portfolio-14-478x400.jpg', alt='')
+              span.figcaption.text-left
+                span.text-ubold.text-white Longs Peak, the USA
+        .cell-xs-6.cell-md-4.cell-lg-3.offset-top-0
+          // Thumbnail Rayen
+          a.thumbnail-classic.thumbnail-classic-fullwidth(data-photo-swipe-item='', data-size='1170x781', href='images/gallery/portfolio-06-1170x781_original.jpg' data-author="Himalayas, Nepal")
+            span.figure
+              img(width='370', height='240', src='images/gallery/portfolio-15-478x400.jpg', alt='')
+              span.figcaption.text-left
+                span.text-ubold.text-white Himalayas, Nepal
+
+        .cell-xs-6.cell-md-4.cell-lg-3.offset-top-0
+          // Thumbnail Rayen
+          a.thumbnail-classic.thumbnail-classic-fullwidth(data-photo-swipe-item='', data-size='1170x781', href='images/gallery/portfolio-08-1170x780_original.jpg' data-author="Istanbul, Turkey")
+            span.figure
+              img(width='370', height='240', src='images/gallery/portfolio-16-478x400.jpg', alt='')
+              span.figcaption.text-left
+                span.text-ubold.text-white Istanbul, Turkey
+
+        .cell-xs-6.cell-md-4.cell-lg-3.offset-top-0
+          // Thumbnail Rayen
+          a.thumbnail-classic.thumbnail-classic-fullwidth(data-photo-swipe-item='', data-size='1170x781', href='images/gallery/portfolio-07-1170x780_original.jpg' data-author="London, Great Britain")
+            span.figure
+              img(width='370', height='240', src='images/gallery/portfolio-17-478x400.jpg', alt='')
+              span.figcaption.text-left
+                span.text-ubold.text-white London, Great Britain
+
+        .cell-xs-6.cell-md-4.cell-lg-3.offset-top-0
+          // Thumbnail Rayen
+          a.thumbnail-classic.thumbnail-classic-fullwidth(data-photo-swipe-item='', data-size='1170x781', href='images/gallery/portfolio-04-1170x585_original.jpg' data-author="Bled, Slovenia")
+            span.figure
+              img(width='370', height='240', src='images/gallery/portfolio-18-478x400.jpg', alt='')
+              span.figcaption.text-left
+                span.text-ubold.text-white Bled, Slovenia
+
+        .cell-xs-6.cell-md-4.cell-lg-3.offset-top-0
+          // Thumbnail Rayen
+          a.thumbnail-classic.thumbnail-classic-fullwidth(data-photo-swipe-item='', data-size='1170x781', href='images/gallery/portfolio-08-1170x780_original.jpg' data-author="Port Antonio, Jamaica")
+            span.figure
+              img(width='370', height='240', src='images/gallery/portfolio-19-478x400.jpg', alt='')
+              span.figcaption.text-left
+                span.text-ubold.text-white Port Antonio, Jamaica
+
+        .cell-xs-6.cell-md-4.cell-lg-3.offset-top-0
+          // Thumbnail Rayen
+          a.thumbnail-classic.thumbnail-classic-fullwidth(data-photo-swipe-item='', data-size='1170x781', href='images/gallery/portfolio-06-1170x781_original.jpg' data-author="Burgenland, Austria")
+            span.figure
+              img(width='370', height='240', src='images/gallery/portfolio-20-478x400.jpg', alt='')
+              span.figcaption.text-left
+                span.text-ubold.text-white Burgenland, Austria
+
+  // Page Footer
+  include ../sections/_footer-default

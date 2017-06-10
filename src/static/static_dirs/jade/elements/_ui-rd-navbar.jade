@@ -1,0 +1,145 @@
+//- navbar - object of RD Navbar
+
+mixin rd-navbar-default(navbar)
+  // RD Navbar
+  .rd-navbar-wrap
+    nav.rd-navbar&attributes(navbar.attr)(class= navbar.style data-md-device-layout='rd-navbar-fixed' data-lg-device-layout="rd-navbar-static" data-md-stick-up-offset="1px" data-lg-stick-up-offset="1px")
+      .rd-navbar-inner
+        // RD Navbar Panel
+        .rd-navbar-panel
+          // RD Navbar Toggle
+          button.rd-navbar-toggle(data-rd-navbar-toggle='.rd-navbar-nav-wrap')
+            span
+          // RD Navbar Brand
+          .rd-navbar-brand.veil.reveal-md-block
+            a.brand-name(href='index.html') !{navbar.logo}
+          // RD Navbar Brand
+          .rd-navbar-brand.veil-md.reveal-tablet-md-inline-block
+            a.brand-name(href='index.html') !{navbar.logoFixed}
+        .rd-navbar-nav-wrap
+          // RD Navbar Nav
+          ul.rd-navbar-nav
+            li(class=(navbar.activeLink == 1 ? 'active' : ''))
+              a(href='index.html') Home
+              // RD Navbar Dropdown
+              ul.rd-navbar-dropdown
+                li
+                  a(href='index-variant-2.html') Home Variant 2
+                li
+                  a(href='index-variant-3.html') Home Variant 3
+            li(class=(navbar.activeLink == 2 ? 'active' : ''))
+              a(href='tours-grid.html') Tours
+              // RD Navbar Dropdown
+              ul.rd-navbar-dropdown
+                li
+                  a(href='tours-grid.html') Tours Grid
+                li
+                  a(href='tours-grid-variant-2.html') Tours Grid v2
+                li
+                  a(href='tours-list.html') Tours List
+                li
+                  a(href='tours-single.html') Tours Single
+            li(class=(navbar.activeLink == 3 ? 'active' : ''))
+              a(href='about.html') About
+              // RD Navbar Dropdown
+              ul.rd-navbar-dropdown
+                li
+                  a(href='our-team.html') Our Team
+                li
+                  a(href='careers.html') Careers
+                li
+                  a(href='faq.html') FAQ
+                li
+                  a(href='testimonials.html') Testimonials
+            li(class=(navbar.activeLink == 4 ? 'active' : ''))
+              a(href='#') Pages
+              // RD Navbar Megamenu
+              .rd-navbar-megamenu
+                .row
+                  .col-md-4
+                    p.text-big.text-gray-base.text-ubold.veil.reveal-md-block.veil-tablet-md Pages 1
+                    ul.offset-md-top-20
+                      li
+                        a(href='press.html') Press
+                      li
+                        a(href='services.html') Services
+                      li
+                        a(href='pricing.html') Pricing
+                      li
+                        a(href='destinations.html') Destinations
+                      li
+                        a(href='signup.html') Sign Up
+                      li
+                        a(href='signup-variant-2.html') Sign Up v2
+                  .col-md-4
+                    p.text-big.text-gray-base.text-ubold.veil.reveal-md-block.veil-tablet-md Pages 2
+                    ul.offset-md-top-20
+                      li
+                        a(href='login.html') Login
+                      li
+                        a(href='forgot-password.html') Forgot Password
+                      li
+                        a(href='privacy.html') Privacy Policy
+                      li
+                        a(href='terms-of-use.html') Terms Of Use
+                      li
+                        a(href='sitemap.html') Sitemap
+                      li
+                        a(href='search-results.html') Search Results
+                  .col-md-4
+                    p.text-big.text-gray-base.text-ubold.veil.reveal-md-block.veil-tablet-md Pages 3
+                    ul.offset-md-top-20
+                      li
+                        a(href='404.html') 404
+                      li
+                        a(href='503.html') 503
+                      li
+                        a(href='comingsoon.html') Coming Soon
+                      li
+                        a(href='manitenance.html') Maintenance
+                      li
+                        a(href='underconsruction.html') Under Construction
+            li(class=(navbar.activeLink == 5 ? 'active' : ''))
+              a(href='gallery-cobbles.html') Gallery
+              // RD Navbar Dropdown
+              ul.rd-navbar-dropdown
+                li
+                  a(href='gallery-cobbles.html') Gallery Cobbles
+                li
+                  a(href='gallery-fullwidth.html') Gallery Fullwidth
+                li
+                  a(href='gallery-grid.html') Gallery Grid
+                li
+                  a(href='gallery-masonry.html') Gallery Masonry
+            li(class=(navbar.activeLink == 6 ? 'active' : ''))
+              a(href='blog-grid.html') Blog
+              // RD Navbar Dropdown
+              ul.rd-navbar-dropdown
+                li
+                  a(href='blog-grid.html') Blog Grid
+                li
+                  a(href='blog-grid-sidebar-left.html') Blog Grid Sidebar
+                li
+                  a(href='blog-list.html') Blog List
+                li
+                  a(href='blog-list-sidebar-left.html') Blog List Sidebar
+                li
+                  a(href='blog-list-variant-2.html') Blog List v2
+                li
+                  a(href='blog-list-variant-2-sidebar-left.html') Blog List v2 Sidebar
+                li
+                  a(href='blog-masonry.html') Blog Masonry
+                li
+                  a(href='blog-modern.html') Blog Modern
+                li
+                  a(href='blog-single-post.html') Blog Single Post
+                li
+                  a(href='blog-single-post-sidebar-left.html') Blog Single Post Sidebar
+            li(class=(navbar.activeLink == 7 ? 'active' : ''))
+              a(href='contacts.html') Contacts
+              // RD Navbar Dropdown
+              ul.rd-navbar-dropdown
+                li
+                  a(href='contacts.html') Contacts
+                li
+                  a(href='contacts-variant-2.html') Contacts v2

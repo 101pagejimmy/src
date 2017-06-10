@@ -1,0 +1,263 @@
+extends  ../_skeleton
+
+//- Includes
+include ../elements/_ui-accordion-classic
+
+block title
+  title Pricing
+
+block page
+  // Page Header
+  header.page-header
+    +rd-navbar-default({
+      "style": "rd-navbar-light",
+      "logo": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "logoFixed": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "activeLink": 4,
+      "attr": {
+        "data-layout": "rd-navbar-fixed",
+        "data-sm-layout": "rd-navbar-fixed",
+        "data-md-layout": "rd-navbar-fullwidth",
+        "data-lg-layout": "rd-navbar-static"
+      }
+    })
+
+    // RD Parallax
+    section.section-height-mac.context-dark
+      +rd-parallax({
+        "on": "false",
+        "MdOn": "true",
+        "firstLayerType": "media",
+        "firstLayerSpeed": "0.25",
+        "src": "images/backgrounds/background-28-1920x900.jpg",
+        "secondLayerType": "html",
+        "secondLayerSpeed": "0",
+        "fade": "false"
+      })
+        .bg-overlay-darker
+          .shell.section-34.section-md-100.section-lg-top-170.section-lg-bottom-165
+            h1.veil.reveal-md-inline-block Pricing
+            .offset-top-4
+              h6.text-italic Pick the best pricing plan for your traveling needs
+
+  // Page Content
+  main.page-content
+
+    // Pricing
+    section.section-60.bg-wild-wand
+      .shell
+        div
+          h3 Our Pricing
+        .offset-top-4
+          p A variety of features available in 4 plans
+
+        .range.range-xs-center.offset-top-45
+          .cell-xs-8.cell-sm-5.cell-md-3
+            // Box Pricing
+            .box-pricing
+              .box-pricing-inner
+                .box-pricing-label
+                  svg.box-pricing-svg(viewbox='0 0 86 86')
+                    path(style='fill:#2dc2b4', d='m 0.18220359,63.058649 0,-22.759147 20.25893341,-20.240853 20.258932,-20.24085223 22.741068,0 22.74107,0 0,3.00000003 c 0,2.718907 -0.305,3 -3.25507,3 -2.94829,0 -6.74123,3.487112 -40.244933,37.0000002 -20.344425,20.35 -36.4296454,37 -35.7449324,37 0.716591,0 1.244932,1.27318 1.244932,3 0,2.833333 -0.222222,3 -4,3 l -4.00000001,0 0,-22.759148 z')
+                  span TOP RATED
+                p.text-bold.text-ubold.text-uppercase.text-gray-base.text-big ECONOMY
+                .box-pricing-price.text-primary
+                  sup $
+                  span 8
+                  sub /mo
+                .offset-top-8
+                  p.text-extra-small.text-silver-chalice provides up to 3 leading #[br.veil.reveal-lg-inline-block] travel specialists
+                .offset-top-25
+                  hr.hr.bg-gallery
+                .offset-top-25.reveal-inline-block
+                  // List Inline
+                  ul.list.list-12.list-marked-icon.text-gray-base.text-small.text-left
+                    li 3 Star Hotels
+                    li No Money Back Guarantee
+                    li Economy Class Flight
+                    li Regular Flights
+                    li Basic Customer Support
+              .offset-top-4
+                a.btn.btn-block.btn-primary(href='#') BOOK NOW
+
+          .cell-xs-8.cell-sm-5.cell-md-3.offset-top-50.offset-sm-top-0
+            // Box Pricing
+            .box-pricing.active
+              .box-pricing-inner
+                .box-pricing-label
+                  svg.box-pricing-svg(viewbox='0 0 86 86')
+                    path(style='fill:#2dc2b4', d='m 0.18220359,63.058649 0,-22.759147 20.25893341,-20.240853 20.258932,-20.24085223 22.741068,0 22.74107,0 0,3.00000003 c 0,2.718907 -0.305,3 -3.25507,3 -2.94829,0 -6.74123,3.487112 -40.244933,37.0000002 -20.344425,20.35 -36.4296454,37 -35.7449324,37 0.716591,0 1.244932,1.27318 1.244932,3 0,2.833333 -0.222222,3 -4,3 l -4.00000001,0 0,-22.759148 z')
+                  span TOP RATED
+                p.text-bold.text-ubold.text-uppercase.text-gray-base.text-big BUSINESS
+                .box-pricing-price.text-primary
+                  sup $
+                  span 12
+                  sub /mo
+                .offset-top-8
+                  p.text-extra-small.text-silver-chalice provides up to 5 leading #[br.veil.reveal-lg-inline-block] travel specialists
+                .offset-top-25
+                  hr.hr.bg-gallery
+                .offset-top-25.reveal-inline-block
+                  // List Inline
+                  ul.list.list-12.list-marked-icon.text-gray-base.text-small.text-left
+                    li 4 Star Hotels
+                    li 15 Days Money Back
+                    li Business Class Flight
+                    li Special Flights
+                    li 24/7 Customer Support
+              .offset-top-4
+                a.btn.btn-block.btn-primary(href='#') BOOK NOW
+
+          .cell-xs-8.cell-sm-5.cell-md-3.offset-top-50.offset-md-top-0
+            // Box Pricing
+            .box-pricing
+              .box-pricing-inner
+                .box-pricing-label
+                  svg.box-pricing-svg(viewbox='0 0 86 86')
+                    path(style='fill:#2dc2b4', d='m 0.18220359,63.058649 0,-22.759147 20.25893341,-20.240853 20.258932,-20.24085223 22.741068,0 22.74107,0 0,3.00000003 c 0,2.718907 -0.305,3 -3.25507,3 -2.94829,0 -6.74123,3.487112 -40.244933,37.0000002 -20.344425,20.35 -36.4296454,37 -35.7449324,37 0.716591,0 1.244932,1.27318 1.244932,3 0,2.833333 -0.222222,3 -4,3 l -4.00000001,0 0,-22.759148 z')
+                  span TOP RATED
+                p.text-bold.text-ubold.text-uppercase.text-gray-base.text-big GOLD
+                .box-pricing-price.text-primary
+                  sup $
+                  span 35
+                  sub /mo
+                .offset-top-8
+                  p.text-extra-small.text-silver-chalice provides up to 7 leading #[br.veil.reveal-lg-inline-block] travel specialists
+                .offset-top-25
+                  hr.hr.bg-gallery
+                .offset-top-25.reveal-inline-block
+                  // List Inline
+                  ul.list.list-12.list-marked-icon.text-gray-base.text-small.text-left
+                    li 5 Star Hotels
+                    li 30 Days Money Back
+                    li First Class Flight
+                    li Direct Flights
+                    li Extended Customer Support
+              .offset-top-4
+                a.btn.btn-block.btn-primary(href='#') BOOK NOW
+
+          .cell-xs-8.cell-sm-5.cell-md-3.offset-top-50.offset-md-top-0
+            // Box Pricing
+            .box-pricing
+              .box-pricing-inner
+                .box-pricing-label
+                  svg.box-pricing-svg(viewbox='0 0 86 86')
+                    path(style='fill:#2dc2b4', d='m 0.18220359,63.058649 0,-22.759147 20.25893341,-20.240853 20.258932,-20.24085223 22.741068,0 22.74107,0 0,3.00000003 c 0,2.718907 -0.305,3 -3.25507,3 -2.94829,0 -6.74123,3.487112 -40.244933,37.0000002 -20.344425,20.35 -36.4296454,37 -35.7449324,37 0.716591,0 1.244932,1.27318 1.244932,3 0,2.833333 -0.222222,3 -4,3 l -4.00000001,0 0,-22.759148 z')
+                  span TOP RATED
+                p.text-bold.text-ubold.text-uppercase.text-gray-base.text-big PLATINUM
+                .box-pricing-price.text-primary
+                  sup $
+                  span 87
+                  sub /mo
+                .offset-top-8
+                  p.text-extra-small.text-silver-chalice provides up to 9 leading #[br.veil.reveal-lg-inline-block] travel specialists
+                .offset-top-25
+                  hr.hr.bg-gallery
+                .offset-top-25.reveal-inline-block
+                  // List Inline
+                  ul.list.list-12.list-marked-icon.text-gray-base.text-small.text-left
+                    li 5 Stars Hotel
+                    li Unlimited Money Back
+                    li Premium Class Flight
+                    li Charter Flights
+                    li Personal Customer Support
+              .offset-top-4
+                a.btn.btn-block.btn-primary(href='#') BOOK NOW
+
+      .shell.offset-top-80
+        hr.hr.bg-gray-lighter
+
+      .shell.offset-top-65
+        div
+          h3 Get The Right Value
+        .offset-top-4
+          p 3 different pricing plans
+
+        .range.range-xs-center.offset-top-45
+          .cell-xs-9.cell-sm-7.cell-md-4
+            // Box Pricing
+            .box-pricing
+              .box-pricing-inner
+                .box-pricing-label
+                  svg.box-pricing-svg(viewbox='0 0 86 86')
+                    path(style='fill:#2dc2b4', d='m 0.18220359,63.058649 0,-22.759147 20.25893341,-20.240853 20.258932,-20.24085223 22.741068,0 22.74107,0 0,3.00000003 c 0,2.718907 -0.305,3 -3.25507,3 -2.94829,0 -6.74123,3.487112 -40.244933,37.0000002 -20.344425,20.35 -36.4296454,37 -35.7449324,37 0.716591,0 1.244932,1.27318 1.244932,3 0,2.833333 -0.222222,3 -4,3 l -4.00000001,0 0,-22.759148 z')
+                  span TOP RATED
+                p.text-bold.text-ubold.text-uppercase.text-gray-base.text-big ECONOMY
+                .box-pricing-price.text-primary
+                  sup $
+                  span 8
+                  sub /mo
+                .offset-top-8
+                  p.text-extra-small.text-silver-chalice provides up to 3 leading #[br.veil.reveal-lg-inline-block] travel specialists
+                .offset-top-25
+                  hr.hr.bg-gallery
+                .offset-top-25.reveal-inline-block
+                  // List Inline
+                  ul.list.list-12.list-marked-icon.text-gray-base.text-small.text-left
+                    li 3 Star Hotels
+                    li No Money Back Guarantee
+                    li Economy Class Flight
+                    li Regular Flights
+                    li Basic Customer Support
+              .offset-top-4
+                a.btn.btn-block.btn-primary.text-spacing-300(href='#') BOOK NOW
+
+          .cell-xs-9.cell-sm-7.cell-md-4.offset-top-50.offset-md-top-0
+            // Box Pricing
+            .box-pricing.active
+              .box-pricing-inner
+                .box-pricing-label
+                  svg.box-pricing-svg(viewbox='0 0 86 86')
+                    path(style='fill:#2dc2b4', d='m 0.18220359,63.058649 0,-22.759147 20.25893341,-20.240853 20.258932,-20.24085223 22.741068,0 22.74107,0 0,3.00000003 c 0,2.718907 -0.305,3 -3.25507,3 -2.94829,0 -6.74123,3.487112 -40.244933,37.0000002 -20.344425,20.35 -36.4296454,37 -35.7449324,37 0.716591,0 1.244932,1.27318 1.244932,3 0,2.833333 -0.222222,3 -4,3 l -4.00000001,0 0,-22.759148 z')
+                  span TOP RATED
+                p.text-bold.text-ubold.text-uppercase.text-gray-base.text-big BUSINESS
+                .box-pricing-price.text-primary
+                  sup $
+                  span 12
+                  sub /mo
+                .offset-top-8
+                  p.text-extra-small.text-silver-chalice provides up to 5 leading #[br.veil.reveal-lg-inline-block] travel specialists
+                .offset-top-25
+                  hr.hr.bg-gallery
+                .offset-top-25.reveal-inline-block
+                  // List Inline
+                  ul.list.list-12.list-marked-icon.text-gray-base.text-small.text-left
+                    li 4 Star Hotels
+                    li 15 Days Money Back
+                    li Business Class Flight
+                    li Special Flights
+                    li 24/7 Customer Support
+              .offset-top-4
+                a.btn.btn-block.btn-primary.text-spacing-300(href='#') BOOK NOW
+
+          .cell-xs-9.cell-sm-7.cell-md-4.offset-top-50.offset-md-top-0
+            // Box Pricing
+            .box-pricing
+              .box-pricing-inner
+                .box-pricing-label
+                  svg.box-pricing-svg(viewbox='0 0 86 86')
+                    path(style='fill:#2dc2b4', d='m 0.18220359,63.058649 0,-22.759147 20.25893341,-20.240853 20.258932,-20.24085223 22.741068,0 22.74107,0 0,3.00000003 c 0,2.718907 -0.305,3 -3.25507,3 -2.94829,0 -6.74123,3.487112 -40.244933,37.0000002 -20.344425,20.35 -36.4296454,37 -35.7449324,37 0.716591,0 1.244932,1.27318 1.244932,3 0,2.833333 -0.222222,3 -4,3 l -4.00000001,0 0,-22.759148 z')
+                  span TOP RATED
+                p.text-bold.text-ubold.text-uppercase.text-gray-base.text-big GOLD
+                .box-pricing-price.text-primary
+                  sup $
+                  span 35
+                  sub /mo
+                .offset-top-8
+                  p.text-extra-small.text-silver-chalice provides up to 7 leading #[br.veil.reveal-lg-inline-block] travel specialists
+                .offset-top-25
+                  hr.hr.bg-gallery
+                .offset-top-25.reveal-inline-block
+                  // List Inline
+                  ul.list.list-12.list-marked-icon.text-gray-base.text-small.text-left
+                    li 5 Star Hotels
+                    li 30 Days Money Back
+                    li First Class Flight
+                    li Direct Flights
+                    li Extended Customer Support
+              .offset-top-4
+                a.btn.btn-block.btn-primary.text-spacing-300(href='#') BOOK NOW
+
+
+  // Page Footer
+  include ../sections/_footer-default

@@ -1,0 +1,86 @@
+extends  ../_skeleton
+
+block title
+  title Login
+
+block page
+  // Page Header
+  header.page-header
+    +rd-navbar-default({
+      "style": "rd-navbar-light",
+      "logo": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "logoFixed": '<img width="148" height="30" src="images/logo-dark-148x30.png" alt="">',
+      "activeLink": 4,
+      "attr": {
+        "data-layout": "rd-navbar-fixed",
+        "data-sm-layout": "rd-navbar-fixed",
+        "data-md-layout": "rd-navbar-fullwidth",
+        "data-lg-layout": "rd-navbar-static"
+      }
+    })
+
+  // Page Content
+  main.page-content
+
+    // Login
+    section
+      +rd-parallax({
+        "on": "false",
+        "MdOn": "true",
+        "firstLayerType": "media",
+        "firstLayerSpeed": "0.25",
+        "src": "images/backgrounds/background-26-1920x900.jpg",
+        "secondLayerType": "html",
+        "secondLayerSpeed": "0",
+        "fade": "false"
+      })
+        .shell.section-80.section-md-top-135.section-md-bottom-145
+          .range.range-xs-center
+            .cell-xs-9.cell-sm-7.cell-md-5.cell-lg-4
+              // Box
+              .box.box-lg.reveal-block.bg-white.inset-lg-left-60.inset-lg-right-60
+                h5.text-ubold.text-sm-left Login
+
+                .offset-top-25
+                  form.rd-mailform
+                    .form-group.form-group-xs
+                      label.form-label(for="login-email") Your Email
+                      input#login-email.form-control(type="email" name="login-email" data-constraints='@Email @Required')
+                    .form-group.form-group-xs.offset-top-12.form-offset-bottom-none
+                      label.form-label(for="login-password") Password
+                      input#login-password.form-control(type="password" name="login-password" data-constraints='@Required')
+                    .offset-top-0
+                      .pull-xs-left
+                        p.text-extra-small
+                          a.text-primary(href="forgot-password.html") Forgot Your Password?
+
+                      .pull-xs-right.form-group.offset-top-24
+                        label.checkbox-inline.checkbox-inline-right
+                          input.checkbox-custom(name='remember', value='checkbox-1', type='checkbox')
+                          span.text-extra-small.text-gray-base.inset-right-10 Remember Me
+
+                      .clearfix
+                    .offset-top-4
+                      button.btn.btn-block.btn-icon.btn-icon-right.btn-primary(type="submit")
+                        span log in
+                        span.icon.icon-xxs.mdi.mdi-chevron-right(style="float:none; margin-top: -1px;")
+
+                    .offset-top-0
+                      p.text-extra-small Don`t have an account? #[a.text-primary(href="signup.html") Sign Up] now!
+
+                    .offset-top-12.section-hidden
+                      p.divider-both-lines.text-silver-chalice.text-italic or use your social account
+
+                    .offset-top-15
+                      // List Inline
+                      ul.list-inline.list-inline-13
+                        li.text-center
+                          a.icon.icon-xxs.icon-circle.icon-circle-lg.icon-filled-twitter.fa.fa-twitter.text-white(href="#")
+                        li.text-center
+                          a.icon.icon-xxs.icon-circle.icon-circle-lg.icon-filled-facebook.fa.fa-facebook.text-white(href="#")
+                        li.text-center
+                          a.icon.icon-xxs.icon-circle.icon-circle-lg.icon-filled-google-plus.fa.fa-google-plus.text-white(href="#")
+
+
+  // Page Footer
+  include ../sections/_footer-default

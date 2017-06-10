@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ object }}{% endblock %}
+
+
+<style>
+{% block style %}
+
+
+  h1  {
+    font-family: Century, sans-serif;
+  }
+
+  h2 {
+    font-family:  Century, sans-serif;
+  }
+
+  p {
+    font-family:  Century, sans-serif;
+  }
+
+  #whereto {
+   width:100%;
+  }
+
+
+
+a:link {
+    text-decoration: none;
+}
+
+
+
+#booking {
+border-radius: 4px;
+}
+
+
+
+
+{% endblock style %}
+</style>
+
+
+{% block content %}
+<br><br>
+
+   <div class="container">
+    <div class="col-sm-6 col-sm-offset-3">
+    <h3>{{ object.first }}</h3>
+    <h4>Review for: {{ object.reviewed_item }} <small>({{ object.creation_date|date:"SHORT_DATETIME_FORMAT" }})</small></h4>
+    {% if object.content %}
+        <h3>{{ object.get_user }} wrote:</h3>
+        <p>{{ object.content|linebreaks }}</p>
+    {% else %}
+        <p>{% blocktrans with user=object.get_user %}{{ user }} reviewed without description.{% endblocktrans %}</p>
+    {% endif %}
+    {% if object.ratings.all %}
+        <h3><small>Ratings{% if object.get_average_rating %} ({{ object.get_average_rating }} {% trans "of" %} 5){% endif %}</small></h3>
+        <ul>
+            {% for rating in object.ratings.all %}
+                <li><strong>{{ rating.category }}: {{ rating.get_value_display }} {% trans "of" %} 5</strong></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if object.user == request.user and object.is_editable %}
+        <p><a href="{% url 'review_update' pk=review.pk %}"> Edit Review.</a></p>
+    {% endif %}
+
+
+</div>
+</div>
+{% endblock %}

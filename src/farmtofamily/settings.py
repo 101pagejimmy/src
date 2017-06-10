@@ -47,9 +47,7 @@ INSTALLED_APPS = (
     'review',
     'user_media',
     'generic_positions',
-    
-    #booking app
-    'booking',
+
     
     #cities
     #'cities',
@@ -61,7 +59,6 @@ INSTALLED_APPS = (
     'schedule',
     'djangobower',
    
-
     'corsheaders', 
     'rest_framework',
 

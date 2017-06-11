@@ -91,7 +91,7 @@ REST_FRAMEWORK = {
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"templates"), os.path.join(BASE_DIR, 'tour', 'templates', 'tour'), os.path.join(BASE_DIR, 'review', 'templates', 'review'),os.path.join(BASE_DIR, 'booking', 'templates', 'booking'),],
+        'DIRS': [os.path.join(BASE_DIR,"templates"), os.path.join(BASE_DIR, 'tour', 'templates', 'tour'), os.path.join(BASE_DIR, 'review', 'templates', 'review'),],
         #'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from datetime import datetime
 from django.conf import settings
 from datetime import datetime, timezone
 from django import forms
@@ -28,14 +27,18 @@ import json
 from schedule.models.events import Event, EventRelation
 
 from .models import Guide
-from .forms import GuideForm, GuideBookingForm, BookingFormSet, EventForm, OccurrenceForm
+from .forms import GuideForm, GuideBookingForm, OccurrenceForm, OccurrenceBookingForm
+
+
+from io import StringIO
+import csv
 
 # Create your views here.
 
-def landing(request):
-	context = {}
-	template = 'tour/landing_page.html'
-	return render(request, template, context)
+# def landing(request):
+# 	context = {}
+# 	template = 'tour/landing_page.html'
+# 	return render(request, template, context)
 
 
 
@@ -109,7 +112,7 @@ class GuideFilterForm(FilterSet):
 	
 	class Meta:
 		model = Guide
-		fields = ['language', 'living', 'events']
+		fields = ['language', 'living']
 
 
 
@@ -175,9 +178,8 @@ class GuideListView(FilterMixin, ListView):
 			qs = self.model.objects.filter(
 				Q(language__icontains=query) |
 				Q(living__icontains=query) |
-				Q(events__gte=query)
+				Q(events__lte=query)
 				)
-			print(query)
 		return qs
 
 
@@ -199,6 +201,9 @@ class GuideDetailView(DetailView):
 		context['form'] = GuideBookingForm()
 		context['guide_tours'] = OccurrenceForm(guide=self.get_object().pk)
 		context['tours_dates'] = OccurrenceForm(guide=self.get_object().pk)
+#______________________IN THE WORKS FOR BOOKING________________________
+		context['other_form'] = OccurrenceBookingForm()
+#______________________IN THE WORKS FOR BOOKING________________________
 
 		
 		#________CREATES OR GETS TOUR GUIDES CALANDER____________
@@ -208,21 +213,21 @@ class GuideDetailView(DetailView):
 		#________CREATES OR GETS TOUR GUIDES CALANDER____________
 
 		#________GETS OCCURENCES FOR FOR THE USERS CALANDER____________
-		#tours = Event.objects.filter(creator=self.get_object().pk)
 		tours = EventRelation.objects.get_events_for_object(user)
 		context['tours_list'] = EventRelation.objects.get_events_for_object(user)
-		dates = self.request.get_full_path()
+		try:
+			dates = self.request.POST.get['living']
+		except:
+			pass
 		tourlist = []
 		for tour in tours:
 			tourlist.append(tour.get_occurrences(\
-				pytz.utc.localize(datetime.datetime(2016, 8, 15)),\
-				pytz.utc.localize(datetime.datetime(2018, 8, 15, 8))\
+				pytz.utc.localize(datetime.datetime(2017, 5, 15)),\
+				pytz.utc.localize(datetime.datetime(2017, 7, 15,))\
 				))
 		context['tours'] = tourlist
 		#________GETS OCCURENCES FOR FOR THE USERS CALANDER____________
-
 		
-
 		return context
 
 	def get_current_path(request):
@@ -230,45 +235,106 @@ class GuideDetailView(DetailView):
 
 
 	def post(self, request, *args, **kwargs):
+		user = self.get_object().guide_name
 		self.status_form = GuideBookingForm(self.request.POST or None)
 		if self.status_form.is_valid():
 			request.POST = request.POST.copy()
-			request.POST['tourSize'] = request.POST['tourSize']
-			instance = self.get_object()
-			try:
-				instance.tourSize = instance.tourSize - int(request.POST['tourSize'])
-				if instance.tourSize <= 0:
-					print('NO MORE SPOTS!')
-				else:
-					instance.save()
-			except:
-				print('no more spots availiable for now')
+			spots_free = int(request.POST['spots_free'])
+			tour_choosen = request.POST['tour']
+			print(request.POST)
+
+			occurrence_list = []
+
+			f = StringIO(tour_choosen)
+			reader = csv.reader(f, delimiter=',')
+			for row in reader:
+				occurrence_list.append(row)
+
+			year = int(occurrence_list[0][0])
+			month = int(occurrence_list[0][1])
+			day = int(occurrence_list[0][2])
+			hour = int(occurrence_list[0][3])
+			minute = int(occurrence_list[0][4])
+			second = int(occurrence_list[0][5])
+
+			tours = EventRelation.objects.get_events_for_object(user)
+			for tour in tours:
+				tour_occurrence = tour.get_occurrence(pytz.utc.localize(datetime.datetime(year, month, day, hour, minute, second)))
+				tour_occurrence.spots_free -= spots_free
+				tour_occurrence.save()
+				return HttpResponseRedirect('/1')
 
 		else:
 			return super(GuideDetailView, self).post(request, *args, **kwargs)
 
+#_____________________IN THE WORKS________________________________________________________
+	# def post(self, request, *args, **kwargs):
+	# 	self.status_form = OccurrenceBookingForm(request.POST, request.FILES)
+	# 	if self.status_form.is_valid():
+	# 		request.POST = request.POST.copy()
+	# 		request.POST['free_spots'] = request.POST['free_spots']
+	# 		instance = self.get_object()
+	# 		try:
+				# tours = EventRelation.objects.get_events_for_object(user)
+				# year = request.POST['year']
+				# month = request.POST['month']
+				# day = request.POST['month']
+				# for tour in tours:
+				# 	tour.get_occurrence(pytz.utc.localize(datetime.datetime(year, month, day))						)
+	# 			instance.free_spots = instance.free_spots - int(request.POST['free_spots'])
+	# 			if instance.free_spots <= 0:
+	# 				print('NO MORE SPOTS!')
+	# 			else:
+	# 				instance.save()
+	# 		except:
+	# 			print('no more spots availiable for now')
 
-
+	# 	else:
+	# 		return super(GuideDetailView, self).post(request, *args, **kwargs)
 #_____________________IN THE WORKS________________________________________________________
 
 
+# def create_post(request):
+
+#     if request.method == 'POST':
+#         book_tour = request.POST.get('post-text')
+#         print(book_tour)
+#         response_data = {}
+
+#         post = Guide(tourSize=post_text)
+#         post.save()
+
+#         response_data['text'] = post.text
+
+#         return HttpResponse(
+#             json.dumps(response_data),
+#             content_type="application/json"
+#         )
+#     else:
+#         return HttpResponse(
+#             json.dumps({"nothing to see": "this isn't happening"}),
+#             content_type="application/json"
+#         )
+# 
+
 def create_post(request):
-
+    print(titties)
     if request.method == 'POST':
-        book_tour = request.POST.get('post-text')
-        response_data = {}
+        book_tour = request.POST.get('post-text-occurrence')
+    #     print(book_tour)
+    #     response_data = {}
 
-        post = Guide(tourSize=post_text)
-        post.save()
+    #     post = Occurrence(spots_free=post_text_occurrence)
+    #     post.save()
 
-        response_data['text'] = post.text
+    #     response_data['text'] = post.text
 
-        return HttpResponse(
-            json.dumps(response_data),
-            content_type="application/json"
-        )
-    else:
-        return HttpResponse(
-            json.dumps({"nothing to see": "this isn't happening"}),
-            content_type="application/json"
-        )
+    #     return HttpResponse(
+    #         json.dumps(response_data),
+    #         content_type="application/json"
+    #     )
+    # else:
+    #     return HttpResponse(
+    #         json.dumps({"nothing to see": "this isn't happening"}),
+    #         content_type="application/json"
+    #     )

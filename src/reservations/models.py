@@ -6,7 +6,6 @@ class Reservation(models.Model):
     """Reservation model - who made a reservation and when"""
     user = models.ForeignKey(User)
     date = models.DateTimeField(null=False, blank=False)
-    # Timestamps
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, db_index=True)
 
@@ -32,7 +31,7 @@ class ReservationDay(models.Model):
     spots_total = models.IntegerField(null=True, default=32)
     spots_free = models.IntegerField(null=True, default=32)
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.date) + " Total: " + str(self.spots_total) + " Free: " + str(self.spots_free)
 
 
@@ -45,5 +44,5 @@ class Holiday(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, db_index=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.name) + " " + str(self.date)

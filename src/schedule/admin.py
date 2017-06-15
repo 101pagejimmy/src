@@ -43,6 +43,7 @@ class EventAdmin(admin.ModelAdmin):
                 ('title', 'color_event'),
                 ('description',),
                 ('start', 'end'),
+                ('reservation_spots'),
                 ('creator', 'calendar'),
                 ('rule', 'end_recurring_period'),
             ]

@@ -1,9 +1,22 @@
 {% extends "base.html" %}
 {% load scheduletags i18n %}
 
+<style>
+{% block style %}
+.btn-lg, .btn-group-lg > .btn {
+    padding: 9px 13px;
+    font-size: 8;
+    line-height: 10px;
+    border-radius: 030px;
+}
+{% endblock %}
+</style>
+
+
 {% block content %}
 {% include "navbar.html" %}
 {% include "schedule/_dialogs.html" %}
+<div class="container"> 
 <div class="row row-centered">
   <div class="calendarname">{{ calendar.name }}</div>
   {% prevnext "month_calendar" calendar period "F Y"%}
@@ -23,5 +36,6 @@
   <a href="{% url 'year_calendar' calendar.slug %}{% querystring_for_date period.start 1 %}">
     {% trans 'Full Year Calendar' %}
   </a>
+</div>
 </div>
 {% endblock %}

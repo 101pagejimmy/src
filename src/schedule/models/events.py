@@ -4,7 +4,7 @@ from django.utils.six import with_metaclass
 from django.conf import settings as django_settings
 from dateutil import rrule
 import datetime
-
+from django.http import HttpResponseRedirect
 from django.contrib.contenttypes import fields
 from django.db import models
 from django.db.models.base import ModelBase
@@ -47,15 +47,25 @@ class EventManager(models.Manager):
         return EventRelation.objects.get_events_for_object(content_object, distinction, inherit)
 
 
+
+
 @python_2_unicode_compatible
 class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
     '''
     This model stores meta data for a date.  You can relate this data to many
     other models.
     '''
+    NUMBER_FIELDS = [(5, 5), (10,10), (15, 15), (20, 20), (25, 25), (30, 30), (35, 35), (50, 50)]
+
     start = models.DateTimeField(_("start"), db_index=True)
     end = models.DateTimeField(_("end"), db_index=True, help_text=_("The end time must be later than the start time."))
     title = models.CharField(_("title"), max_length=255)
+    #__________________IN THE WORKS FOR BOOKING__________
+    reservation_spots = models.IntegerField(_("reservation_spots"), null=True, \
+        blank=True, choices=NUMBER_FIELDS, 
+        help_text=_("How large is your tour group?"),
+        db_index=True,)
+    #__________________IN THE WORKS FOR BOOKING__________
     description = models.TextField(_("description"), blank=True)
     creator = models.ForeignKey(
         django_settings.AUTH_USER_MODEL,
@@ -161,6 +171,7 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
         else:
             persisted_occurrences = self.occurrence_set.all()
         occ_replacer = OccurrenceReplacer(persisted_occurrences)
+        
         occurrences = self._get_occurrence_list(start, end)
         final_occurrences = []
         for occ in occurrences:
@@ -202,6 +213,8 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
             end = start + (self.end - self.start)
         return Occurrence(event=self, start=start, end=end, original_start=start, original_end=end)
 
+
+
     def get_occurrence(self, date):
         use_naive = timezone.is_naive(date)
         tzinfo = timezone.utc
@@ -215,6 +228,7 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
             next_occurrence = tzinfo.localize(next_occurrence)
         else:
             next_occurrence = self.start
+
         if next_occurrence == date:
             try:
                 return Occurrence.objects.get(event=self, original_start=date)
@@ -222,6 +236,7 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
                 if use_naive:
                     next_occurrence = timezone.make_naive(next_occurrence, tzinfo)
                 return self._create_occurrence(next_occurrence)
+ 
 
     def _get_occurrence_list(self, start, end):
         """
@@ -564,16 +579,11 @@ class EventRelation(with_metaclass(ModelBase, *get_model_bases('EventRelation'))
 @python_2_unicode_compatible
 class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_("event"))
-
-
-    #_________IN THE WORKS FOR BOOKING_____________________________
-
-    # registrars = models.ForeignKey(null=True, blank=True)
-
-    #_________IN THE WORKS FOR BOOKING_____________________________
-
-
     title = models.CharField(_("title"), max_length=255, blank=True)
+    #__________________IN THE WORKS FOR BOOKING__________
+    reservation_spots = models.IntegerField(_("reservation_spots"), null=True)
+    spots_free = models.IntegerField(null=True, default=35)
+    #__________________IN THE WORKS FOR BOOKING__________
     description = models.TextField(_("description"), blank=True)
     start = models.DateTimeField(_("start"), db_index=True)
     end = models.DateTimeField(_("end"), db_index=True)
@@ -597,6 +607,10 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
             self.title = self.event.title
         if not self.description and self.event_id:
             self.description = self.event.description
+        if not self.reservation_spots and self.event_id:
+            self.reservation_spots = self.event.reservation_spots
+        if not self.spots_free and self.event.id:
+            self.spots_free =self.event.reservation_spots
 
     def moved(self):
         return self.original_start != self.start or self.original_end != self.end
@@ -671,10 +685,18 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
         })
 
     def __str__(self):
-        return ugettext("%(start)s to %(end)s") % {
+        return ugettext("%(start)s to %(end)s with %(spots_free)s/%(spots_total)s left") % {
             'start': date(self.start, django_settings.DATE_FORMAT),
-            'end': date(self.end, django_settings.DATE_FORMAT)
+            'end': date(self.end, django_settings.DATE_FORMAT),
+            'spots_free': self.spots_free,
+            'spots_total': self.reservation_spots
         }
+
+    # def __str__(self):
+    #     return ugettext("%(start)s to %(end)s") % {
+    #         'start': date(self.start, django_settings.DATE_FORMAT),
+    #         'end': date(self.end, django_settings.DATE_FORMAT)
+    #     }
 
     def __lt__(self, other):
         return self.end < other.end

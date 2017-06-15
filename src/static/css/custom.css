@@ -7,7 +7,7 @@ body {
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 
-.carousel {
+/*.carousel {
   margin-bottom: 60px;
 }
 
@@ -37,8 +37,7 @@ body {
     top:30%;
 }
 
-/* RESPONSIVE CSS
--------------------------------------------------- */
+------------------------------ */
 @media (max-width: 768px) {
 
   .carousel-inner>.item>img, .carousel-inner>.item>a>img {
@@ -57,21 +56,8 @@ body {
     background-color: white
   }
 
-  h1  {
-    font-family: Century, sans-serif;
-  }
 
-  h2 {
-    font-family:  Century, sans-serif;
-  }
 
-  p {
-    font-family:  Century, sans-serif;
-  }
-
-  img {
-    border-radius: 10%;
-  }
 
 
   #button {
@@ -93,4 +79,4 @@ body {
 
   a:link {
     text-decoration: none;
-  }
+  }*/

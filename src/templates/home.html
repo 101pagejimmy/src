@@ -13,10 +13,15 @@ fieldset {
 {% endblock style %}
 </style>
 
-{% block content %}
 
+{% block extrahead %}
 <script src="{% static 'js/core.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
+{% endblock extrahead %}
+
+{% block content %}
+
+
 
     <!-- Page-->
     <div class="page text-center">
@@ -57,9 +62,9 @@ fieldset {
         <!-- Swiper-->
         <div data-height="" data-min-height="400px" data-simulate-touch="false" data-slide-effect="fade" class="swiper-container swiper-slider">
           <div class="swiper-wrapper">
-            <div data-slide-bg="static/img/backgrounds/sanfrancisco.jpg" class="swiper-slide"></div>
-            <div data-slide-bg="static/img/backgrounds/sanfrancisco2.jpg" class="swiper-slide"></div>
-            <div data-slide-bg="static/img/backgrounds/seattle.jpg" class="swiper-slide"></div>
+            <div data-slide-bg="{% static 'img/backgrounds/sanfrancisco.jpg' %}" class="swiper-slide"></div>
+            <div data-slide-bg="{% static 'img/backgrounds/sanfrancisco2.jpg' %}" class="swiper-slide"></div>
+            <div data-slide-bg="{% static 'img/backgrounds/seattle.jpg' %}" class="swiper-slide"></div>
           </div>
           <div class="swiper-caption-absolute">
             <div class="shell">
@@ -119,7 +124,7 @@ fieldset {
               <div class="cell-sm-5 cell-md-4">
                 <!-- Box Offer-->
                 <div data-wow-delay=".2s" class="box-offer wow fadeInLeft">
-                  <div class="box-offer-img-wrap"><a href="tours-single.html"><img src="static/img/backgrounds/seattle.jpg" width="370" height="310" alt="" class="img-responsive center-block"></a></div>
+                  <div class="box-offer-img-wrap"><a href="tours-single.html"><img src="{% static 'img/backgrounds/seattle.jpg' %}" width="370" height="310" alt="" class="img-responsive center-block"></a></div>
                   <div class="box-offer-caption text-left">
                     <div class="pull-left">
                       <div class="box-offer-title text-ubold"><a href="tours-single.html" class="text-gray-base">Seattle</a></div>
@@ -141,7 +146,7 @@ fieldset {
               <div class="cell-sm-5 cell-md-4 offset-top-30 offset-sm-top-0">
                 <!-- Box Offer-->
                 <div data-wow-delay=".2s" class="box-offer wow bounceIn">
-                  <div class="box-offer-img-wrap"><a href="tours-single.html"><img src="static/img/backgrounds/portland.jpg" width="370" height="310" alt="" class="img-responsive center-block"></a></div>
+                  <div class="box-offer-img-wrap"><a href="tours-single.html"><img src="{% static 'img/backgrounds/portland.jpg' %}" width="370" height="310" alt="" class="img-responsive center-block"></a></div>
                   <div class="box-offer-caption text-left">
                     <div class="pull-left">
                       <div class="box-offer-title text-ubold"><a href="tours-single.html" class="text-gray-base">Portland</a></div>
@@ -163,7 +168,7 @@ fieldset {
               <div class="cell-sm-5 cell-md-4 offset-top-30 offset-md-top-0">
                 <!-- Box Offer-->
                 <div data-wow-delay=".2s" class="box-offer wow fadeInRight">
-                  <div class="box-offer-img-wrap"><a href="tours-single.html"><img src="static/img/backgrounds/sanfrancisco.jpg" width="370" height="310" alt="" class="img-responsive center-block"></a></div>
+                  <div class="box-offer-img-wrap"><a href="tours-single.html"><img src="{% static 'img/backgrounds/sanfrancisco.jpg' %}" width="370" height="310" alt="" class="img-responsive center-block"></a></div>
                   <div class="box-offer-caption text-left">
                     <div class="pull-left">
                       <div class="box-offer-title text-ubold"><a href="tours-single.html" class="text-gray-base">San Francisco</a></div>
@@ -192,7 +197,7 @@ fieldset {
         <section data-wow-delay=".2s" class="wow fadeIn">
           <!-- RD Parallax-->
           <div data-on="false" data-md-on="true" class="rd-parallax">
-            <div data-speed="0.25" data-type="media" data-url="static/img/backgrounds/background-20-1920x900.jpg" class="rd-parallax-layer"></div>
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-20-1920x900.jpg' %}" class="rd-parallax-layer"></div>
             <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
               <div class="bg-overlay-inverse-md-darker">
                 <div class="shell section-80 section-md-top-70">
@@ -416,14 +421,6 @@ fieldset {
         </div>
       </div>
 
-<script>
-      {% block jquery %}
-        $( "#datepicker" ).datepicker();
-        document.getElementById('whereto').style.height="50px";
-        document.getElementById('whereto').style.fontSize="10pt";
-        document.getElementById('whereto').style.width="100%";
-      {% endblock %}
-</script>
 
 {% endblock %}
 

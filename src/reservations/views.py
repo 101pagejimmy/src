@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http import HttpResponseForbidden, HttpResponseBadRequest, HttpResponse
+from django.http import HttpResponseForbidden, HttpResponseBadRequest, HttpResponse, HttpRequest
 from django.template import RequestContext
 from django.conf import settings
 import time
@@ -11,16 +11,51 @@ from json import JSONEncoder
 from django.core.serializers import serialize
 from django.db.models.query import QuerySet
 from django.forms.models import model_to_dict
-from .models import *
+from reservations.models import Reservation, ReservationDay, Holiday, SimpleReservation
 from django.db.models import F
 from django.utils.translation import ugettext as _
-from . import get_form, reservationModel
 from django import http
 import simplejson as json
 from django.views.generic import View
 import calendar
-from django.core.mail import send_mail
+from .utils import send_email
 
+
+
+#_______________________________________________________
+
+from .forms import TemplatedForm
+from django.contrib import admin
+# Default reservation model
+reservationModel = SimpleReservation
+
+
+class DefaultReservationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'date')
+    # list_filter = ('date',)
+    date_hierarchy = 'date'
+
+
+def get_form():
+    """Returns templated model form for model that is currently set as reservationModel"""
+    class ReservationForm(TemplatedForm):
+        class Meta:
+            model = reservationModel
+            # exclude fields from standard Reservation model (show only extra ones in form)
+            exclude = ('user', 'date', 'created', 'updated', )
+    return ReservationForm
+
+
+def update_model(newModel, newAdmin=None):
+    """Update reservationModel variable and update Django admin to include it"""
+    global reservationModel
+    reservationModel = newModel
+    from django.contrib import admin
+    if not reservationModel in admin.site._registry:
+        admin.site.register(reservationModel, DefaultReservationAdmin if not newAdmin else newAdmin)
+
+
+#_______________________________________________________
 
 class DjangoJSONEncoder(JSONEncoder):
     def default(self, obj):
@@ -117,7 +152,7 @@ class Reservation(JSONResponseMixin, View):
         reservation.save()
 
         # Send email to user that the reservation has been sucessfully placed
-        send_mail(request.user.email, _('New booking | %s' % settings.APP_SHORTNAME), 'email_new.html',
+        send_email(request.user.email, _('New booking | %s' % settings.APP_SHORTNAME), 'email_new.html',
             {'name': request.user.username,
              'date': date,
              'reservation_id': reservation.id,
@@ -155,10 +190,15 @@ class Reservation(JSONResponseMixin, View):
     @method_decorator(login_required)
     def get(self, request):
         """Get all user reservations for particular year"""
-        year = int(request.REQUEST['year'])
+        print(request.GET)
+        # print(request.GET)
+        # year = int(request.GET['year'])
+
         reservations = reservationModel.objects.filter(
-            date__gte=datetime.date(year, 1, 1),
-            date__lte=datetime.date(year, 12, 31),
+            # date__gte=datetime.date(year, 1, 1),
+            # date__lte=datetime.date(year, 12, 31),
+            date__gte=datetime.date(2017, 1, 1),
+            date__lte=datetime.date(2017, 12, 31),
             user=request.user)
         # Convert reservations to dict for easier JSON seralization
         reservations_dict = []
@@ -173,7 +213,7 @@ class Reservation(JSONResponseMixin, View):
 
 def get_holidays(request):
     """Get holiday days in particular year"""
-    year = int(request.REQUEST['year'])
+    year = int(request.GET['year'])
     holidays = Holiday.objects.filter(
             date__gte=datetime.date(year, 1, 1),
             date__lte=datetime.date(year, 12, 31),
@@ -197,7 +237,6 @@ class MonthDetailView(JSONResponseMixin, View):
 @login_required
 def calendar_view(request):
     """Calendar view available for logged in users"""
-    from . import get_form, reservationModel
     form_details = get_form()
     defaults = {
         "spots_total": settings.RESERVATION_SPOTS_TOTAL,

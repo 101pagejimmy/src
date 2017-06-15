@@ -53,7 +53,7 @@ INSTALLED_APPS = (
     #'cities',
 
     #Reservations App
-    #'reservations',
+    'reservations',
 
     #schedule Calander app
     'schedule',
@@ -79,6 +79,9 @@ MIDDLEWARE_CLASSES = (
 
 
 )
+
+
+RESERVATION_SPOTS_TOTAL= 100
 
 ROOT_URLCONF = 'farmtofamily.urls'
 
@@ -163,22 +166,24 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static', 'img', 'pages'),
     os.path.join(BASE_DIR, 'static', 'img', 'places'),
     os.path.join(BASE_DIR, 'static', 'img', 'users'),
-    os.path.join(BASE_DIR, 'static', 'jade'),
-    os.path.join(BASE_DIR, 'static', 'jade', 'elements'),
-    os.path.join(BASE_DIR, 'static', 'jade', 'pages'),
-    os.path.join(BASE_DIR, 'static', 'jade', 'sections'),
+    # os.path.join(BASE_DIR, 'static', 'jade'),
+    # os.path.join(BASE_DIR, 'static', 'jade', 'elements'),
+    # os.path.join(BASE_DIR, 'static', 'jade', 'pages'),
+    # os.path.join(BASE_DIR, 'static', 'jade', 'sections'),
     os.path.join(BASE_DIR, 'static', 'js'),
-    os.path.join(BASE_DIR, 'static', 'sass'),
-    os.path.join(BASE_DIR, 'static', 'sass', 'bootstrap'),
-    os.path.join(BASE_DIR, 'static', 'sass', 'bootstrap', 'mixins'),
-    os.path.join(BASE_DIR, 'static', 'sass', 'custom', ),
-    os.path.join(BASE_DIR, 'static', 'sass', 'custom', 'mixins'),
-    os.path.join(BASE_DIR, 'static', 'sass', 'plugins' ),
-    os.path.join(BASE_DIR, 'static', 'sass', 'plugins', 'rd-navbar_includes' ),
+    # os.path.join(BASE_DIR, 'static', 'sass'),
+    # os.path.join(BASE_DIR, 'static', 'sass', 'bootstrap'),
+    # os.path.join(BASE_DIR, 'static', 'sass', 'bootstrap', 'mixins'),
+    # os.path.join(BASE_DIR, 'static', 'sass', 'custom', ),
+    # os.path.join(BASE_DIR, 'static', 'sass', 'custom', 'mixins'),
+    # os.path.join(BASE_DIR, 'static', 'sass', 'plugins' ),
+    # os.path.join(BASE_DIR, 'static', 'sass', 'plugins', 'rd-navbar_includes' ),
     os.path.join(BASE_DIR, 'schedule', 'static', ),
     os.path.join(BASE_DIR, 'schedule', 'static', 'images' ),
-
-)
+    # os.path.join(BASE_DIR, 'reservations', 'static', 'css' ),
+    # os.path.join(BASE_DIR, 'reservations', 'static', 'js' ),
+    # os.path.join(BASE_DIR, 'reservations', 'static', 'js', 'javascripts', ),
+                    )
 
 
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')

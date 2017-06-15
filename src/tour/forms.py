@@ -14,29 +14,10 @@ class OccurrenceForm(ModelForm):
         event = Event.objects.filter(creator = guide)
         self.fields['event'].queryset = event
 
-#________________________________IN THE WORKS______________________________________
-    # def __init__(self, guide, *args, **kwargs):
-    #     super(OccurrenceForm, self).__init__(*args, **kwargs)
-    #     eventdic={}
-    #     event = Event.objects.filter(creator = guide)
-    #     for obj in event:
-    #         obj.get_occurrences(pytz.utc.localize(datetime.datetime(2011, 8, 15, 8, 15, 12, 0)), pytz.utc.localize(datetime.datetime(2020, 8, 15, 8, 15, 12, 0)))
-    #         for obj_1 in obj.get_occurrences(pytz.utc.localize(datetime.datetime(2011, 8, 15, 8, 15, 12, 0)), pytz.utc.localize(datetime.datetime(2020, 8, 15, 8, 15, 12, 0))):
-    #             eventdic.setdefault(key,[]).append(obj_1.title)
-#________________________________IN THE WORKS______________________________________
     class Meta:
         model = Occurrence
         fields = ['event']
 
-# class NewEventForm(ModelForm):
-#     class Meta:
-#         model = 
-
-
-class EventForm(ModelForm):
-    class Meta:
-        model = Event
-        fields = ['start', 'end', 'title', 'creator']
 
 class GuideForm(ModelForm):
     class Meta:
@@ -56,6 +37,17 @@ class GuideBookingForm(ModelForm):
             ),
         }
 
-    
+#____________________IN THE WORKS FOR BOOKING_____________________________________
 
-BookingFormSet = modelformset_factory(Guide, form=GuideBookingForm, extra=0)
+class OccurrenceBookingForm(ModelForm):
+    class Meta:
+        model = Occurrence
+
+        fields = ['spots_free']
+        widgets = {
+            'spots_free': forms.TextInput(
+                attrs={'id': 'post-text-occurrence', 'required': True, 'placeholder':  'How many people?', 'label': 'How mansy People'}
+            ),
+        }
+
+#____________________IN THE WORKS FOR BOOKING_____________________________________

@@ -2,9 +2,37 @@
 {% load scheduletags i18n %}
 {% load static %}
 
+<style>
+{% block style %}
+fieldset {
+    border: 0px solid #dddddd;
+    padding: 1.25rem;
+    margin: 1.125rem 0;
+}
+
+.btn {
+    min-width: 100px;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 10;
+    border-radius: 30px;
+    transition: .3s ease-out;
+    line-height: 0
+    }
+
+{% endblock style %}
+</style>
+
+{% block extrahead %}
+<script type="text/javascript" src="{% static 'schedule.js' %}"></script>
+{% endblock %}
+
+
 {% block content %}
 {% include "navbar.html" %}
 {% include "schedule/_dialogs.html" %}
+
+<div class="container">
 
 <div class="row row-centered">
   <a href="{% url 'month_calendar' calendar.slug %}{% querystring_for_date period.start 2 %}">
@@ -24,9 +52,12 @@
       </a>
     </div>
 </div>
+<br>
 
 <div class="row row-centered">
+<br>
   {% for day in period.get_days %}
+  <div class="container">
     <div class="col-md-3">
       <div class="row row-centered">
         <a href="{% url 'day_calendar' calendar.slug %}{% querystring_for_date day.start 3 %}">
@@ -39,7 +70,12 @@
           {% daily_table day %}
       {% endif %}
     </div>
+    </div>
+    <hr><br>
   {% endfor %}
 </div>
+
+</div>
+
 
 {% endblock %}

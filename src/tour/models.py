@@ -38,12 +38,12 @@ class Guide(models.Model):
     secondary_language = models.CharField(max_length=100, null=True, blank=True, choices=CHOICE_FIELDS)
     #Use the Google Maps Location Finder to always have this found. This may work for now.
     meet_up_point   = models.CharField(max_length=1000, null=True, blank=True)
-    events          = models.ManyToManyField(Event,
-            limit_choices_to={'creator_id': True},
-            blank=True,
-            null=True,
-            verbose_name=("events"),
-            related_name=('events'),)
+    # events          = models.ManyToManyField(Event,
+    #         limit_choices_to={'creator_id': True},
+    #         blank=True,
+    #         null=True,
+    #         verbose_name=("events"),
+    #         related_name=('events'),)
 
     #vacation       = models.BooleanField(default=False)
     #image           = models.ImageField(upload_to=upload_location, null=True, blank=True, width_field="width_field", height_field="height_field")
@@ -54,7 +54,7 @@ class Guide(models.Model):
     timestamp       = models.DateTimeField(auto_now=False, auto_now_add=True, null=True, blank=True)
     slug            = models.SlugField(unique=True)
     
-    def __unicode__(self):
+    def __str__(self):
         name = str(self.first_name)
         return name
 
@@ -106,6 +106,6 @@ class GuideImage(models.Model):
     guide = models.ForeignKey(Guide)
     image = models.ImageField(upload_to=image_upload_to)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.guide.first_name
 #_____________________IN THE WORKS________________________________________________________

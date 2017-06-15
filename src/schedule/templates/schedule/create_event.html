@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
 
+{% block extrahead %}
+
+{% endblock extrahead %}
+<script src="{% static 'jquery-timepicker/jquery.ui.timepicker.js' %}"></script>
 {% block content %}
+
 {% include 'navbar.html' %}
 <div class="container">
 
@@ -27,9 +33,11 @@
 <script>
 
       {% block jquery %}
-        
+
+			$('id_start_1').timepicker();
+
       {% endblock %}
 </script>
 
 
-{% endblock %}
+{% endblock content %}

@@ -8,7 +8,8 @@
 {% block content %}
 
 {% include 'navbar.html' %}
-
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
 
 <!DOCTYPE html>
 <html lang="en" class="wide wow-animation smoothscroll">
@@ -16,6 +17,7 @@
     <!-- Site Title-->
     <title>Login</title>
   </head>
+
   <body>
     <!-- Page-->
     <div class="page text-center">
@@ -38,9 +40,7 @@
                     <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
                       <h5 class="text-ubold text-sm-left">Login</h5>
                       <div class="offset-top-25">
-                  
                           <div class="form-group form-group-xs">
-
                           	<form method="post" action=".">
 							  {% csrf_token %}
 							  {{ form|crispy }}
@@ -82,8 +82,7 @@
 
     <!-- Java script-->
 
-<script src="{% static 'js/core.min.js' %}"></script>
-<script src="{% static 'js/script.js' %}"></script>
+
   </body>
 </html>
 

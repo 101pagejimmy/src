@@ -52,9 +52,6 @@ INSTALLED_APPS = (
     #cities
     #'cities',
 
-    #Reservations App
-    'reservations',
-
     #schedule Calander app
     'schedule',
     'djangobower',
@@ -154,35 +151,7 @@ STATIC_ROOT = os.path.join(os.path.join(os.path.dirname(BASE_DIR), "static_in_en
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'static', 'css' ),
     os.path.join(BASE_DIR, 'static', 'fonts' ),
-    os.path.join(BASE_DIR, 'static', 'img' ),
-    os.path.join(BASE_DIR, 'static', 'img', 'backgrounds' ),
-    os.path.join(BASE_DIR, 'static', 'img', 'blog'), 
-    os.path.join(BASE_DIR, 'static', 'img', 'gallery'), 
-    os.path.join(BASE_DIR, 'static', 'img', 'icons'), 
-    os.path.join(BASE_DIR, 'static', 'img', 'ie8-panel'), 
-    os.path.join(BASE_DIR, 'static', 'img', 'offers'), 
-    os.path.join(BASE_DIR, 'static', 'img', 'pages'),
-    os.path.join(BASE_DIR, 'static', 'img', 'places'),
-    os.path.join(BASE_DIR, 'static', 'img', 'users'),
-    # os.path.join(BASE_DIR, 'static', 'jade'),
-    # os.path.join(BASE_DIR, 'static', 'jade', 'elements'),
-    # os.path.join(BASE_DIR, 'static', 'jade', 'pages'),
-    # os.path.join(BASE_DIR, 'static', 'jade', 'sections'),
-    os.path.join(BASE_DIR, 'static', 'js'),
-    # os.path.join(BASE_DIR, 'static', 'sass'),
-    # os.path.join(BASE_DIR, 'static', 'sass', 'bootstrap'),
-    # os.path.join(BASE_DIR, 'static', 'sass', 'bootstrap', 'mixins'),
-    # os.path.join(BASE_DIR, 'static', 'sass', 'custom', ),
-    # os.path.join(BASE_DIR, 'static', 'sass', 'custom', 'mixins'),
-    # os.path.join(BASE_DIR, 'static', 'sass', 'plugins' ),
-    # os.path.join(BASE_DIR, 'static', 'sass', 'plugins', 'rd-navbar_includes' ),
-    os.path.join(BASE_DIR, 'schedule', 'static', ),
-    os.path.join(BASE_DIR, 'schedule', 'static', 'images' ),
-    # os.path.join(BASE_DIR, 'reservations', 'static', 'css' ),
-    # os.path.join(BASE_DIR, 'reservations', 'static', 'js' ),
-    # os.path.join(BASE_DIR, 'reservations', 'static', 'js', 'javascripts', ),
                     )
 
 
@@ -197,7 +166,10 @@ STATICFILES_FINDERS = (
 BOWER_INSTALLED_APPS = (
     'jquery',
     'jquery-ui',
-    'bootstrap'
+    'bootstrap',
+    'fullcalendar',
+    'moment',
+    'jquery-timepicker'
 )
 
 

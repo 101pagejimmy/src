@@ -88,6 +88,8 @@
 
 {% block content %}
 
+
+
 {% include 'navbar.html' %}
 {% include "schedule/_dialogs.html" %}
 
@@ -98,7 +100,7 @@
     <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
     <li><a data-toggle="tab" href="#menu1">Schedule</a></li>
     <li><a data-toggle="tab" href="#menu2">Reviews</a></li>
-    <!--   <li><a data-toggle="tab" href="#menu3">Booking</a></li> -->
+
   </ul>
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
@@ -110,7 +112,7 @@
           <div>
             <img id='img' class='img-responsive' src='{{ object.get_image_url }}' />
           </div> 
-          <h2>{{instance.first_name}} {{instance.last_name}}</h2>
+          <h3>{{instance.first_name}} {{instance.last_name}}</h3>
           <hr>
           <p>
             Language: {{instance.language}}<br>
@@ -167,8 +169,8 @@
           </div>
         </div>
       </div>
-
       <!-- 2nd MODAL -->
+      
       <hr>
       <div class="container">
         <h1>Reviews</h1>
@@ -223,92 +225,63 @@
       </div>
 
 
-
-
-
       <div id="menu1" class="tab-pane fade">
         <br>
         {% if instance.guide_name == request.user  %}
         <a name="schedule" href="{{calendar}}">Update Schedule
-          <!-- <a name="schedule" href="calendar/calendar/daily/hardiet">Update Schedule -->
           <span class="glyphicon glyphicon-plus" ></span>
         </a>
         {% endif %}
-
         <div class="col-sm-12">
           <div id="calendar"></div><br>
         </div>
-                          <!-- Calendar modal -->
-                          <!--  <a data-toggle="modal" href="#myModal3" class="btn btn-primary">Tour Schedule</a>
-                          <div class="modal fade offset-top-35" id="myModal3">
-                          <div class="modal-dialog offset-top-100">
-                          <div class="modal-content offset-top-100">
-                          <div class="modal-header offset-top-100">
-                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                          <h4 class="modal-title offset-top-100">Guides Tour Schedule</h4>
-                          </div>
-                          <div class="modal-body offset-top-100">
-                          <div id="calendar"></div>
-                          </div>
-                          <div class="modal-footer">
-                          <a href="#" data-dismiss="modal" class="btn">Close</a>  
-                          </div>
-                          </div>
-                          </div>
-                          </div> -->
-                          <!-- Calendar modal -->
       </div>
 
 
 
 
-<div id="menu2" class="tab-pane fade">
-  <div class="container">
-    <br>     
-    <div class="container">
-      {% user_has_reviewed instance request.user.id as has_reviewed %}
-      {% if has_reviewed %}
-      <em><p>You have already reviewed {{ instance.first_name }}.</p></em>
-      {% else %}
-      <p><a href="{% url 'review_create' content_type='guide' object_id=instance.pk %}">Review {{ instance.first_name }}</a></p>
-      {% endif %}
-      <div class="col-sm-11">
-        {% get_review_count object as review_count %}
-        <strong><p>{{ review_count }} users have reviewed {{instance.first_name}} so far & {% total_review_average object 100 as percentage %}
-          {{ percentage|floatformat:"0" }}% of our users recommend {{instance.first_name}}!</p></strong>
-          <hr>
-        </div>
-      </div>
-      <br>
-      <div class="container">
-        {% get_review_count object as review_count %}
-        <div class="col-sm-11">
-          {% get_reviews object as reviews %}
-          {% for review in reviews %}
-          <br>
-          <div class="col-sm-6">
-            <p>
-              {% if review.content %}
-              By <strong>{{ review.user}}</strong> <br>
-              <font size="3">{{ review.content|truncatewords:'50'|linebreaks }}</font>
-              {% else %}
-              Reviewed without description.
-              {% endif %}
-            </p>
-            <a href="{% url 'review_detail' pk=review.pk %}">Read More...</a>
-            <hr>
+      <div id="menu2" class="tab-pane fade">
+        <div class="container">
+          <br>     
+          <div class="container">
+            {% user_has_reviewed instance request.user.id as has_reviewed %}
+            {% if has_reviewed %}
+            <em><p>You have already reviewed {{ instance.first_name }}.</p></em>
+            {% else %}
+            <p><a href="{% url 'review_create' content_type='guide' object_id=instance.pk %}">Review {{ instance.first_name }}</a></p>
+            {% endif %}
+            <div class="col-sm-11">
+              {% get_review_count object as review_count %}
+              <strong><p>{{ review_count }} users have reviewed {{instance.first_name}} so far & {% total_review_average object 100 as percentage %}
+                {{ percentage|floatformat:"0" }}% of our users recommend {{instance.first_name}}!</p></strong>
+                <hr>
+              </div>
+            </div>
+            <br>
+            <div class="container">
+              {% get_review_count object as review_count %}
+              <div class="col-sm-11">
+                {% get_reviews object as reviews %}
+                {% for review in reviews %}
+                <br>
+                <div class="col-sm-6">
+                  <p>
+                    {% if review.content %}
+                    By <strong>{{ review.user}}</strong> <br>
+                    <font size="3">{{ review.content|truncatewords:'50'|linebreaks }}</font>
+                    {% else %}
+                    Reviewed without description.
+                    {% endif %}
+                  </p>
+                  <a href="{% url 'review_detail' pk=review.pk %}">Read More...</a>
+                  <hr>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
           </div>
-          {% endfor %}
         </div>
-      </div>
-    </div>
   </div>
-
-
-
-
-
-</div>
 </div>
 
 
@@ -318,7 +291,7 @@
 
   $('#calendar').fullCalendar({
 // put your options and callbacks here
-events: '/schedule/api/occurrences?calendar_slug=hardiet'
+events: '/schedule/api/occurrences?calendar_slug=talia'
 })
 
   {% endblock %}

@@ -81,8 +81,6 @@
 
 {% block extrahead %}
 <link rel='stylesheet' type='text/css' href="{% static 'fullcalendar/dist/fullcalendar.css' %}" />
-<script type='text/javascript' src="{% static 'moment/moment.js' %}"></script>
-<script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
 {% endblock extrahead %}
 
 
@@ -285,13 +283,16 @@
 </div>
 
 
+<script type='text/javascript' src="{% static 'moment/moment.js' %}"></script>
+<script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
+
 <script>
   {% block jquery %}
 
 
   $('#calendar').fullCalendar({
 // put your options and callbacks here
-events: '/schedule/api/occurrences?calendar_slug=talia'
+events: '/schedule/api/occurrences?calendar_slug=hardiet'
 })
 
   {% endblock %}

@@ -31,9 +31,9 @@ fieldset {
                 <!-- RD Navbar Toggle-->
                 <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
                 <!-- RD Navbar Brand-->
-                <div class="rd-navbar-brand veil reveal-md-block"><a href="index.html" class="brand-name"><img width="130" height="15" src="{% static 'pretiumlogo.png' %}" alt=""></a></div>
+                <div class="rd-navbar-brand veil reveal-md-block"><a href="index.html" class="brand-name"><img width="70" height="30" src="{% static 'pretiumlogo.png' %}" alt=""></a></div>
                 <!-- RD Navbar Brand-->
-                <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block"><a href="index.html" class="brand-name"><img width="130" height="15" src="" alt=""></a></div>
+                <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block"><a href="index.html" class="brand-name"><img width="70" height="30"" src="" alt=""></a></div>
               </div>
               <div class="rd-navbar-nav-wrap">
                 <!-- RD Navbar Nav-->
@@ -84,7 +84,13 @@ fieldset {
                         <input id="index-departure" type="text" name="departure" class="form-control" value='{{ request.GET.q }}'>
                       </div>
                       <div class="form-group form-group-xs form-inline-item">
+                      
                         <label for="index-budget" class="form-label">Language</label>
+<!--                         <select>
+                          <option value="en">English</option>
+                          <option value="rs">Russian</option>
+                          <option value="mercedes">Spanish</option>
+                        </select> -->
                         <input id="index-budget" type="text" name="budget" class="form-control" value='{{ request.GET.q }}'>
                       </div>
                       <div class="form-inline-item offset-top-15 offset-sm-top-0">
@@ -419,10 +425,17 @@ fieldset {
 
 
 
-
+<script src="{% static 'jquery-ui/ui/widgets/datepicker.js' %}"></script>
 
 <script src="{% static 'js/core.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
+
+<script>
+      {% block jquery %}
+      $('#index-departure').datepicker();
+      {% endblock %}
+</script>
+
 
 
 {% endblock %}

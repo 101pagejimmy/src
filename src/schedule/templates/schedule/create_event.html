@@ -5,7 +5,10 @@
 {% block extrahead %}
 
 {% endblock extrahead %}
-<script src="{% static 'jquery-timepicker/jquery.ui.timepicker.js' %}"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <!-- Date Picker -->
 {% block content %}
 
 {% include 'navbar.html' %}
@@ -29,13 +32,11 @@
 </div>
 
 
-
+<script src="{% static 'jquery-timepicker/jquery.ui.timepicker.js' %}"></script>
 <script>
-
       {% block jquery %}
-
-			$('id_start_1').timepicker();
-
+			$('#id_start_1').timepicker();
+			$('#id_end_1').timepicker();
       {% endblock %}
 </script>
 

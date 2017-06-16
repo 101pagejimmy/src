@@ -11,14 +11,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta charset="utf-8">
 
-
-
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"> -->
+<!-- Stylesheets CSS -->
+<link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap-theme.min.css' %}">
+<link rel="stylesheet" href="{% static 'jquery-ui/themes/flick/jquery-ui.min.css' %}">
 <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:400,400i,700,700i,900,900i">
+<!-- <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:400,400i,700,700i,900,900i"> -->
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!-- Stylesheets CSS -->
 
 
 <!-- Django-Shedular -->
@@ -58,8 +57,9 @@
 
 
 <script>
-$.noConflict();
+
 	$(document).ready(function(){
+		$.noConflict();
 		{% block jquery %}
 
 		{% endblock %}

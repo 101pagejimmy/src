@@ -40,9 +40,9 @@
     font-family:  Century, sans-serif;
   }
   
-  #main-body {
+/*  #main-body {
     background-color: white
-  }
+  }*/
 
   a:link {
     text-decoration: none;
@@ -53,9 +53,9 @@
   a:link { color:black; text-decoration:none; font-weight:normal; }
   a:hover { text-decoration:none; font-weight:normal; }
 
-  .thumbnail {
+/*  .thumbnail {
     background-color: transparent;
-  }
+  }*/
 
 .box-offer-left.box-offer .box-offer-caption {
     padding-bottom: 0px;
@@ -203,10 +203,10 @@
                         </div>
                       </div>
                       <div class="form-blog-search">
-                        <button class="form-search-submit"><span><img src="{% static 'icons/icon-35-19x17.png' %}" width="19" height="17" alt="" class="img-responsive center-block"></span></button>
+                        <button class="form-search-submit"><span><img src="{% static 'icons/icon-35-19x17.png' %}" width="19" height="17" class="img-responsive center-block"></span></button>
                         <div class="form-group form-group-xs">
-                          <label for="tours-arrival" class="form-label form-search-label form-label-sm">Arrival</label>
-                          <input id="tours-arrival" type="text" class="form-search-input input-sm form-control">
+                          <label for="tours-arrival" class="form-label form-search-label form-label-sm" >Arrival</label>
+                          <input id="tours-arrival" id="datepicker" type="text" class="form-search-input input-sm form-control" >
                         </div>
                       </div>
                       <div class="form-blog-search">
@@ -234,6 +234,15 @@
           </div>
         </section>
       </main>
+
+
+<script src="{% static 'jquery-ui/ui/widgets/datepicker.js' %}"></script>
+
+<script>
+{% block jquery %}
+        $('#datepicker').datepicker().noconflict;
+{% endblock %}
+</script>
 
 
 

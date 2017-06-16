@@ -5,6 +5,38 @@
 
 
 {% block content %}
+{% include 'navbar.html' %}
+
+
+      <!-- Page Content-->
+      <main class="page-content">
+        <!-- Sign Up-->
+        <section>
+          <!-- RD Parallax-->
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="images/backgrounds/background-25-1920x900.jpg" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+              <div class="shell section-80 section-md-top-135 section-md-bottom-145">
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-4">
+                    <!-- Box-->
+                    <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
+                      <h5 class="text-ubold text-sm-left">Sign Up</h5>
+                      <div class="offset-top-25">
+                        <form class="rd-mailform" method="post" action=".">
+                            {% csrf_token %}
+  							{{ form|crispy }}
+  							<input class='btn btn-block btn-primary' type="submit" value="{% trans 'Join' %}" />
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
 
 
 <br/><br/><br/><hr/><hr/><hr/>

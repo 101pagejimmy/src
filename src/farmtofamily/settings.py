@@ -170,7 +170,9 @@ BOWER_INSTALLED_APPS = (
     'fullcalendar',
     'moment',
     'jquery-timepicker',
-    'bootstrap-datepicker'
+    'bootstrap-datepicker',
+    'mdi',
+    'fontawesome'
 )
 
 

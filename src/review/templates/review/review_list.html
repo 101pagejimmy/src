@@ -4,6 +4,7 @@
 {% block title %}{% trans "Reviews" %}{% endblock %}
 
 {% block content %}
+{% include 'navbar.html' %}
     <h1>{% trans "Reviews" %}</h1>
     <ul>
         {% for review in object_list %}

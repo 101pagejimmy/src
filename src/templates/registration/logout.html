@@ -2,5 +2,37 @@
 {% load i18n %}
 
 {% block content %}
-<p class='lead' style="text-align: center;">You have successfully logged out.</p><p class='lead' style="text-align: center"><a href="{% url 'auth_login' %}">Login</a></p></p>
+{% include 'navbar.html' %}
+
+  <!-- Page Content-->
+      <main class="page-content">
+        <!-- Forgot Password?-->
+        <section>
+          <!-- RD Parallax-->
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="images/backgrounds/background-18-1920x900.jpg" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+              <div class="shell section-80 section-md-145">
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-4 text-left">
+                    <!-- Box-->
+                    <div class="box box-lg box-lg-variant-2 bg-white">
+                      <div class="offset-top-4">
+                      </div>
+                      <div class="offset-top-30">
+                        <p class='lead'>You have successfully logged out.</p>
+                        <p class='lead'><a href="{% url 'auth_login' %}">Login</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+
+
+
 {% endblock %}

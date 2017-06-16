@@ -10,6 +10,13 @@ fieldset {
     padding: 1.25rem;
     margin: 1.125rem 0;
 }
+
+
+.bg-white {
+    background: #fff;
+    fill: #fff;
+}
+
 {% endblock style %}
 </style>
 
@@ -60,7 +67,7 @@ fieldset {
           <div class="swiper-wrapper">
             <div data-slide-bg="{% static 'img/backgrounds/sanfrancisco.jpg' %}" class="swiper-slide"></div>
             <div data-slide-bg="{% static 'img/backgrounds/sanfrancisco2.jpg' %}" class="swiper-slide"></div>
-            <div data-slide-bg="{% static 'img/backgrounds/seattle.jpg' %}" class="swiper-slide"></div>
+            <div data-slide-bg="{% static 'img/backgrounds/seattle-pretty.jpg' %}" class="swiper-slide"></div>
           </div>
           <div class="swiper-caption-absolute">
             <div class="shell">
@@ -84,9 +91,8 @@ fieldset {
                         <input id="index-departure" type="text" name="departure" class="form-control" value='{{ request.GET.q }}'>
                       </div>
                       <div class="form-group form-group-xs form-inline-item">
-                      
                         <label for="index-budget" class="form-label">Language</label>
-<!--                         <select>
+<!--                         <select id="index-budget" type="text" name="budget" class="form-control" value='{{ request.GET.q }}'>
                           <option value="en">English</option>
                           <option value="rs">Russian</option>
                           <option value="mercedes">Spanish</option>

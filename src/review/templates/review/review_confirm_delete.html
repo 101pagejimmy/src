@@ -3,7 +3,8 @@
 
 {% block title %}{% trans "Delete review" %}{% endblock %}
 
-{% block main %}
+{% block content %}
+{% include 'navbar.html' %}
     <h1>{% trans "Delete review" %}</h1>
     <form method="post" action=".">
         {% csrf_token %}

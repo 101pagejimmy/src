@@ -18,12 +18,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'taylorhardie16@gmail.com'
-EMAIL_HOST_PASSWORD = '.'
+EMAIL_HOST_PASSWORD = 'h@rd@s@motherfucker'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
 
 
 # Application definition
@@ -152,6 +152,10 @@ STATIC_ROOT = os.path.join(os.path.join(os.path.dirname(BASE_DIR), "static_in_en
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'static', 'fonts' ),
+    os.path.join(BASE_DIR, 'static', 'sass', 'bootstrap' ),
+    os.path.join(BASE_DIR, 'static', 'sass', 'custom' ),
+    os.path.join(BASE_DIR, 'static', 'sass', 'plugins', 'rd-navbar_includes' ),
+
                     )
 
 

@@ -6,6 +6,7 @@ from django.conf import settings
 from datetime import datetime, timezone
 from django import forms
 from schedule.views import Event
+import datetime
 
 from django.core.exceptions import ImproperlyConfigured
 from django.contrib import messages
@@ -24,14 +25,20 @@ import os
 import string
 
 import json
-from schedule.models.events import Event, EventRelation
+from schedule.models.events import Event, EventRelation, Occurrence
 
 from .models import Guide
 from .forms import GuideForm, GuideBookingForm, OccurrenceForm, OccurrenceBookingForm
 
 
+from django.core.mail import send_mail
+
 from io import StringIO
 import csv
+
+
+from schedule.models.calendars import Calendar
+import pytz
 
 # Create your views here.
 
@@ -144,7 +151,6 @@ class FilterMixin(object):
 
 class GuideListView(FilterMixin, ListView):
 	model = Guide
-	
 	queryset = Guide.objects.all()
 	filter_class = GuideFilterForm
 
@@ -155,6 +161,8 @@ class GuideListView(FilterMixin, ListView):
 		context["filter_form"] = GuideFilterForm(data=self.request.GET or None)
 
 		queryset = Guide.objects.get_queryset()
+		
+#______________________IN THE WORKS FOR PAGINATION__________________
 		paginator = Paginator(queryset, 5)
 		page = self.request.GET.get('page') 
 		try: 
@@ -164,6 +172,8 @@ class GuideListView(FilterMixin, ListView):
 		except EmptyPage:
 			document = paginator.page(paginator.num_pages)
 		context['document'] = document		
+#______________________IN THE WORKS FOR PAGINATION__________________
+
 
 		return context
 
@@ -184,12 +194,60 @@ class GuideListView(FilterMixin, ListView):
 
 
 
+
+
+
+#_______________________IN THE WORKS FOR EMAIL BOOKING________________
+
+
+def booking_email(user_name, user_email, bookings):
+	title = 'Contact Us'
+	title_align_center = True
+
+	#user_email = request.user.email
+	user_name = user_name
+	subject = 'Free Walking Tour Guide Booking'
+	form_message = 'You have booked %s spot/s for this date from this time to that time. Please show up at least 30 minutes early to this place' %(bookings)
+	from_email = settings.EMAIL_HOST_USER
+	total_bookings = bookings
+	to_email = [from_email, 'hardiet@oregonstate.edu']
+	contact_message = "%s: %s via %s"%( 
+			user_name,
+			total_bookings, 
+			from_email)
+	some_html_message = str(form_message)
+		
+
+		
+
+	try:
+		send_mail(subject, 
+		contact_message, 
+		from_email, 
+		to_email, 
+		html_message=some_html_message,
+		fail_silently=True)
+		return HttpResponseRedirect('/')
+	except BadHeaderError:
+		return HttpResponse('Invalid header found.')
+
+	context = {
+		"form": form,
+		"title": title,
+		"title_align_center": title_align_center,
+	}
+
+	return render(request, "forms.html", context)
+
+
+#_______________________IN THE WORKS FOR EMAIL BOOKING________________
+
+
+
+
 #_____________________IN THE WORKS________________________________________________________
 
-from schedule.models.events import Event, Occurrence
-from schedule.models.calendars import Calendar
-import datetime
-import pytz
+
 class GuideDetailView(DetailView):
 	model = Guide
 
@@ -211,6 +269,7 @@ class GuideDetailView(DetailView):
 		user_calendar = Calendar.objects.get_or_create_calendar_for_object(user, name = str(self.get_object().guide_name))
 		context['calendar'] = user_calendar.get_absolute_url
 		#________CREATES OR GETS TOUR GUIDES CALANDER____________
+
 
 		#________GETS OCCURENCES FOR FOR THE USERS CALANDER____________
 		tours = EventRelation.objects.get_events_for_object(user)
@@ -257,6 +316,10 @@ class GuideDetailView(DetailView):
 			minute = int(occurrence_list[0][4])
 			second = int(occurrence_list[0][5])
 
+
+			booking_email(request.user, request.user.email, spots_free)
+
+
 			tours = EventRelation.objects.get_events_for_object(user)
 			for tour in tours:
 				tour_occurrence = tour.get_occurrence(pytz.utc.localize(datetime.datetime(year, month, day, hour, minute, second)))
@@ -266,3 +329,4 @@ class GuideDetailView(DetailView):
 
 		else:
 			return super(GuideDetailView, self).post(request, *args, **kwargs)
+

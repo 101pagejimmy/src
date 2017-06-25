@@ -7,7 +7,12 @@
 textarea.form-control {
     height: 170px;
     min-height: 250;
-    max-height: 400;
+    max-height: 400;}
+
+.box-lg {
+    padding: 45px 25px;
+    border-radius: 8px;
+    background-color: white;
 {% endblock style %}
 </style>
 
@@ -21,7 +26,7 @@ textarea.form-control {
 <main class="page-content">
         <section>
           <div data-on="false" data-md-on="true" class="rd-parallax">
-            <div data-speed="0.25" data-type="media" data-url="images/backgrounds/background-18-1920x900.jpg" class="rd-parallax-layer"></div>
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-18-1920x900.jpg' %}" class="rd-parallax-layer"></div>
             <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
               <div class="shell section-80 section-md-145">
                 <div class="range range-xs-center">

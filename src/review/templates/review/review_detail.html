@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 {% load i18n %}
-
+{% load static %}
 {% block title %}{{ object }}{% endblock %}
 
 
 <style>
 {% block style %}
+.box-lg {
+    padding: 45px 25px;
+    border-radius: 8px;
+    background-color: white;
 {% endblock style %}
 </style>
 
@@ -16,7 +20,7 @@
 <main class="page-content">
         <section>
           <div data-on="false" data-md-on="true" class="rd-parallax">
-            <div data-speed="0.25" data-type="media" data-url="images/backgrounds/background-18-1920x900.jpg" class="rd-parallax-layer"></div>
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-18-1920x900.jpg' %}" class="rd-parallax-layer"></div>
             <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
               <div class="shell section-80 section-md-145">
                 <div class="range range-xs-center">
@@ -29,16 +33,16 @@
                       </div>
                       <div class="offset-top-30">
 
-                        <h3>{{ object.first }}</h3>
+                        <h5>{{ object.first }}</h5>
                          <small>({{ object.creation_date|date:"SHORT_DATETIME_FORMAT" }})</small>
                         {% if object.content %}
-                            <h3>{{ object.get_user }} wrote:</h3>
+                            <h5>{{ object.user }} wrote:</h5>
                             <p>{{ object.content|linebreaks }}</p>
                         {% else %}
-                            <p>{% blocktrans with user=object.get_user %}{{ user }} reviewed without description.{% endblocktrans %}</p>
+                            <p>{% blocktrans with user=object.user %}{{ user }} reviewed without description.{% endblocktrans %}</p>
                         {% endif %}
                         {% if object.ratings.all %}
-                            <h3><small>Ratings: {% if object.get_average_rating %} ({{ object.get_average_rating }} {% trans "of" %} 5){% endif %}</small></h3>
+                            <h4><small>Ratings: {% if object.get_average_rating %} ({{ object.get_average_rating }} {% trans "of" %} 5){% endif %}</small></h4>
                             <ul>
                                 {% for rating in object.ratings.all %}
                                     <li><strong>{{ rating.category }}: {{ rating.get_value_display }} {% trans "of" %} 5</strong></li>

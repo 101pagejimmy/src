@@ -57,6 +57,10 @@
     background-color: transparent;
   }*/
 
+.box, .box-md {
+    background-color: white;
+}
+
 .box-offer-left.box-offer .box-offer-caption {
     padding-bottom: 0px;
     padding-left: 60px;
@@ -128,6 +132,8 @@
 {% for guide in object_list %}
 
 {% total_review_average guide 100 as percentage %}
+
+
                 <div class="container">
                   <div class="cell-xs-10 cell-sm-6 cell-lg-12 offset-top-30 offset-lg-top-20">
                     <!-- Box Offer-->
@@ -196,21 +202,21 @@
                     <!-- RD Search Form-->
                     <form class="rd-mailform">
                       <div class="form-blog-search">
-                        <button class="form-search-submit"><span><img src="{% static 'icons/icon-34-16x21.png' %}" width="16" height="21" alt="" class="img-responsive center-block"></span></button>
+                        <button class="form-search-submit"><span><img src="{% static 'img/icons/icon-34-16x21.png' %}" width="16" height="21" alt="" class="img-responsive center-block"></span></button>
                         <div class="form-group form-group-xs">
                           <label for="tours-destination" class="form-label form-search-label form-label-sm">Your Destination</label>
                           <input id="tours-destination" type="text" class="form-search-input input-sm form-control">
                         </div>
                       </div>
                       <div class="form-blog-search">
-                        <button class="form-search-submit"><span><img src="{% static 'icons/icon-35-19x17.png' %}" width="19" height="17" class="img-responsive center-block"></span></button>
+                        <button class="form-search-submit"><span><img src="{% static 'img/icons/icon-35-19x17.png' %}" width="19" height="17" class="img-responsive center-block"></span></button>
                         <div class="form-group form-group-xs">
                           <label for="tours-arrival" class="form-label form-search-label form-label-sm" >Arrival</label>
                           <input id="tours-arrival" id="datepicker" type="text" class="form-search-input input-sm form-control" >
                         </div>
                       </div>
                       <div class="form-blog-search">
-                        <button class="form-search-submit"><span><img src="{% static 'icons/icon-36-19x17.png' %}" width="19" height="17" alt="" class="img-responsive center-block"></span></button>
+                        <button class="form-search-submit"><span><img src="{% static 'img/icons/icon-36-19x17.png' %}" width="19" height="17" alt="" class="img-responsive center-block"></span></button>
                         <div class="form-group form-group-xs">
                           <label for="tours-departure" class="form-label form-search-label form-label-sm">Departure</label>
                           <input id="tours-departure" type="text" class="form-search-input input-sm form-control">

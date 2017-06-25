@@ -38,9 +38,9 @@ fieldset {
                 <!-- RD Navbar Toggle-->
                 <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
                 <!-- RD Navbar Brand-->
-                <div class="rd-navbar-brand veil reveal-md-block"><a href="index.html" class="brand-name"><img width="70" height="30" src="{% static 'pretiumlogo.png' %}" alt=""></a></div>
+                <div class="rd-navbar-brand veil reveal-md-block"><a href="/" class="brand-name"><img width="70" height="30" src="{% static 'img/pretiumlogo.png' %}" alt=""></a></div>
                 <!-- RD Navbar Brand-->
-                <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block"><a href="index.html" class="brand-name"><img width="70" height="30"" src="" alt=""></a></div>
+                <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block"><a href="/" class="brand-name"><img width="70" height="30"" src="" alt=""></a></div>
               </div>
               <div class="rd-navbar-nav-wrap">
                 <!-- RD Navbar Nav-->
@@ -81,7 +81,7 @@ fieldset {
                   </div>
                   <div class="offset-top-30 offset-md-top-60 inset-left-20 inset-right-20 inset-sm-left-0 inset-sm-right-0">
                     <!-- Form-->
-                    <form class="rd-mailform form-inline-search" action="/guide_listings" method="get">
+                    <form class="form-inline-search" action="/guide_listings" method="get">
                       <div class="form-group form-group-xs form-inline-item">
                         <label for="index-destination" class="form-label">Your Destination</label>
                         <input  id="index-destination" type="text" name="destination" class="form-control" value='{{ request.GET.q }}'>
@@ -91,13 +91,13 @@ fieldset {
                         <input id="index-departure" type="text" name="departure" class="form-control" value='{{ request.GET.q }}'>
                       </div>
                       <div class="form-group form-group-xs form-inline-item">
-                        <label for="index-budget" class="form-label">Language</label>
+                        <label for="index-language" class="form-label">Language</label>
 <!--                         <select id="index-budget" type="text" name="budget" class="form-control" value='{{ request.GET.q }}'>
                           <option value="en">English</option>
                           <option value="rs">Russian</option>
                           <option value="mercedes">Spanish</option>
                         </select> -->
-                        <input id="index-budget" type="text" name="budget" class="form-control" value='{{ request.GET.q }}'>
+                        <input id="index-language" type="text" name="language" class="form-control" value='{{ request.GET.q }}'>
                       </div>
                       <div class="form-inline-item offset-top-15 offset-sm-top-0">
                         <button type="submit" class="btn btn-primary">Search</button>
@@ -132,10 +132,10 @@ fieldset {
               <div class="cell-sm-5 cell-md-4">
                 <!-- Box Offer-->
                 <div data-wow-delay=".2s" class="box-offer wow fadeInLeft">
-                  <div class="box-offer-img-wrap"><a href="tours-single.html"><img src="{% static 'img/backgrounds/seattle.jpg' %}" width="370" height="310" alt="" class="img-responsive center-block"></a></div>
+                  <div class="box-offer-img-wrap"><a href="/"><img src="{% static 'img/backgrounds/seattle.jpg' %}" width="370" height="310" alt="" class="img-responsive center-block"></a></div>
                   <div class="box-offer-caption text-left">
                     <div class="pull-left">
-                      <div class="box-offer-title text-ubold"><a href="tours-single.html" class="text-gray-base">Seattle</a></div>
+                      <div class="box-offer-title text-ubold"><a href="/" class="text-gray-base">Seattle</a></div>
                     </div>
                     <div class="pull-right">
                       <div class="box-offer-price text-gray-base">$0</div>
@@ -154,10 +154,10 @@ fieldset {
               <div class="cell-sm-5 cell-md-4 offset-top-30 offset-sm-top-0">
                 <!-- Box Offer-->
                 <div data-wow-delay=".2s" class="box-offer wow bounceIn">
-                  <div class="box-offer-img-wrap"><a href="tours-single.html"><img src="{% static 'img/backgrounds/portland.jpg' %}" width="370" height="310" alt="" class="img-responsive center-block"></a></div>
+                  <div class="box-offer-img-wrap"><a href="/"><img src="{% static 'img/backgrounds/portland.jpg' %}" width="370" height="310" alt="" class="img-responsive center-block"></a></div>
                   <div class="box-offer-caption text-left">
                     <div class="pull-left">
-                      <div class="box-offer-title text-ubold"><a href="tours-single.html" class="text-gray-base">Portland</a></div>
+                      <div class="box-offer-title text-ubold"><a href="/" class="text-gray-base">Portland</a></div>
                     </div>
                     <div class="pull-right">
                       <div class="box-offer-price text-gray-base">$0</div>
@@ -176,10 +176,10 @@ fieldset {
               <div class="cell-sm-5 cell-md-4 offset-top-30 offset-md-top-0">
                 <!-- Box Offer-->
                 <div data-wow-delay=".2s" class="box-offer wow fadeInRight">
-                  <div class="box-offer-img-wrap"><a href="tours-single.html"><img src="{% static 'img/backgrounds/sanfrancisco.jpg' %}" width="370" height="310" alt="" class="img-responsive center-block"></a></div>
+                  <div class="box-offer-img-wrap"><a href="/"><img src="{% static 'img/backgrounds/sanfrancisco.jpg' %}" width="370" height="310" alt="" class="img-responsive center-block"></a></div>
                   <div class="box-offer-caption text-left">
                     <div class="pull-left">
-                      <div class="box-offer-title text-ubold"><a href="tours-single.html" class="text-gray-base">San Francisco</a></div>
+                      <div class="box-offer-title text-ubold"><a href="/" class="text-gray-base">San Francisco</a></div>
                     </div>
                     <div class="pull-right">
                       <div class="box-offer-price text-gray-base">$0</div>
@@ -432,9 +432,6 @@ fieldset {
 
 
 <script src="{% static 'jquery-ui/ui/widgets/datepicker.js' %}"></script>
-
-<script src="{% static 'js/core.min.js' %}"></script>
-<script src="{% static 'js/script.js' %}"></script>
 
 <script>
       {% block jquery %}

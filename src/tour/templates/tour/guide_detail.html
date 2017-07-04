@@ -34,6 +34,10 @@
     pointer-events: all;
   }
 
+.modal-body { 
+    position: static; 
+}
+
   {% endblock style %}
 </style>
 
@@ -256,7 +260,7 @@
 
   $('#calendar').fullCalendar({
 // put your options and callbacks here
-events: '/schedule/api/occurrences?calendar_slug=hardiet'
+events: '/schedule/api/occurrences?calendar_slug=talia'
 })
 
   {% endblock %}

@@ -84,11 +84,11 @@ fieldset {
                     <form class="form-inline-search" action="/guide_listings" method="get">
                       <div class="form-group form-group-xs form-inline-item">
                         <label for="index-destination" class="form-label">Your Destination</label>
-                        <input  id="index-destination" type="text" name="destination" class="form-control" value='{{ request.GET.q }}'>
+                        <input  id="index-destination" type="text" name="living" class="form-control" value='{{ request.GET.q }}'>
                       </div>
                       <div class="form-group form-group-xs form-inline-item form-inline-item">
                         <label for="index-departure" id="datepicker" type='text' class="form-label datepicker">Travel Date</label>
-                        <input id="index-departure" type="text" name="departure" class="form-control" value='{{ request.GET.q }}'>
+                        <input id="index-departure" type="text" name="start" class="form-control" value='{{ request.GET.q }}'>
                       </div>
                       <div class="form-group form-group-xs form-inline-item">
                         <label for="index-language" class="form-label">Language</label>
@@ -400,7 +400,7 @@ fieldset {
                   <div class="cell-sm-7">
                     <div class="modal-body-column-content">
                       <div class="team-member">
-                        <div class="team-member-img-wrap veil-sm"><img src="static/img/users/user-01-100x100.jpg" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
+                        <div class="team-member-img-wrap veil-sm"><img src="{% static 'img/users/user-01-100x100.jpg' %}" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
                         <div class="offset-top-15 offset-sm-top-0">
                           <div class="team-member-title text-small text-ubold text-uppercase text-spacing-200 text-gray-base">James Smith</div>
                         </div>

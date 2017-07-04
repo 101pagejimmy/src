@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load review_tags %}
+{% load scheduletags %}
+{% load scheduletags i18n %}
+{% load staticfiles %}
+{% load static %}
+
+{% block content %}
+{% include "navbar.html" %}
+
+
+<div class='container'>
+{% for tour in object_list %}
+<p>tour: {{tour.event.creator}}////Tour: {{tour.start}}</p>
+{%endfor%}
+</div>
+
+{% endblock %}

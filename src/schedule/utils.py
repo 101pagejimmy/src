@@ -169,7 +169,7 @@ def check_occurrence_permissions(function):
         return HttpResponseNotFound('<h1>Page not found</h1>')
     return decorator
 
-
+#____________________IN THE WORKS FOR PERMISSIONS CHECKING_____
 def check_event_permissions(function):
     @wraps(function)
     def decorator(request, *args, **kwargs):
@@ -178,6 +178,7 @@ def check_event_permissions(function):
             return HttpResponseRedirect(settings.LOGIN_URL)
         occurrence, event, calendar = get_objects(request, *args, **kwargs)
         if calendar:
+            print(calendar)
             allowed = (CHECK_EVENT_PERM_FUNC(event, user) and
                        CHECK_CALENDAR_PERM_FUNC(calendar, user))
             if not allowed:
@@ -186,7 +187,7 @@ def check_event_permissions(function):
             return function(request, *args, **kwargs)
         return HttpResponseNotFound('<h1>Page not found</h1>')
     return decorator
-
+#____________________IN THE WORKS FOR PERMISSIONS_________________
 
 def check_calendar_permissions(function):
     @wraps(function)

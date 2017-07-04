@@ -16,6 +16,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 
+from review.models import Review
 from schedule.models.rules import Rule
 from schedule.models.calendars import Calendar
 from schedule.utils import OccurrenceReplacer
@@ -580,18 +581,22 @@ class EventRelation(with_metaclass(ModelBase, *get_model_bases('EventRelation'))
 class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_("event"))
     title = models.CharField(_("title"), max_length=255, blank=True)
+    #creator = models.CharField(_("creator"), null=True)
     #__________________IN THE WORKS FOR BOOKING__________
     reservation_spots = models.IntegerField(_("reservation_spots"), null=True)
     spots_free = models.IntegerField(null=True, default=35)
-    #__________________IN THE WORKS FOR BOOKING__________
     description = models.TextField(_("description"), blank=True)
+    #__________________IN THE WORKS FOR QUERYING BY DATE_____
     start = models.DateTimeField(_("start"), db_index=True)
+    guide = models.ForeignKey('tour.Guide', blank=True, null=True, related_name='guide')
+    #__________________IN THE WORKS FOR QUERYING BY DATE_____
     end = models.DateTimeField(_("end"), db_index=True)
     cancelled = models.BooleanField(_("cancelled"), default=False)
     original_start = models.DateTimeField(_("original start"))
     original_end = models.DateTimeField(_("original end"))
     created_on = models.DateTimeField(_("created on"), auto_now_add=True)
     updated_on = models.DateTimeField(_("updated on"), auto_now=True)
+
 
     class Meta(object):
         verbose_name = _("occurrence")
@@ -611,6 +616,10 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
             self.reservation_spots = self.event.reservation_spots
         if not self.spots_free and self.event.id:
             self.spots_free =self.event.reservation_spots
+        # if not self.creator and self.event.id:
+        #     self.creator =self.event.creator
+
+
 
     def moved(self):
         return self.original_start != self.start or self.original_end != self.end
@@ -705,3 +714,24 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
         return (isinstance(other, Occurrence) and
                 self.original_start == other.original_start and
                 self.original_end == other.original_end)
+
+from tour.models import Guide
+
+# def guide(instance, guide=None):
+#     guide = slugify(instance.guide_name)
+#     if new_slug is not None:
+#         slug = new_slug
+#     qs = Guide.objects.filter(slug=slug).order_by("-pk")
+#     exists = qs.exists()
+#     if exists:
+#         new_slug = "%s-%s" %(slug, qs.first().pk)
+#         return create_slug(instance, new_slug=new_slug)
+#     return slug
+
+
+# def pre_save_post_receiver(sender, instance, *args, **kwargs):
+#     if not instance.slug:
+#         instance.guide = create_slug(instance)
+
+
+# pre_save.connect(pre_save_post_receiver, sender=Occurrence)

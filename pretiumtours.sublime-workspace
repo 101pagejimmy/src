@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"occu",
+				"occurrence"
+			],
+			[
+				"date",
+				"DateFilter"
+			],
+			[
+				"Occu",
+				"Occurrence"
+			],
+			[
 				"book",
 				"booking_email"
 			],
@@ -18,10 +30,6 @@
 			[
 				"jquer",
 				"jquery-ui"
-			],
-			[
-				"occu",
-				"occurrence_list"
 			],
 			[
 				"to",
@@ -130,10 +138,6 @@
 			[
 				"ob",
 				"obj_1"
-			],
-			[
-				"date",
-				"datetime"
 			],
 			[
 				"Occurence",
@@ -510,10 +514,6 @@
 			[
 				"border",
 				"border-top"
-			],
-			[
-				"col-",
-				"col-sm-offset-3"
 			]
 		]
 	},
@@ -523,54 +523,25 @@
 			"file": "src/tour/views.py",
 			"settings":
 			{
-				"buffer_size": 9698,
+				"buffer_size": 11539,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/tour/templates/tour/tour_reservation_email.txt",
+			"file": "src/schedule/templates/schedule/occurrence_list.html",
 			"settings":
 			{
-				"buffer_size": 270,
+				"buffer_size": 372,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "import pytz\nimport datetime\nimport dateutil.parser\nfrom django.utils.six.moves.urllib.parse import quote\n\nfrom django.db.models import Q, F\nfrom django.core.urlresolvers import reverse\nfrom django.http import JsonResponse\nfrom django.shortcuts import get_object_or_404\nfrom django.utils import timezone\nfrom django.http import HttpResponseRedirect, Http404, HttpResponseBadRequest\nfrom django.views.decorators.http import require_POST\nfrom django.views.generic.base import TemplateResponseMixin\nfrom django.views.generic.detail import DetailView\nfrom django.views.generic.edit import (\n    UpdateView, CreateView, DeleteView, ModelFormMixin, ProcessFormView)\nfrom django.utils.http import is_safe_url\nfrom django.conf import settings\n\nfrom schedule.settings import (GET_EVENTS_FUNC, OCCURRENCE_CANCEL_REDIRECT,\n                               EVENT_NAME_PLACEHOLDER, CHECK_EVENT_PERM_FUNC,\n                               CHECK_OCCURRENCE_PERM_FUNC, USE_FULLCALENDAR)\nfrom schedule.forms import EventForm, OccurrenceForm\nfrom schedule.models import Calendar, Occurrence, Event\nfrom schedule.periods import weekday_names\nfrom schedule.utils import (\n    check_event_permissions,\n    check_calendar_permissions,\n    coerce_date_dict,\n    check_occurrence_permissions)\n\n\nclass CalendarViewPermissionMixin(object):\n    @classmethod\n    def as_view(cls, **initkwargs):\n        view = super(CalendarViewPermissionMixin, cls).as_view(**initkwargs)\n        return check_calendar_permissions(view)\n\n\nclass EventEditPermissionMixin(object):\n    @classmethod\n    def as_view(cls, **initkwargs):\n        view = super(EventEditPermissionMixin, cls).as_view(**initkwargs)\n        return check_event_permissions(view)\n\n\n\n\n\nclass OccurrenceEditPermissionMixin(object):\n    @classmethod\n    def as_view(cls, **initkwargs):\n        view = super(OccurrenceEditPermissionMixin, cls).as_view(**initkwargs)\n        return check_occurrence_permissions(view)\n\n\nclass CancelButtonMixin(object):\n    def post(self, request, *args, **kwargs):\n        next_url = kwargs.get('next')\n        self.success_url = get_next_url(request, next_url)\n        if \"cancel\" in request.POST:\n            return HttpResponseRedirect(self.success_url)\n        else:\n            return super(CancelButtonMixin, self).post(request, *args, **kwargs)\n\n\nclass CalendarMixin(CalendarViewPermissionMixin):\n    model = Calendar\n    slug_url_kwarg = 'calendar_slug'\n\n\nclass CalendarView(CalendarMixin, DetailView):\n    template_name = 'schedule/calendar.html'\n\n\nclass FullCalendarView(CalendarMixin, DetailView):\n    template_name = \"fullcalendar.html\"\n\n    def get_context_data(self, **kwargs):\n        context = super(FullCalendarView, self).get_context_data()\n        context['calendar_slug'] = self.kwargs.get('calendar_slug')\n        return context\n\n\nclass CalendarByPeriodsView(CalendarMixin, DetailView):\n    template_name = 'schedule/calendar_by_period.html'\n\n    def get_context_data(self, **kwargs):\n        context = super(CalendarByPeriodsView, self).get_context_data(**kwargs)\n        calendar = self.object\n        period_class = self.kwargs['period']\n        try:\n            date = coerce_date_dict(self.request.GET)\n        except ValueError:\n            raise Http404\n        if date:\n            try:\n                date = datetime.datetime(**date)\n            except ValueError:\n                raise Http404\n        else:\n            date = timezone.now()\n        event_list = GET_EVENTS_FUNC(self.request, calendar)\n\n        local_timezone = timezone.get_current_timezone()\n        period = period_class(event_list, date, tzinfo=local_timezone)\n\n        context.update({\n            'date': date,\n            'period': period,\n            'calendar': calendar,\n            'weekday_names': weekday_names,\n            'here': quote(self.request.get_full_path()),\n        })\n        return context\n\n\nclass OccurrenceMixin(CalendarViewPermissionMixin, TemplateResponseMixin):\n    model = Occurrence\n    pk_url_kwarg = 'occurrence_id'\n    form_class = OccurrenceForm\n\n\nclass OccurrenceEditMixin(CancelButtonMixin, OccurrenceEditPermissionMixin, OccurrenceMixin):\n    def get_initial(self):\n        initial_data = super(OccurrenceEditMixin, self).get_initial()\n        _, self.object = get_occurrence(**self.kwargs)\n        return initial_data\n\n\nclass OccurrenceView(OccurrenceMixin, DetailView):\n    template_name = 'schedule/occurrence.html'\n\n\nclass OccurrencePreview(OccurrenceMixin, ModelFormMixin, ProcessFormView):\n    template_name = 'schedule/occurrence.html'\n\n    def get_context_data(self, **kwargs):\n        context = super(OccurrencePreview, self).get_context_data()\n        context = {\n            'event': self.object.event,\n            'occurrence': self.object,\n        }\n        return context\n\n\nclass EditOccurrenceView(OccurrenceEditMixin, UpdateView):\n    template_name = 'schedule/edit_occurrence.html'\n\n\nclass CreateOccurrenceView(OccurrenceEditMixin, CreateView):\n    template_name = 'schedule/edit_occurrence.html'\n\n\nclass CancelOccurrenceView(OccurrenceEditMixin, ModelFormMixin, ProcessFormView):\n    template_name = 'schedule/cancel_occurrence.html'\n\n    def post(self, request, *args, **kwargs):\n        event, occurrence = get_occurrence(**kwargs)\n        self.success_url = kwargs.get(\n            'next',\n            get_next_url(request, event.get_absolute_url()))\n        if 'cancel' not in request.POST:\n            occurrence.cancel()\n        return HttpResponseRedirect(self.success_url)\n\n\nclass EventMixin(CalendarViewPermissionMixin):\n    model = Event\n    pk_url_kwarg = 'event_id'\n\n\nclass EventEditMixin(CancelButtonMixin, EventEditPermissionMixin, EventMixin):\n    pass\n\n\nclass EventView(EventMixin, DetailView):\n    template_name = 'schedule/event.html'\n\n\nclass EditEventView(EventEditMixin, UpdateView):\n    form_class = EventForm\n    template_name = 'schedule/create_event.html'\n\n    def form_valid(self, form):\n        event = form.save(commit=False)\n        old_event = Event.objects.get(pk=event.pk)\n        dts = datetime.timedelta(\n            minutes=int((event.start - old_event.start).total_seconds() / 60)\n        )\n        dte = datetime.timedelta(\n            minutes=int((event.end - old_event.end).total_seconds() / 60)\n        )\n        event.occurrence_set.all().update(\n            original_start=F('original_start') + dts,\n            original_end=F('original_end') + dte,\n        )\n        event.save()\n        return super(EditEventView, self).form_valid(form)\n\n\nclass CreateEventView(EventEditMixin, CreateView):\n    form_class = EventForm\n    template_name = 'schedule/create_event.html'\n\n    def get_initial(self):\n        date = coerce_date_dict(self.request.GET)\n        initial_data = None\n        if date:\n            try:\n                start = datetime.datetime(**date)\n                initial_data = {\n                    'start': start,\n                    'end': start + datetime.timedelta(minutes=30)\n                }\n            except TypeError:\n                raise Http404\n            except ValueError:\n                raise Http404\n        return initial_data\n\n    def form_valid(self, form):\n        event = form.save(commit=False)\n        event.creator = self.request.user\n        event.calendar = get_object_or_404(Calendar, slug=self.kwargs['calendar_slug'])\n        event.save()\n        return HttpResponseRedirect(event.get_absolute_url())\n\n\nclass DeleteEventView(EventEditMixin, DeleteView):\n    template_name = 'schedule/delete_event.html'\n\n    def get_context_data(self, **kwargs):\n        ctx = super(DeleteEventView, self).get_context_data(**kwargs)\n        ctx['next'] = self.get_success_url()\n        return ctx\n\n    def get_success_url(self):\n        \"\"\"\n        After the event is deleted there are three options for redirect, tried in\n        this order:\n        # Try to find a 'next' GET variable\n        # If the key word argument redirect is set\n        # Lastly redirect to the event detail of the recently create event\n        \"\"\"\n        url_val = 'fullcalendar' if USE_FULLCALENDAR else 'day_calendar'\n        next_url = self.kwargs.get('next') or reverse(url_val, args=[self.object.calendar.slug])\n        next_url = get_next_url(self.request, next_url)\n        return next_url\n\n\ndef get_occurrence(event_id, occurrence_id=None, year=None, month=None,\n                   day=None, hour=None, minute=None, second=None,\n                   tzinfo=None):\n    \"\"\"\n    Because occurrences don't have to be persisted, there must be two ways to\n    retrieve them. both need an event, but if its persisted the occurrence can\n    be retrieved with an id. If it is not persisted it takes a date to\n    retrieve it.  This function returns an event and occurrence regardless of\n    which method is used.\n    \"\"\"\n    if(occurrence_id):\n        occurrence = get_object_or_404(Occurrence, id=occurrence_id)\n        event = occurrence.event\n    elif None not in (year, month, day, hour, minute, second):\n        event = get_object_or_404(Event, id=event_id)\n        date = timezone.make_aware(datetime.datetime(int(year), int(month),\n                                   int(day), int(hour), int(minute),\n                                   int(second)), tzinfo)\n        occurrence = event.get_occurrence(date)\n        if occurrence is None:\n            raise Http404\n    else:\n        raise Http404\n    return event, occurrence\n\n\ndef check_next_url(next_url):\n    \"\"\"\n    Checks to make sure the next url is not redirecting to another page.\n    Basically it is a minimal security check.\n    \"\"\"\n    if not next_url or '://' in next_url:\n        return None\n    return next_url\n\n\ndef get_next_url(request, default):\n    next_url = default\n    if OCCURRENCE_CANCEL_REDIRECT:\n        next_url = OCCURRENCE_CANCEL_REDIRECT\n    _next_url = request.GET.get('next') if request.method in ['GET', 'HEAD'] else request.POST.get('next')\n    if _next_url and is_safe_url(url=_next_url, host=request.get_host()):\n        next_url = _next_url\n    return next_url\n\n\n@check_calendar_permissions\ndef api_occurrences(request):\n    start = request.GET.get('start')\n    end = request.GET.get('end')\n    calendar_slug = request.GET.get('calendar_slug')\n\n    try:\n        response_data = _api_occurrences(start, end, calendar_slug)\n    except (ValueError, Calendar.DoesNotExist) as e:\n        return HttpResponseBadRequest(e)\n\n    return JsonResponse(response_data, safe=False)\n\n\ndef _api_occurrences(start, end, calendar_slug):\n\n    if not start or not end:\n        raise ValueError('Start and end parameters are required')\n    # version 2 of full calendar\n    # TODO: improve this code with date util package\n    if '-' in start:\n        def convert(ddatetime):\n            if ddatetime:\n                ddatetime = ddatetime.split(' ')[0]\n                return datetime.datetime.strptime(ddatetime, '%Y-%m-%d')\n    else:\n        def convert(ddatetime):\n            return datetime.datetime.utcfromtimestamp(float(ddatetime))\n\n    start = convert(start)\n    end = convert(end)\n    # If USE_TZ is True, make start and end dates aware in UTC timezone\n    if settings.USE_TZ:\n        utc = pytz.UTC\n        start = utc.localize(start)\n        end = utc.localize(end)\n\n    if calendar_slug:\n        # will raise DoesNotExist exception if no match\n        calendars = [Calendar.objects.get(slug=calendar_slug)]\n    # if no calendar slug is given, get all the calendars\n    else:\n        calendars = Calendar.objects.all()\n    response_data = []\n    # Algorithm to get an id for the occurrences in fullcalendar (NOT THE SAME\n    # AS IN THE DB) which are always unique.\n    # Fullcalendar thinks that all their \"events\" with the same \"event.id\" in\n    # their system are the same object, because it's not really built around\n    # the idea of events (generators)\n    # and occurrences (their events).\n    # Check the \"persisted\" boolean value that tells it whether to change the\n    # event, using the \"event_id\" or the occurrence with the specified \"id\".\n    # for more info https://github.com/llazzaro/django-scheduler/pull/169\n    i = 1\n    if Occurrence.objects.all().count() > 0:\n        i = Occurrence.objects.latest('id').id + 1\n    event_list = []\n    for calendar in calendars:\n        # create flat list of events from each calendar\n        event_list += calendar.events.filter(start__lte=end).filter(\n            Q(end_recurring_period__gte=start) |\n            Q(end_recurring_period__isnull=True))\n    for event in event_list:\n        occurrences = event.get_occurrences(start, end)\n        for occurrence in occurrences:\n            occurrence_id = i + occurrence.event.id\n            existed = False\n\n            if occurrence.id:\n                occurrence_id = occurrence.id\n                existed = True\n\n            recur_rule = occurrence.event.rule.name \\\n                if occurrence.event.rule else None\n            recur_period_end = \\\n                occurrence.event.end_recurring_period.isoformat() \\\n                if occurrence.event.end_recurring_period else None\n\n            response_data.append({\n                'id': occurrence_id,\n                'title': occurrence.title,\n                'start': occurrence.start.isoformat(),\n                'end': occurrence.end.isoformat(),\n                'existed': existed,\n                'event_id': occurrence.event.id,\n                'color': occurrence.event.color_event,\n                'description': occurrence.description,\n                'rule': recur_rule,\n                'end_recurring_period': recur_period_end,\n                'creator': str(occurrence.event.creator),\n                'calendar': occurrence.event.calendar.slug,\n                'cancelled': occurrence.cancelled,\n            })\n    return response_data\n\n\n@require_POST\n@check_calendar_permissions\ndef api_move_or_resize_by_code(request):\n    response_data = {}\n    user = request.user\n    id = request.POST.get('id')\n    existed = bool(request.POST.get('existed') == 'true')\n    delta = datetime.timedelta(minutes=int(request.POST.get('delta')))\n    resize = bool(request.POST.get('resize', False))\n    event_id = request.POST.get('event_id')\n\n    response_data = _api_move_or_resize_by_code(\n        user,\n        id,\n        existed,\n        delta,\n        resize,\n        event_id)\n\n    return JsonResponse(response_data)\n\n\ndef _api_move_or_resize_by_code(user, id, existed, delta, resize, event_id):\n    response_data = {}\n    response_data['status'] = \"PERMISSION DENIED\"\n\n    if existed:\n        occurrence = Occurrence.objects.get(id=id)\n        occurrence.end += delta\n        if not resize:\n            occurrence.start += delta\n        if CHECK_OCCURRENCE_PERM_FUNC(occurrence, user):\n            occurrence.save()\n            response_data['status'] = \"OK\"\n    else:\n        event = Event.objects.get(id=event_id)\n        dts = 0\n        dte = delta\n        if not resize:\n            event.start += delta\n            dts = delta\n        event.end = event.end + delta\n        if CHECK_EVENT_PERM_FUNC(event, user):\n            event.save()\n            event.occurrence_set.all().update(\n                original_start=F('original_start') + dts,\n                original_end=F('original_end') + dte,\n            )\n            response_data['status'] = \"OK\"\n    return response_data\n\n\n@require_POST\n@check_calendar_permissions\ndef api_select_create(request):\n    response_data = {}\n    start = request.POST.get('start')\n    end = request.POST.get('end')\n    calendar_slug = request.POST.get('calendar_slug')\n\n    response_data = _api_select_create(start, end, calendar_slug)\n\n    return JsonResponse(response_data)\n\n\ndef _api_select_create(start, end, calendar_slug):\n    start = dateutil.parser.parse(start)\n    end = dateutil.parser.parse(end)\n\n    calendar = Calendar.objects.get(slug=calendar_slug)\n    Event.objects.create(\n        start=start,\n        end=end,\n        title=EVENT_NAME_PLACEHOLDER,\n        calendar=calendar,\n    )\n\n    response_data = {}\n    response_data['status'] = \"OK\"\n    return response_data\n",
-			"file": "src/schedule/views.py",
-			"file_size": 16021,
-			"file_write_time": 131391037539794086,
+			"file": "src/tour/templates/tour/guide_detail.html",
 			"settings":
 			{
-				"buffer_size": 16024,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/farmtofamily/settings.py",
-			"settings":
-			{
-				"buffer_size": 4782,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/templates/navbar.html",
-			"settings":
-			{
-				"buffer_size": 2396,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/templates/home.html",
-			"settings":
-			{
-				"buffer_size": 24650,
+				"buffer_size": 8959,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -579,9 +550,36 @@
 			"file": "src/tour/templates/tour/guide_list.html",
 			"settings":
 			{
-				"buffer_size": 8951,
+				"buffer_size": 9197,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/tour/models.py",
+			"settings":
+			{
+				"buffer_size": 3774,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/schedule/models/events.py",
+			"settings":
+			{
+				"buffer_size": 28027,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/tour/migrations/0012_auto_20170630_1518.py",
+			"settings":
+			{
+				"buffer_size": 578,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -642,60 +640,74 @@
 	"expanded_folders":
 	[
 		"/C/Users/taylo/Desktop/pretiumtours/src",
-		"/C/Users/taylo/Desktop/pretiumtours/src/farmtofamily",
-		"/C/Users/taylo/Desktop/pretiumtours/src/templates",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/models",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/img",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/img/icons",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour",
 		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates",
 		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour"
 	],
 	"file_history":
 	[
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/base.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/guide_detail.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/guide_list.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/farmtofamily/settings.py",
-		"/C/Users/taylo/Desktop/pretiumtours/src/templates/navbar.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/occurrence_list.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/forms.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/models/events.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/urls.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/occurrence_list.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/templates/home.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/models.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/farmtofamily/urls.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/event_list.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/views.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/farmtofamily/settings.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/serializers.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/css/custom.css",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/utils.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/guide_list.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/settings.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/views.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/navbar.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/review/templates/review/review_form.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/tour_reservation_email.txt",
+		"/C/Users/taylo/Desktop/pretiumtours/src/review/templates/review/review_detail.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/logout.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/password_change_form.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/password_reset_done.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/password_reset_form.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/registration_form.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/review/templates/review/review_list.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/login.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/js/script.js",
+		"/C/Users/taylo/Desktop/pretiumtours/src/static/js/core.min.js",
 		"/C/Users/taylo/Desktop/pretiumtours/src/manage.py",
 		"/C/Users/taylo/Desktop/pretiumtours/src/farmtofamily/wsgi.py",
-		"/C/Users/taylo/Desktop/pretiumtours/src/templates/base.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/templates/base_working.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/templates/head_css.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/templates/footer.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/static/css/style.css",
-		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/login.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/registration_form.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/logout.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/review/templates/review/review_confirm_delete.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/review/templates/review/review_detail.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/password_reset_done.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/templates/registration/password_reset_form.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/review/templates/review/review_form.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/review/templates/review/review_list.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/create_event.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/components/bower_components/jquery-timepicker/jquery.ui.timepicker.js",
 		"/C/Users/taylo/Desktop/pretiumtours/src/components/bower_components/jquery-ui/ui/widgets/datepicker.js",
 		"/C/Users/taylo/Desktop/pretiumtours/src/static/js/jquery-ui-datepicker.js",
 		"/C/Users/taylo/Desktop/pretiumtours/src/farmtofamily/assets/fullcalendar.js",
 		"/C/Users/taylo/Desktop/pretiumtours/src/components/bower_components/fullcalendar/dist/fullcalendar.js",
-		"/C/Users/taylo/Desktop/pretiumtours/src/static/js/core.min.js",
 		"/C/Users/taylo/Desktop/pretiumtours/src/bower_components/jquery-timepicker-wvega/jquery.timepicker.js",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour/views.py",
-		"/C/Users/taylo/Desktop/pretiumtours/src/farmtofamily/urls.py",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour/forms.py",
 		"/C/Users/taylo/Desktop/pretiumtours/src/static/js/custom.js",
 		"/C/Users/taylo/Desktop/pretiumtours/src/static/js/jquery.timePicker.js",
 		"/C/Users/taylo/Desktop/pretiumtours/src/components/bower_components/bootstrap/dist/css/bootstrap.css",
 		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/calendar_week.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/components/bower_components/jquery/dist/jquery.js",
-		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/models/events.py",
-		"/C/Users/taylo/Desktop/pretiumtours/src/static/css/custom.css",
-		"/C/Users/taylo/Desktop/pretiumtours/src/static/js/script.js",
 		"/C/Users/taylo/Desktop/pretiumtours/src/templates/javascript.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/static/static_dirs/js/custom.js",
 		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/admin.py",
-		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/views.py",
 		"/C/Users/taylo/Desktop/pretiumtours/src/components/bower_components/jquery-ui/jquery-ui.js",
 		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/calendar_month.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour/models.py",
 		"/C/Users/taylo/Desktop/pretiumtours/src/reservations/views.py",
 		"/C/Users/taylo/Desktop/pretiumtours/src/reservations/templates/calendar.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/components/bower_components/jquery/dist/core.js",
@@ -766,17 +778,8 @@
 		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/guide_profile.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/base.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/landing_working.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour/urls.py",
 		"/C/Users/taylo/Desktop/pretiumtours/src/static/static_dirs/img/f2fLandingPicture.jpg",
-		"/C/Users/taylo/Desktop/pretiumtours/src/booking/urls.py",
-		"/C/Users/taylo/Desktop/pretiumtours/src/booking/templates/booking/booking_list.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/booking/models.py",
-		"/C/Users/taylo/Desktop/pretiumtours/src/booking/templates/booking/booking_form.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/booking/templates/booking/booking_detail.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/README.md",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour/admin.py",
-		"/C/Users/taylo/Desktop/pretiumtours/src/review/urls.py",
-		"/C/Users/taylo/Desktop/pretiumtours/src/review/forms.py"
+		"/C/Users/taylo/Desktop/pretiumtours/src/booking/urls.py"
 	],
 	"find":
 	{
@@ -804,6 +807,31 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"_set",
+			"filter_form",
+			"_set",
+			"get_events_for_object",
+			"GuideBookingForm",
+			"tourSize",
+			"tour_size",
+			"_get_occurrence_list",
+			"object_list",
+			"book tour",
+			"amazing tour",
+			"language",
+			"in the works for per",
+			"in the workds for per",
+			"kevin",
+			"check_edit",
+			"check_ediy",
+			"check_deedit",
+			"check",
+			"check_edit_permission",
+			"tours-single",
+			"index",
+			"href",
+			"parallax",
+			"RDParallax",
 			"preti",
 			"farmtofamily",
 			"get_",
@@ -906,34 +934,9 @@
 			"eventRel",
 			"openCanceldialog",
 			"openCenceldialog",
-			"home",
-			"creator",
-			"create_event_url",
-			"12345",
-			"fullcal",
-			"fullcalendar",
-			"demos/style.css",
-			"timepicker",
-			"datepicker",
-			"map",
-			"ven",
-			"vent",
-			"event",
-			"map",
-			"cal",
-			"create_event",
-			"project_sample",
-			"php",
-			"google",
-			"other",
-			"profile",
-			"find the per",
-			"find the ",
-			"form",
-			"src",
-			"footer"
+			"home"
 		],
-		"highlight": true,
+		"highlight": false,
 		"in_selection": false,
 		"preserve_case": false,
 		"regex": false,
@@ -948,7 +951,7 @@
 		"show_context": true,
 		"use_buffer2": true,
 		"whole_word": false,
-		"wrap": true
+		"wrap": false
 	},
 	"folders":
 	[
@@ -959,7 +962,7 @@
 	"groups":
 	[
 		{
-			"selected": 6,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -968,15 +971,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9698,
+						"buffer_size": 11539,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4550,
-								4550
+								3653,
+								3664
 							]
 						],
 						"settings":
@@ -985,7 +988,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2987.0,
+						"translation.y": 2455.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
@@ -993,24 +996,54 @@
 				},
 				{
 					"buffer": 1,
-					"file": "src/tour/templates/tour/tour_reservation_email.txt",
+					"file": "src/schedule/templates/schedule/occurrence_list.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 270,
+						"buffer_size": 372,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								91,
-								91
+								312,
+								312
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/tour/templates/tour/guide_detail.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8959,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1051,
+								1051
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1020,86 +1053,116 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "src/schedule/views.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 16024,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								15905,
-								15883
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 9492.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
 					"buffer": 3,
-					"file": "src/farmtofamily/settings.py",
+					"file": "src/tour/templates/tour/guide_list.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4782,
+						"buffer_size": 9197,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4757,
-								4757
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1931.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/templates/navbar.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2396,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1163,
-								1160
+								8996,
+								8996
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/HTML/HTML.sublime-syntax",
 							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5050.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/tour/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3774,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2434,
+								2349
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1249.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/schedule/models/events.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 28027,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								23663,
+								23663
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 14225.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/tour/migrations/0012_auto_20170630_1518.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 578,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								578,
+								578
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
@@ -1108,73 +1171,13 @@
 					},
 					"stack_index": 6,
 					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "src/templates/home.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 24650,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5006,
-								5006
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1242.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "src/tour/templates/tour/guide_list.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8951,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2557,
-								2557
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2900.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
 				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 31.0
+		"height": 33.0
 	},
 	"input":
 	{
@@ -1235,7 +1238,7 @@
 		[
 			[
 				"",
-				"C:\\Users\\taylo\\Desktop\\calander\\django-scheduler.sublime-workspace"
+				"C:\\Users\\taylo\\Desktop\\f2f\\farmtofamily.sublime-project"
 			]
 		],
 		"width": 837.0
@@ -1257,7 +1260,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 541.0,
+	"side_bar_width": 399.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

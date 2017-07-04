@@ -14,24 +14,26 @@ from django.db.models import Q
 from django.http import Http404, HttpResponse
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView
 
 from django.utils import timezone
-from django_filters import FilterSet, CharFilter, NumberFilter, DateFilter
-from django.core.mail import send_mail
+from django_filters import FilterSet, CharFilter, NumberFilter, DateFilter, DateTimeFilter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic.edit import CreateView
+
 from django.contrib.auth.models import User
 import os
 import string
 
 import json
 from schedule.models.events import Event, EventRelation, Occurrence
+from .serializers import GuideSerializer
+from rest_framework import generics
 
 from .models import Guide
 from .forms import GuideForm, GuideBookingForm, OccurrenceForm, OccurrenceBookingForm
 
 
-from django.core.mail import send_mail
+from dateutil.relativedelta import relativedelta
 
 from io import StringIO
 import csv
@@ -40,13 +42,9 @@ import csv
 from schedule.models.calendars import Calendar
 import pytz
 
+from itertools import chain
+
 # Create your views here.
-
-# def landing(request):
-# 	context = {}
-# 	template = 'tour/landing_page.html'
-# 	return render(request, template, context)
-
 
 
 def home(request):
@@ -104,22 +102,20 @@ def guide_profile_update(request, pk=None):
 #____________________________________________________________
 
 
-class GuideFilterTourDateForm(FilterSet):
-	availiable = DateFilter(lookup_type='gte', label='Date from', name='start', widget=forms.TextInput(attrs={'class':'datepicker'}))
-	
-	class Meta:
-		model = Event
-		fields = ['start']
-
-
 class GuideFilterForm(FilterSet):
 	living = CharFilter(name='living', lookup_type='icontains', distinct=False)
 	language = CharFilter(name='language', lookup_type='icontains', distinct=False)
-	availiable = DateFilter(lookup_type='gte', name='events', distinct=False, widget=forms.TextInput(attrs={'class':'datepicker'}))
+	# occurrence = DateTimeFilter(name='occurrence', lookup_expr="icontains")
+	# print(occurrence)
+	# start_date = datetime.date(2017, 1, 1)
+	# end_date = datetime.date(2017, 11, 30)
+	# occurrence.objects.filter(occurrence__start__range=(start_date, end_date))
+
 	
 	class Meta:
 		model = Guide
 		fields = ['language', 'living']
+
 
 
 
@@ -143,7 +139,16 @@ class FilterMixin(object):
 		filter_class = self.filter_class
 		if filter_class:
 			f = filter_class(self.request.GET, queryset=qs)
-			context["object_list"] = f
+
+			#____________________IN THE WORKS FOR QUERYING_______
+			date = self.request.GET['start']
+			date_dash = date.replace('/', '-')
+			occurrence_list = Occurrence.objects.filter(start__icontains=date_dash[:5])
+			#occurrence_list = Occurrence.objects.filter(event__creator__exact='talia')
+			print(Guide.objects.filter(occurrence__start__icontains='08'))
+			object_list = list(chain(f, occurrence_list))
+			#____________________IN THE WORKS FOR QUERYING_______
+			context["object_list"] = object_list
 		return context
 
 #____________________________________________________________
@@ -162,7 +167,7 @@ class GuideListView(FilterMixin, ListView):
 
 		queryset = Guide.objects.get_queryset()
 		
-#______________________IN THE WORKS FOR PAGINATION__________________
+        #______________________IN THE WORKS FOR PAGINATION__________________
 		paginator = Paginator(queryset, 5)
 		page = self.request.GET.get('page') 
 		try: 
@@ -172,7 +177,7 @@ class GuideListView(FilterMixin, ListView):
 		except EmptyPage:
 			document = paginator.page(paginator.num_pages)
 		context['document'] = document		
-#______________________IN THE WORKS FOR PAGINATION__________________
+        #______________________IN THE WORKS FOR PAGINATION__________________
 
 
 		return context
@@ -187,14 +192,70 @@ class GuideListView(FilterMixin, ListView):
 		if query:
 			qs = self.model.objects.filter(
 				Q(language__icontains=query) |
-				Q(living__icontains=query) |
-				Q(events__lte=query)
+				Q(living__icontains=query)
 				)
 		return qs
 
 
 
+class OccurenceFilterForm(FilterSet):
+	start = DateFilter(lookup_type='icontains', name='start')
+	event = CharFilter(lookup_type='exact', name='event')
+	
+	class Meta:
+		model = Occurrence
+		fields = ['start', 'event']
 
+
+
+class OccurenceFilterMixin(object):
+	filter_class = None
+	search_ordering_param = "ordering"
+
+	def get_queryset(self, *args, **kwargs):
+		try:
+			qs = super(OccurenceFilterMixin, self).get_queryset(*args, **kwargs)
+			return qs
+
+		except:
+			raise ImproperlyConfigured("You must have a queryset in order to use the OccurenceFilterMixin")
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(OccurenceFilterMixin, self).get_context_data(*args, **kwargs)
+		qs = self.get_queryset()
+		ordering = self.request.GET.get(self.search_ordering_param)
+		if ordering:
+			qs = qs.order_by(ordering)
+		filter_class = self.filter_class
+		if filter_class:
+			f = filter_class(self.request.GET, queryset=qs)
+			context["object_list"] = f
+		return context
+
+
+class OccurrenceListView(OccurenceFilterMixin, ListView):
+	model = Occurrence
+	queryset = Occurrence.objects.all()
+	filter_class = OccurenceFilterForm
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(OccurrenceListView, self).get_context_data(*args, **kwargs)
+		context["query"] = self.request.GET.get("q") #None
+		queryset = Occurrence.objects.get_queryset()
+		#print(Occurrence.objects.filter(event__creator__icontains='talia'))
+		
+		return context
+
+
+	def get_queryset(self, *args, **kwargs):
+		qs = super(OccurrenceListView, self).get_queryset(*args, **kwargs)
+		query = self.request.GET.get("q")
+		if query:
+			qs = self.model.objects.filter(
+				Q(start__icontains=query) |
+				Q(event__creator__icontains=query)
+				)
+		return qs
 
 
 #_______________________IN THE WORKS FOR EMAIL BOOKING________________
@@ -259,9 +320,7 @@ class GuideDetailView(DetailView):
 		context['form'] = GuideBookingForm()
 		context['guide_tours'] = OccurrenceForm(guide=self.get_object().pk)
 		context['tours_dates'] = OccurrenceForm(guide=self.get_object().pk)
-#______________________IN THE WORKS FOR BOOKING________________________
 		context['other_form'] = OccurrenceBookingForm()
-#______________________IN THE WORKS FOR BOOKING________________________
 
 		
 		#________CREATES OR GETS TOUR GUIDES CALANDER____________
@@ -274,6 +333,7 @@ class GuideDetailView(DetailView):
 		#________GETS OCCURENCES FOR FOR THE USERS CALANDER____________
 		tours = EventRelation.objects.get_events_for_object(user)
 		context['tours_list'] = EventRelation.objects.get_events_for_object(user)
+		now = datetime.datetime.now()
 		try:
 			dates = self.request.POST.get['living']
 		except:
@@ -281,11 +341,20 @@ class GuideDetailView(DetailView):
 		tourlist = []
 		for tour in tours:
 			tourlist.append(tour.get_occurrences(\
-				pytz.utc.localize(datetime.datetime(2017, 5, 15)),\
-				pytz.utc.localize(datetime.datetime(2017, 7, 15,))\
+				pytz.utc.localize(datetime.datetime(now.year, now.month, now.day)),\
+				#datetime.datetime(2013, 1, 5, 9, 0, tzinfo=pytz.utc),
+				pytz.utc.localize(datetime.datetime(now.year, 8, 15,))\
 				))
 		context['tours'] = tourlist
 		#________GETS OCCURENCES FOR FOR THE USERS CALANDER____________
+		for tour in tourlist:
+			for occurrence in tour:
+				if occurrence.DoesNotExist:
+					occurrence.save()
+				else:
+					pass
+
+
 		
 		return context
 
@@ -300,7 +369,6 @@ class GuideDetailView(DetailView):
 			request.POST = request.POST.copy()
 			spots_free = int(request.POST['spots_free'])
 			tour_choosen = request.POST['tour']
-			print(request.POST)
 
 			occurrence_list = []
 
@@ -330,3 +398,11 @@ class GuideDetailView(DetailView):
 		else:
 			return super(GuideDetailView, self).post(request, *args, **kwargs)
 
+
+
+
+#_______IN THE WORKS FOR REST_FRAMEWORK___________________
+class GuideDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Guide.objects.all()
+    serializer_class = GuideSerializer
+#_______IN THE WORKS FOR REST_FRAMEWORK___________________

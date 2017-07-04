@@ -5,11 +5,9 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import pre_save, post_save
 from django.utils import timezone
-from django.utils.safestring import mark_safe
 from django.utils.text import slugify
+from schedule.models.events import Occurrence
 
-from schedule.models.calendars import Calendar
-from schedule.models.events import Event
 # Create your models here.
 #_____________________________________________________________________________
 
@@ -25,34 +23,23 @@ NUMBER_FIELDS = [(1, 1), (2,2), (3, 3), (4, 4), (4, 4), (5, 5), (6, 6), (7, 7), 
 
 
 class Guide(models.Model):
-    #guide_name      = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
-#_____________________IN THE WORKS________________________________________________________
-    guide_name      = models.ForeignKey(settings.AUTH_USER_MODEL)
-#_____________________IN THE WORKS________________________________________________________
-    first_name      = models.CharField(max_length=1000)
-    last_name       = models.CharField(max_length=1000)
-    tourSize       = models.IntegerField(null=True, blank=True, choices=NUMBER_FIELDS)
-    tour_description= models.TextField(max_length=1000)
-    remember        = models.TextField(max_length=1000, null=True, blank=True)
-    living          = models.CharField(max_length=100, null=True, blank=True)
-    secondary_language = models.CharField(max_length=100, null=True, blank=True, choices=CHOICE_FIELDS)
-    #Use the Google Maps Location Finder to always have this found. This may work for now.
-    meet_up_point   = models.CharField(max_length=1000, null=True, blank=True)
-    # events          = models.ManyToManyField(Event,
-    #         limit_choices_to={'creator_id': True},
-    #         blank=True,
-    #         null=True,
-    #         verbose_name=("events"),
-    #         related_name=('events'),)
-
-    #vacation       = models.BooleanField(default=False)
-    #image           = models.ImageField(upload_to=upload_location, null=True, blank=True, width_field="width_field", height_field="height_field")
-    height_field    = models.IntegerField(default=100)
-    width_field     = models.IntegerField(default=80)
-    language        = models.CharField(max_length=20, choices=CHOICE_FIELDS)
-    updated         = models.DateTimeField(auto_now=True, auto_now_add=False, null=True, blank=True)
-    timestamp       = models.DateTimeField(auto_now=False, auto_now_add=True, null=True, blank=True)
-    slug            = models.SlugField(unique=True)
+    guide_name          = models.ForeignKey(settings.AUTH_USER_MODEL)
+    first_name          = models.CharField(max_length=1000)
+    last_name           = models.CharField(max_length=1000)
+    tourSize            = models.IntegerField(null=True, blank=True, choices=NUMBER_FIELDS)
+    tour_description    = models.TextField(max_length=1000)
+    remember            = models.TextField(max_length=1000, null=True, blank=True)
+    living              = models.CharField(max_length=100, null=True, blank=True)
+    secondary_language  = models.CharField(max_length=100, null=True, blank=True, choices=CHOICE_FIELDS)
+    meet_up_point       = models.CharField(max_length=1000, null=True, blank=True)
+    #image              = models.ImageField(upload_to=upload_location, null=True, blank=True, width_field="width_field", height_field="height_field")
+    height_field        = models.IntegerField(default=100)
+    width_field         = models.IntegerField(default=80)
+    language            = models.CharField(max_length=20, choices=CHOICE_FIELDS)
+    updated             = models.DateTimeField(auto_now=True, auto_now_add=False, null=True, blank=True)
+    timestamp           = models.DateTimeField(auto_now=False, auto_now_add=True, null=True, blank=True)
+    slug                = models.SlugField(unique=True)
+    #occurrence          = models.ForeignKey(Occurrence, null=True, blank=True)
     
     def __str__(self):
         name = str(self.first_name)
@@ -66,12 +53,7 @@ class Guide(models.Model):
         img = self.guideimage_set.first()
         if img:
             return img.image.url
-        return img #None
-
-
-    # def get_absolute_url(self):
-    #     return reverse("tour:guide_profile", kwargs={"slug": self.slug})
-
+        return img 
 
 
 def create_slug(instance, new_slug=None):
@@ -93,7 +75,7 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
 
 pre_save.connect(pre_save_post_receiver, sender=Guide)
 
-#_____________________IN THE WORKS________________________________________________________
+
 def image_upload_to(instance, filename):
     title = instance.guide.guide_name
     slug = slugify(title)
@@ -108,4 +90,3 @@ class GuideImage(models.Model):
 
     def __str__(self):
         return self.guide.first_name
-#_____________________IN THE WORKS________________________________________________________

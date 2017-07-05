@@ -81,10 +81,10 @@ fieldset {
                   </div>
                   <div class="offset-top-30 offset-md-top-60 inset-left-20 inset-right-20 inset-sm-left-0 inset-sm-right-0">
                     <!-- Form-->
-                    <form class="form-inline-search" action="/guide_listings" method="get">
+                    <form class="form-inline-search" action="/occurrence_listings" method="get">
                       <div class="form-group form-group-xs form-inline-item">
                         <label for="index-destination" class="form-label">Your Destination</label>
-                        <input  id="index-destination" type="text" name="living" class="form-control" value='{{ request.GET.q }}'>
+                        <input  id="index-destination" type="text" name="guide" class="form-control" value='{{ request.GET.q }}'>
                       </div>
                       <div class="form-group form-group-xs form-inline-item form-inline-item">
                         <label for="index-departure" id="datepicker" type='text' class="form-label datepicker">Travel Date</label>

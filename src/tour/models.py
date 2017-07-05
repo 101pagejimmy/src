@@ -39,7 +39,6 @@ class Guide(models.Model):
     updated             = models.DateTimeField(auto_now=True, auto_now_add=False, null=True, blank=True)
     timestamp           = models.DateTimeField(auto_now=False, auto_now_add=True, null=True, blank=True)
     slug                = models.SlugField(unique=True)
-    #occurrence          = models.ForeignKey(Occurrence, null=True, blank=True)
     
     def __str__(self):
         name = str(self.first_name)

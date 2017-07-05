@@ -105,11 +105,6 @@ def guide_profile_update(request, pk=None):
 class GuideFilterForm(FilterSet):
 	living = CharFilter(name='living', lookup_type='icontains', distinct=False)
 	language = CharFilter(name='language', lookup_type='icontains', distinct=False)
-	# occurrence = DateTimeFilter(name='occurrence', lookup_expr="icontains")
-	# print(occurrence)
-	# start_date = datetime.date(2017, 1, 1)
-	# end_date = datetime.date(2017, 11, 30)
-	# occurrence.objects.filter(occurrence__start__range=(start_date, end_date))
 
 	
 	class Meta:
@@ -145,7 +140,6 @@ class FilterMixin(object):
 			date_dash = date.replace('/', '-')
 			occurrence_list = Occurrence.objects.filter(start__icontains=date_dash[:5])
 			#occurrence_list = Occurrence.objects.filter(event__creator__exact='talia')
-			print(Guide.objects.filter(occurrence__start__icontains='08'))
 			object_list = list(chain(f, occurrence_list))
 			#____________________IN THE WORKS FOR QUERYING_______
 			context["object_list"] = object_list
@@ -199,12 +193,12 @@ class GuideListView(FilterMixin, ListView):
 
 
 class OccurenceFilterForm(FilterSet):
-	start = DateFilter(lookup_type='icontains', name='start')
-	event = CharFilter(lookup_type='exact', name='event')
+	start = DateFilter(lookup_type='icontains', name='start', distinct=False)
+	guide = CharFilter(lookup_type='icontains', name='guide', distinct=False)
 	
 	class Meta:
 		model = Occurrence
-		fields = ['start', 'event']
+		fields = ['start', 'guide']
 
 
 
@@ -242,7 +236,6 @@ class OccurrenceListView(OccurenceFilterMixin, ListView):
 		context = super(OccurrenceListView, self).get_context_data(*args, **kwargs)
 		context["query"] = self.request.GET.get("q") #None
 		queryset = Occurrence.objects.get_queryset()
-		#print(Occurrence.objects.filter(event__creator__icontains='talia'))
 		
 		return context
 
@@ -250,10 +243,12 @@ class OccurrenceListView(OccurenceFilterMixin, ListView):
 	def get_queryset(self, *args, **kwargs):
 		qs = super(OccurrenceListView, self).get_queryset(*args, **kwargs)
 		query = self.request.GET.get("q")
+		print(query)
 		if query:
 			qs = self.model.objects.filter(
 				Q(start__icontains=query) |
-				Q(event__creator__icontains=query)
+				Q(guide__language__icontains=query) |
+				Q(guide__living__icontains=query)
 				)
 		return qs
 

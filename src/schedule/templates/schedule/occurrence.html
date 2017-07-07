@@ -3,33 +3,38 @@
 
 {% block content %}
 {% include "navbar.html" %}
-<div class="navigation">
-  <a class="btn btn-primary gradient" href="{% url 'day_calendar' occurrence.event.calendar.slug %}{% querystring_for_date occurrence.start 3 %}">
-    {% trans "Day" %}
-  </a>
-  <a class="btn btn-primary gradient" href="{% url 'month_calendar' occurrence.event.calendar.slug %}{% querystring_for_date occurrence.start 2 %}">
-    {% trans "Month" %}
-  </a>
-  <a class="btn btn-primary gradient" href="{% url 'year_calendar' occurrence.event.calendar.slug %}{% querystring_for_date occurrence.start 1 %}">
-    {% trans "Year" %}
-  </a>
-</div>
 
-<div class="event_actions" align="center">
-  {% if back_url %}
-  <a href="{{ back_url }}">
-    <span class="glyphicon glyphicon-circle-arrow-left"></span>
-  </a>
-  &nbsp;
-  {% endif %}
-  <a href="{{occurrence.get_edit_url}}">
-   {% trans "Edit" %} <span class="glyphicon glyphicon-pencil"></span>
-  </a>
-  &nbsp;
-  <a href="{{occurrence.get_cancel_url}}">
-   {% trans "Delete" %} <span class="glyphicon glyphicon-remove"></span>
-  </a>
-</div>
+
+
+
+<div class="container">
+  <div class="navigation">
+    <a class="btn btn-primary gradient" href="{% url 'day_calendar' occurrence.event.calendar.slug %}{% querystring_for_date occurrence.start 3 %}">
+      {% trans "Day" %}
+    </a>
+    <a class="btn btn-primary gradient" href="{% url 'month_calendar' occurrence.event.calendar.slug %}{% querystring_for_date occurrence.start 2 %}">
+      {% trans "Month" %}
+    </a>
+    <a class="btn btn-primary gradient" href="{% url 'year_calendar' occurrence.event.calendar.slug %}{% querystring_for_date occurrence.start 1 %}">
+      {% trans "Year" %}
+    </a>
+  </div>
+
+  <div class="event_actions" align="center">
+    {% if back_url %}
+    <a href="{{ back_url }}">
+      <span class="glyphicon glyphicon-circle-arrow-left"></span>
+    </a>
+    &nbsp;
+    {% endif %}
+    <a href="{{occurrence.get_edit_url}}">
+     {% trans "Edit" %} <span class="glyphicon glyphicon-pencil"></span>
+    </a>
+    &nbsp;
+    <a href="{{occurrence.get_cancel_url}}">
+     {% trans "Delete" %} <span class="glyphicon glyphicon-remove"></span>
+    </a>
+  </div>
 <h2 align="center">{{occurrence.title}}</h2>
 <table align="center" class="table table-hover">
 <tr>
@@ -52,5 +57,5 @@
 <h3>{% trans "Description" %}</h3>
 <p>{{occurrence.description}}</p>
 {% endif %}
-
+</div>
 {% endblock %}

@@ -33,7 +33,7 @@ class GuideBookingForm(ModelForm):
         fields = ['tourSize']
         widgets = {
             'tourSize': forms.TextInput(
-                attrs={'id': 'post-text', 'required': True, 'placeholder': 'How many people?'}
+                attrs={'id': 'post-text', 'required': True, 'placeholder': 'How many people?', 'value': None}
             ),
         }
 
@@ -46,7 +46,7 @@ class OccurrenceBookingForm(ModelForm):
         fields = ['spots_free']
         widgets = {
             'spots_free': forms.TextInput(
-                attrs={'id': 'post-text-occurrence', 'required': True, 'placeholder':  'How many people?', 'label': 'How mansy People'}
+                attrs={'id': 'post-text-occurrence', 'required': True, 'placeholder':  'How many people?', 'value': None}
             ),
         }
 

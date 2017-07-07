@@ -194,13 +194,12 @@ class GuideListView(FilterMixin, ListView):
 
 class OccurenceFilterForm(FilterSet):
 	start = DateFilter(lookup_type='icontains', name='start', distinct=False)
-	guide = CharFilter(lookup_type='icontains', name='guide', distinct=False)
+	living = CharFilter(lookup_type='icontains', name='guide__living', distinct=False)
+	language = CharFilter(lookup_type='icontains', name='guide__language', distinct=False)
 	
 	class Meta:
 		model = Occurrence
 		fields = ['start', 'guide']
-
-
 
 class OccurenceFilterMixin(object):
 	filter_class = None
@@ -235,6 +234,7 @@ class OccurrenceListView(OccurenceFilterMixin, ListView):
 	def get_context_data(self, *args, **kwargs):
 		context = super(OccurrenceListView, self).get_context_data(*args, **kwargs)
 		context["query"] = self.request.GET.get("q") #None
+		context["filter_form"] = OccurenceFilterForm(data=self.request.GET or None)
 		queryset = Occurrence.objects.get_queryset()
 		
 		return context
@@ -243,13 +243,17 @@ class OccurrenceListView(OccurenceFilterMixin, ListView):
 	def get_queryset(self, *args, **kwargs):
 		qs = super(OccurrenceListView, self).get_queryset(*args, **kwargs)
 		query = self.request.GET.get("q")
-		print(query)
 		if query:
 			qs = self.model.objects.filter(
-				Q(start__icontains=query) |
-				Q(guide__language__icontains=query) |
-				Q(guide__living__icontains=query)
+				Q(start__icontains=query))
+		try:		
+			qs2 = self.model.objects.filter(
+			Q(language=query) |
+			Q(living=query)
 				)
+			qs = (qs | qs2).distinct()
+		except:
+			pass
 		return qs
 
 

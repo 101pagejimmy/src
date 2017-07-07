@@ -3,21 +3,18 @@
  <style>
 {% block style %}
 
-.navbar{
+.rd-navbar-static:after, .rd-navbar-fullwidth:after {
+    background-color: black !important;
+  }
 
-background-color: red;
-
-background-color: blue;
-
-background-color: green;
-
+.rd-navbar-static.rd-navbar-light .rd-navbar-nav > li > a, .rd-navbar-fullwidth.rd-navbar-light .rd-navbar-nav > li > a {
+    color: #fff;
 }
-
 
 {% endblock style %}
 </style>
 
- <header class="page-header" style="background-color: black;">
+ <header class="page-header" >
         <div id="nav" class="rd-navbar-wrap">
           <nav data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" data-md-stick-up-offset="1px" data-lg-stick-up-offset="1px" class="rd-navbar rd-navbar-light rd-navbar--is-touch rd-navbar-original rd-navbar-static" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fullwidth" data-lg-layout="rd-navbar-static"">
               <!-- RD Navbar Panel-->
@@ -31,7 +28,7 @@ background-color: green;
                 <!-- RD Navbar Brand-->
                 <div class="rd-navbar-braFnd veil-md reveal-tablet-md-inline-block"><a href="index.html" class="brand-name"><img width="70" height="30" src="" alt=""></a></div>
               </div>
-              <div class="rd-navbar-nav-wrap" style="background-color: black">
+              <div class="rd-navbar-nav-wrap">
                 <!-- RD Navbar Nav-->
                 <ul class="rd-navbar-nav">
                   <li class="active"><a href="/">Home</a></li>

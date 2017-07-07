@@ -4,12 +4,36 @@
 		"selected_items":
 		[
 			[
-				"occu",
+				"date",
+				"date_dash"
+			],
+			[
+				"objet",
+				"objects"
+			],
+			[
+				"occ",
 				"occurrence"
 			],
 			[
-				"date",
-				"DateFilter"
+				"FOr",
+				"ForeignKey"
+			],
+			[
+				"occurren",
+				"occurrence_list"
+			],
+			[
+				"obje",
+				"object_list"
+			],
+			[
+				"occu",
+				"occurrence_list"
+			],
+			[
+				"occur",
+				"occurrence_list"
 			],
 			[
 				"Occu",
@@ -70,10 +94,6 @@
 			[
 				"pers",
 				"persisted_occurrences"
-			],
-			[
-				"occ",
-				"occurrence"
 			],
 			[
 				"",
@@ -494,37 +514,19 @@
 			[
 				"Model",
 				"Model_List"
-			],
-			[
-				"border-ra",
-				"border-radius"
-			],
-			[
-				"paddi",
-				"padding-left"
-			],
-			[
-				"le",
-				"margin-left"
-			],
-			[
-				"background",
-				"background-color"
-			],
-			[
-				"border",
-				"border-top"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
+			"contents": "from django.shortcuts import render, get_object_or_404, redirect\nfrom django.core.mail import send_mail, BadHeaderError\nfrom django.contrib.auth.decorators import login_required\nfrom django.http import HttpResponseRedirect\nfrom django.conf import settings\nfrom datetime import datetime, timezone\nfrom django import forms\nfrom schedule.views import Event\nimport datetime\n\nfrom django.core.exceptions import ImproperlyConfigured\nfrom django.contrib import messages\nfrom django.db.models import Q\nfrom django.http import Http404, HttpResponse\nfrom django.views.generic.detail import DetailView\nfrom django.views.generic.list import ListView\nfrom django.views.generic.edit import CreateView\n\nfrom django.utils import timezone\nfrom django_filters import FilterSet, CharFilter, NumberFilter, DateFilter, DateTimeFilter\nfrom django.core.paginator import Paginator, EmptyPage, PageNotAnInteger\n\nfrom django.contrib.auth.models import User\nimport os\nimport string\n\nimport json\nfrom schedule.models.events import Event, EventRelation, Occurrence\nfrom .serializers import GuideSerializer\nfrom rest_framework import generics\n\nfrom .models import Guide\nfrom .forms import GuideForm, GuideBookingForm, OccurrenceForm, OccurrenceBookingForm\n\n\nfrom dateutil.relativedelta import relativedelta\n\nfrom io import StringIO\nimport csv\n\n\nfrom schedule.models.calendars import Calendar\nimport pytz\n\nfrom itertools import chain\n\n# Create your views here.\n\n\ndef home(request):\n\tguides = Guide.objects.all()[:6]\n\tcontext = {\"guides\": guides}\n\ttemplate = 'home.html'\n\treturn render(request, template, context)\n\n#__________________________________________________________________\n\n\ndef create_tour_guide(request):\n\tform = GuideForm(request.POST or None, request.FILES or None)\n\tif form.is_valid():\n\t\tinstance = form.save(commit=False)\n\t\tinstance.guide_name = request.user\n\t\tinstance.timestamp = timezone.now().date()\n\t\tinstance.save()\n\t\t# message success\n\t\t# messages.success(request, \"Successfully Created\")\n\t\treturn HttpResponseRedirect(instance.get_absolute_url())\n\tcontext = {\n\t\t\"form\": form,\n\t}\n\treturn render(request, \"tour/create_tour_guide.html\", context)\n\n#____________________________________________________________________\n\n\ndef guide_profile(request, calendar_slug=None):\n\tguide_profile = get_object_or_404(Guide, slug=slug)\n\tcontext = {\"guide_profile\": guide_profile,}\n\ttemplate = \"tour/guide_profile.html\"\n\treturn render(request, template, context)\n\n\n\ndef guide_profile_update(request, pk=None):\n\n\tguide_profile = get_object_or_404(Guide, pk=pk)\n\tform = GuideForm(request.POST or None, request.FILES or None, instance=guide_profile)\n\tif form.is_valid():\n\n\t\tguide_profile = form.save(commit=False)\n\t\tguide_profile.save()\n\t\t#messages.success(request, \"<a href='#'>Item</a> Saved\", extra_tags='html_safe')\n\t\treturn HttpResponseRedirect(guide_profile.get_absolute_url())\n\n\tcontext = {\n\t\t\"guide_profile\": guide_profile,\n\t\t\"form\":form,\n\t}\n\treturn render(request, \"tour/create_tour_guide.html\", context)\n\n#____________________________________________________________\n\n\nclass GuideFilterForm(FilterSet):\n\tliving = CharFilter(name='living', lookup_type='icontains', distinct=False)\n\tlanguage = CharFilter(name='language', lookup_type='icontains', distinct=False)\n\n\t\n\tclass Meta:\n\t\tmodel = Guide\n\t\tfields = ['language', 'living']\n\n\n\n\nclass FilterMixin(object):\n\tfilter_class = None\n\tsearch_ordering_param = \"ordering\"\n\n\tdef get_queryset(self, *args, **kwargs):\n\t\ttry:\n\t\t\tqs = super(FilterMixin, self).get_queryset(*args, **kwargs)\n\t\t\treturn qs\n\t\texcept:\n\t\t\traise ImproperlyConfigured(\"You must have a queryset in order to use the FilterMixin\")\n\n\tdef get_context_data(self, *args, **kwargs):\n\t\tcontext = super(FilterMixin, self).get_context_data(*args, **kwargs)\n\t\tqs = self.get_queryset()\n\t\tordering = self.request.GET.get(self.search_ordering_param)\n\t\tif ordering:\n\t\t\tqs = qs.order_by(ordering)\n\t\tfilter_class = self.filter_class\n\t\tif filter_class:\n\t\t\tf = filter_class(self.request.GET, queryset=qs)\n\n\t\t\t#____________________IN THE WORKS FOR QUERYING_______\n\t\t\tdate = self.request.GET['start']\n\t\t\tdate_dash = date.replace('/', '-')\n\t\t\toccurrence_list = Occurrence.objects.filter(start__icontains=date_dash[:5])\n\t\t\t#occurrence_list = Occurrence.objects.filter(event__creator__exact='talia')\n\t\t\tobject_list = list(chain(f, occurrence_list))\n\t\t\t#____________________IN THE WORKS FOR QUERYING_______\n\t\t\tcontext[\"object_list\"] = object_list\n\t\treturn context\n\n#____________________________________________________________\n\n\nclass GuideListView(FilterMixin, ListView):\n\tmodel = Guide\n\tqueryset = Guide.objects.all()\n\tfilter_class = GuideFilterForm\n\n\tdef get_context_data(self, *args, **kwargs):\n\t\tcontext = super(GuideListView, self).get_context_data(*args, **kwargs)\n\t\tcontext[\"now\"] = timezone.now()\n\t\tcontext[\"query\"] = self.request.GET.get(\"q\") #None\n\t\tcontext[\"filter_form\"] = GuideFilterForm(data=self.request.GET or None)\n\n\t\tqueryset = Guide.objects.get_queryset()\n\t\t\n        #______________________IN THE WORKS FOR PAGINATION__________________\n\t\tpaginator = Paginator(queryset, 5)\n\t\tpage = self.request.GET.get('page') \n\t\ttry: \n\t\t\tdocument = paginator.page(page) \n\t\texcept PageNotAnInteger:\n\t\t\tdocument = paginator.page(1) \n\t\texcept EmptyPage:\n\t\t\tdocument = paginator.page(paginator.num_pages)\n\t\tcontext['document'] = document\t\t\n        #______________________IN THE WORKS FOR PAGINATION__________________\n\n\n\t\treturn context\n\n\t\n\tdef get_current_path(request):\n\t\treturn {'current_path': request.get_full_path()}\n\n\tdef get_queryset(self, *args, **kwargs):\n\t\tqs = super(GuideListView, self).get_queryset(*args, **kwargs)\n\t\tquery = self.request.GET.get(\"q\")\n\t\tif query:\n\t\t\tqs = self.model.objects.filter(\n\t\t\t\tQ(language__icontains=query) |\n\t\t\t\tQ(living__icontains=query)\n\t\t\t\t)\n\t\treturn qs\n\n\n\nclass OccurenceFilterForm(FilterSet):\n\tstart = DateFilter(lookup_type='icontains', name='start', distinct=False)\n\tliving = CharFilter(lookup_type='icontains', name='guide__living', distinct=False)\n\tlanguage = CharFilter(lookup_type='icontains', name='guide__language', distinct=False)\n\t\n\tclass Meta:\n\t\tmodel = Occurrence\n\t\tfields = ['start', 'guide']\n\n\n\nclass ProductFilter(FilterSet):\n\ttitle = CharFilter(name='title', lookup_type='icontains', distinct=True)\n\tcategory = CharFilter(name='categories__title', lookup_type='icontains', distinct=True)\n\tcategory_id = CharFilter(name='categories__id', lookup_type='icontains', distinct=True)\n\tmin_price = NumberFilter(name='variation__price', lookup_type='gte', distinct=True) # (some_price__gte=somequery)\n\tmax_price = NumberFilter(name='variation__price', lookup_type='lte', distinct=True)\n\tclass Meta:\n\t\tmodel = Product\n\t\tfields = [\n\t\t\t'min_price',\n\t\t\t'max_price',\n\t\t\t'category',\n\t\t\t'title',\n\t\t\t'description',\n\t\t]\n\n\n\n\n\t\t\tqs = self.model.objects.filter(\n\t\t\t\tQ(title__icontains=query) |\n\t\t\t\tQ(description__icontains=query)\n\t\t\t\t)\n\t\t\ttry:\n\t\t\t\tqs2 = self.model.objects.filter(\n\t\t\t\t\tQ(price=query)\n\t\t\t\t)\n\t\t\t\tqs = (qs | qs2).distinct()\n\t\t\texcept:\n\t\t\t\tpass\n\t\treturn qs\n\n\n\n\n\nclass OccurenceFilterMixin(object):\n\tfilter_class = None\n\tsearch_ordering_param = \"ordering\"\n\n\tdef get_queryset(self, *args, **kwargs):\n\t\ttry:\n\t\t\tqs = super(OccurenceFilterMixin, self).get_queryset(*args, **kwargs)\n\t\t\treturn qs\n\n\t\texcept:\n\t\t\traise ImproperlyConfigured(\"You must have a queryset in order to use the OccurenceFilterMixin\")\n\n\tdef get_context_data(self, *args, **kwargs):\n\t\tcontext = super(OccurenceFilterMixin, self).get_context_data(*args, **kwargs)\n\t\tqs = self.get_queryset()\n\t\tordering = self.request.GET.get(self.search_ordering_param)\n\t\tif ordering:\n\t\t\tqs = qs.order_by(ordering)\n\t\tfilter_class = self.filter_class\n\t\tif filter_class:\n\t\t\tf = filter_class(self.request.GET, queryset=qs)\n\t\t\tcontext[\"object_list\"] = f\n\t\treturn context\n\n\nclass OccurrenceListView(OccurenceFilterMixin, ListView):\n\tmodel = Occurrence\n\tqueryset = Occurrence.objects.all()\n\tfilter_class = OccurenceFilterForm\n\n\tdef get_context_data(self, *args, **kwargs):\n\t\tcontext = super(OccurrenceListView, self).get_context_data(*args, **kwargs)\n\t\tcontext[\"query\"] = self.request.GET.get(\"q\") #None\n\t\tcontext[\"filter_form\"] = OccurenceFilterForm(data=self.request.GET or None)\n\t\tqueryset = Occurrence.objects.get_queryset()\n\t\t\n\t\treturn context\n\n\n\tdef get_queryset(self, *args, **kwargs):\n\t\tqs = super(OccurrenceListView, self).get_queryset(*args, **kwargs)\n\t\tquery = self.request.GET.get(\"q\")\n\t\tif query:\n\t\t\tqs = self.model.objects.filter(\n\t\t\t\tQ(start__icontains=query))\n\t\ttry:\t\t\n\t\t\tqs2 = self.model.objects.filter(\n\t\t\tQ(language=query) |\n\t\t\tQ(living=query)\n\t\t\t\t)\n\t\t\tqs = (qs | qs2).distinct()\n\t\texcept:\n\t\t\tpass\n\t\treturn qs\n\n\n#_______________________IN THE WORKS FOR EMAIL BOOKING________________\n\n\ndef booking_email(user_name, user_email, bookings):\n\ttitle = 'Contact Us'\n\ttitle_align_center = True\n\n\t#user_email = request.user.email\n\tuser_name = user_name\n\tsubject = 'Free Walking Tour Guide Booking'\n\tform_message = 'You have booked %s spot/s for this date from this time to that time. Please show up at least 30 minutes early to this place' %(bookings)\n\tfrom_email = settings.EMAIL_HOST_USER\n\ttotal_bookings = bookings\n\tto_email = [from_email, 'hardiet@oregonstate.edu']\n\tcontact_message = \"%s: %s via %s\"%( \n\t\t\tuser_name,\n\t\t\ttotal_bookings, \n\t\t\tfrom_email)\n\tsome_html_message = str(form_message)\n\t\t\n\n\t\t\n\n\ttry:\n\t\tsend_mail(subject, \n\t\tcontact_message, \n\t\tfrom_email, \n\t\tto_email, \n\t\thtml_message=some_html_message,\n\t\tfail_silently=True)\n\t\treturn HttpResponseRedirect('/')\n\texcept BadHeaderError:\n\t\treturn HttpResponse('Invalid header found.')\n\n\tcontext = {\n\t\t\"form\": form,\n\t\t\"title\": title,\n\t\t\"title_align_center\": title_align_center,\n\t}\n\n\treturn render(request, \"forms.html\", context)\n\n\n#_______________________IN THE WORKS FOR EMAIL BOOKING________________\n\n\n\n\n#_____________________IN THE WORKS________________________________________________________\n\n\nclass GuideDetailView(DetailView):\n\tmodel = Guide\n\n\tdef get_context_data(self, *args, **kwargs):\n\t\tcontext = super(GuideDetailView, self).get_context_data(*args, **kwargs)\n\t\tform = OccurrenceForm\n\t\tcontext[\"instance\"] = self.get_object()\n\t\tcontext[\"current_user\"] = self.request.user\n\t\tcontext['form'] = GuideBookingForm()\n\t\tcontext['guide_tours'] = OccurrenceForm(guide=self.get_object().pk)\n\t\tcontext['tours_dates'] = OccurrenceForm(guide=self.get_object().pk)\n\t\tcontext['other_form'] = OccurrenceBookingForm()\n\n\t\t\n\t\t#________CREATES OR GETS TOUR GUIDES CALANDER____________\n\t\tuser = self.get_object().guide_name\n\t\tuser_calendar = Calendar.objects.get_or_create_calendar_for_object(user, name = str(self.get_object().guide_name))\n\t\tcontext['calendar'] = user_calendar.get_absolute_url\n\t\t#________CREATES OR GETS TOUR GUIDES CALANDER____________\n\n\n\t\t#________GETS OCCURENCES FOR FOR THE USERS CALANDER____________\n\t\ttours = EventRelation.objects.get_events_for_object(user)\n\t\tcontext['tours_list'] = EventRelation.objects.get_events_for_object(user)\n\t\tnow = datetime.datetime.now()\n\t\ttry:\n\t\t\tdates = self.request.POST.get['living']\n\t\texcept:\n\t\t\tpass\n\t\ttourlist = []\n\t\tfor tour in tours:\n\t\t\ttourlist.append(tour.get_occurrences(\\\n\t\t\t\tpytz.utc.localize(datetime.datetime(now.year, now.month, now.day)),\\\n\t\t\t\t#datetime.datetime(2013, 1, 5, 9, 0, tzinfo=pytz.utc),\n\t\t\t\tpytz.utc.localize(datetime.datetime(now.year, 8, 15,))\\\n\t\t\t\t))\n\t\tcontext['tours'] = tourlist\n\t\t#________GETS OCCURENCES FOR FOR THE USERS CALANDER____________\n\t\tfor tour in tourlist:\n\t\t\tfor occurrence in tour:\n\t\t\t\tif occurrence.DoesNotExist:\n\t\t\t\t\toccurrence.save()\n\t\t\t\telse:\n\t\t\t\t\tpass\n\n\n\t\t\n\t\treturn context\n\n\tdef get_current_path(request):\n\t\treturn {'current_path': request.get_full_path()}\n\n\n\tdef post(self, request, *args, **kwargs):\n\t\tuser = self.get_object().guide_name\n\t\tself.status_form = GuideBookingForm(self.request.POST or None)\n\t\tif self.status_form.is_valid():\n\t\t\trequest.POST = request.POST.copy()\n\t\t\tspots_free = int(request.POST['spots_free'])\n\t\t\ttour_choosen = request.POST['tour']\n\n\t\t\toccurrence_list = []\n\n\t\t\tf = StringIO(tour_choosen)\n\t\t\treader = csv.reader(f, delimiter=',')\n\t\t\tfor row in reader:\n\t\t\t\toccurrence_list.append(row)\n\n\t\t\tyear = int(occurrence_list[0][0])\n\t\t\tmonth = int(occurrence_list[0][1])\n\t\t\tday = int(occurrence_list[0][2])\n\t\t\thour = int(occurrence_list[0][3])\n\t\t\tminute = int(occurrence_list[0][4])\n\t\t\tsecond = int(occurrence_list[0][5])\n\n\n\t\t\tbooking_email(request.user, request.user.email, spots_free)\n\n\n\t\t\ttours = EventRelation.objects.get_events_for_object(user)\n\t\t\tfor tour in tours:\n\t\t\t\ttour_occurrence = tour.get_occurrence(pytz.utc.localize(datetime.datetime(year, month, day, hour, minute, second)))\n\t\t\t\ttour_occurrence.spots_free -= spots_free\n\t\t\t\ttour_occurrence.save()\n\t\t\t\treturn HttpResponseRedirect('/1')\n\n\t\telse:\n\t\t\treturn super(GuideDetailView, self).post(request, *args, **kwargs)\n\n\n\n\n#_______IN THE WORKS FOR REST_FRAMEWORK___________________\nclass GuideDetail(generics.RetrieveUpdateDestroyAPIView):\n    queryset = Guide.objects.all()\n    serializer_class = GuideSerializer\n#_______IN THE WORKS FOR REST_FRAMEWORK___________________",
 			"file": "src/tour/views.py",
+			"file_size": 12117,
+			"file_write_time": 131437072404290101,
 			"settings":
 			{
-				"buffer_size": 11539,
-				"encoding": "UTF-8",
+				"buffer_size": 12978,
 				"line_ending": "Unix"
 			}
 		},
@@ -532,54 +534,18 @@
 			"file": "src/schedule/templates/schedule/occurrence_list.html",
 			"settings":
 			{
-				"buffer_size": 372,
+				"buffer_size": 9398,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/tour/templates/tour/guide_detail.html",
+			"file": "src/templates/home.html",
 			"settings":
 			{
-				"buffer_size": 8959,
+				"buffer_size": 24441,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/tour/templates/tour/guide_list.html",
-			"settings":
-			{
-				"buffer_size": 9197,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/tour/models.py",
-			"settings":
-			{
-				"buffer_size": 3774,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/schedule/models/events.py",
-			"settings":
-			{
-				"buffer_size": 28027,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/tour/migrations/0012_auto_20170630_1518.py",
-			"settings":
-			{
-				"buffer_size": 578,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
 			}
 		}
 	],
@@ -640,27 +606,26 @@
 	"expanded_folders":
 	[
 		"/C/Users/taylo/Desktop/pretiumtours/src",
-		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/models",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule",
 		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates",
 		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule",
-		"/C/Users/taylo/Desktop/pretiumtours/src/static",
-		"/C/Users/taylo/Desktop/pretiumtours/src/static/img",
-		"/C/Users/taylo/Desktop/pretiumtours/src/static/img/icons",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour"
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates"
 	],
 	"file_history":
 	[
-		"/C/Users/taylo/Desktop/pretiumtours/src/templates/base.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/guide_detail.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/occurrence_list.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour/forms.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/guide_list.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/home.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/guide_detail.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/models/events.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/models.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/migrations/__init__.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/migrations/__init__.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/migrations/0012_auto_20170630_1518.py",
+		"/C/Users/taylo/Desktop/pretiumtours/src/templates/base.html",
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/forms.py",
 		"/C/Users/taylo/Desktop/pretiumtours/src/tour/urls.py",
 		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/occurrence_list.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/templates/home.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour/models.py",
 		"/C/Users/taylo/Desktop/pretiumtours/src/farmtofamily/urls.py",
 		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/event_list.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/tour/views.py",
@@ -668,7 +633,6 @@
 		"/C/Users/taylo/Desktop/pretiumtours/src/tour/serializers.py",
 		"/C/Users/taylo/Desktop/pretiumtours/src/static/css/custom.css",
 		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/utils.py",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/guide_list.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/settings.py",
 		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/views.py",
 		"/C/Users/taylo/Desktop/pretiumtours/src/templates/navbar.html",
@@ -776,10 +740,7 @@
 		"/C/Users/taylo/Desktop/pretiumtours/src/static/static_dirs/css/footer-static-bottom.css",
 		"/C/Users/taylo/Desktop/pretiumtours/src/schedule/templates/schedule/cancel_occurrence.html",
 		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/guide_profile.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/base.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/landing_working.html",
-		"/C/Users/taylo/Desktop/pretiumtours/src/static/static_dirs/img/f2fLandingPicture.jpg",
-		"/C/Users/taylo/Desktop/pretiumtours/src/booking/urls.py"
+		"/C/Users/taylo/Desktop/pretiumtours/src/tour/templates/tour/base.html"
 	],
 	"find":
 	{
@@ -807,6 +768,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Event",
+			"hardiet",
+			"tourSize",
+			"tour",
+			"guide",
+			"__init__",
+			"get_event",
+			"gte_event",
+			"requestSite",
+			"guideimage",
+			"Guide",
 			"_set",
 			"filter_form",
 			"_set",
@@ -923,18 +895,7 @@
 			"user-01",
 			"src",
 			"start",
-			"\">\n",
-			"calendarview",
-			"event count",
-			"scripts",
-			"modal",
-			"img",
-			"materialdesignic",
-			"calan",
-			"eventRel",
-			"openCanceldialog",
-			"openCenceldialog",
-			"home"
+			"\">\n"
 		],
 		"highlight": false,
 		"in_selection": false,
@@ -962,7 +923,7 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -971,15 +932,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11539,
+						"buffer_size": 12978,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3653,
-								3664
+								6684,
+								6692
 							]
 						],
 						"settings":
@@ -988,10 +949,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2455.0,
+						"translation.y": 4367.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1000,43 +961,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 372,
+						"buffer_size": 9398,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								312,
-								312
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/tour/templates/tour/guide_detail.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8959,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1051,
-								1051
+								174,
+								174
 							]
 						],
 						"settings":
@@ -1046,130 +979,40 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/tour/templates/tour/guide_list.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9197,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8996,
-								8996
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5050.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/tour/models.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3774,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2434,
-								2349
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1249.0,
+						"translation.y": 1242.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "src/schedule/models/events.py",
+					"buffer": 2,
+					"file": "src/templates/home.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 28027,
+						"buffer_size": 24441,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								23663,
-								23663
+								4003,
+								4003
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 14225.0,
+						"translation.y": 690.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "src/tour/migrations/0012_auto_20170630_1518.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 578,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								578,
-								578
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1238,7 +1081,7 @@
 		[
 			[
 				"",
-				"C:\\Users\\taylo\\Desktop\\f2f\\farmtofamily.sublime-project"
+				"C:\\Users\\taylo\\Desktop\\ecommerce\\ecommerce2.sublime-project"
 			]
 		],
 		"width": 837.0

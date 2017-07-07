@@ -31,6 +31,7 @@ class Guide(models.Model):
     remember            = models.TextField(max_length=1000, null=True, blank=True)
     living              = models.CharField(max_length=100, null=True, blank=True)
     secondary_language  = models.CharField(max_length=100, null=True, blank=True, choices=CHOICE_FIELDS)
+    is_featured         = models.BooleanField(default=False)
     meet_up_point       = models.CharField(max_length=1000, null=True, blank=True)
     #image              = models.ImageField(upload_to=upload_location, null=True, blank=True, width_field="width_field", height_field="height_field")
     height_field        = models.IntegerField(default=100)

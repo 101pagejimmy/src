@@ -17,6 +17,7 @@ fieldset {
     fill: #fff;
 }
 
+
 {% endblock style %}
 </style>
 
@@ -25,7 +26,7 @@ fieldset {
 {% block content %}
 
 
-
+<body>
     <!-- Page-->
     <div class="page text-center">
       <!-- Page Header-->
@@ -63,7 +64,7 @@ fieldset {
         </div>
 
         <!-- Swiper-->
-        <div data-height="" data-min-height="400px" data-simulate-touch="false" data-slide-effect="fade" class="swiper-container swiper-slider">
+<div data-height="" data-min-height="400px" data-simulate-touch="false" data-slide-effect="fade" class="swiper-container swiper-slider">
           <div class="swiper-wrapper">
             <div data-slide-bg="{% static 'img/backgrounds/sanfrancisco.jpg' %}" class="swiper-slide"></div>
             <div data-slide-bg="{% static 'img/backgrounds/sanfrancisco2.jpg' %}" class="swiper-slide"></div>
@@ -84,19 +85,14 @@ fieldset {
                     <form class="form-inline-search" action="/occurrence_listings" method="get">
                       <div class="form-group form-group-xs form-inline-item">
                         <label for="index-destination" class="form-label">Your Destination</label>
-                        <input  id="index-destination" type="text" name="guide" class="form-control" value='{{ request.GET.q }}'>
+                        <input  id="index-destination" type="text" name="living" class="form-control" value='{{ request.GET.q }}'>
                       </div>
                       <div class="form-group form-group-xs form-inline-item form-inline-item">
-                        <label for="index-departure" id="datepicker" type='text' class="form-label datepicker">Travel Date</label>
-                        <input id="index-departure" type="text" name="start" class="form-control" value='{{ request.GET.q }}'>
+                        <label for="index-departure" id="datepicker" type='text' class="form-label datepicker"></label>
+                        <input id="index-departure" type="text" name="start" class="form-control" placeholder="Travel Date" value='{{ request.GET.q }}'>
                       </div>
                       <div class="form-group form-group-xs form-inline-item">
-                        <label for="index-language" class="form-label">Language</label>
-<!--                         <select id="index-budget" type="text" name="budget" class="form-control" value='{{ request.GET.q }}'>
-                          <option value="en">English</option>
-                          <option value="rs">Russian</option>
-                          <option value="mercedes">Spanish</option>
-                        </select> -->
+                        <label for="index-language" class="form-label" placeholder=''>Language</label>
                         <input id="index-language" type="text" name="language" class="form-control" value='{{ request.GET.q }}'>
                       </div>
                       <div class="form-inline-item offset-top-15 offset-sm-top-0">
@@ -108,7 +104,6 @@ fieldset {
                 </div>
               </div>
             </div>
-          </div>
           <!-- Swiper Pagination-->
           <div class="swiper-pagination"></div>
           <!-- Swiper Navigation-->
@@ -205,7 +200,7 @@ fieldset {
         <section data-wow-delay=".2s" class="wow fadeIn">
           <!-- RD Parallax-->
           <div data-on="false" data-md-on="true" class="rd-parallax">
-            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-20-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-18-1920x900.jpg' %}" class="rd-parallax-layer"></div>
             <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
               <div class="bg-overlay-inverse-md-darker">
                 <div class="shell section-80 section-md-top-70">
@@ -216,7 +211,7 @@ fieldset {
                       <div class="box box-sm bg-white reveal-lg-block">
                         <div class="unit unit-xs unit-xs-horizontal unit-spacing-sm">
                           <div class="unit-left">
-                            <div class="icon-circle icon-circle-lg icon-filled-turquoise center-block"><img src="static/img/icons/icon-11-20x18.png" width="20" height="18" alt="" class="img-responsive center-block"></div>
+                            <div class="icon-circle icon-circle-lg icon-filled-turquoise center-block"><img src="{% static 'img/icons/icon-11-20x18.png' %}" width="20" height="18" alt="" class="img-responsive center-block"></div>
                           </div>
                           <div class="unit-body offset-top-4 offset-xs-top-0">
                             <div>
@@ -234,7 +229,7 @@ fieldset {
                       <div class="box box-sm bg-white reveal-lg-block">
                         <div class="unit unit-xs unit-xs-horizontal unit-spacing-sm">
                           <div class="unit-left">
-                            <div class="icon-circle icon-circle-lg icon-filled-turquoise center-block"><img src="static/img/icons/icon-06-14x21.png" width="14" height="21" alt="" class="img-responsive center-block"></div>
+                            <div class="icon-circle icon-circle-lg icon-filled-turquoise center-block"><img src="{% static 'img/icons/icon-06-14x21.png' %}" width="14" height="21" alt="" class="img-responsive center-block"></div>
                           </div>
                           <div class="unit-body offset-top-4 offset-xs-top-0">
                             <div>
@@ -252,7 +247,7 @@ fieldset {
                       <div class="box box-sm bg-white reveal-lg-block">
                         <div class="unit unit-xs unit-xs-horizontal unit-spacing-sm">
                           <div class="unit-left">
-                            <div class="icon-circle icon-circle-lg icon-filled-turquoise center-block"><img src="static/img/icons/icon-07-21x18.png" width="21" height="18" alt="" class="img-responsive center-block"></div>
+                            <div class="icon-circle icon-circle-lg icon-filled-turquoise center-block"><img src="{% static 'img/icons/icon-07-21x18.png' %}" width="21" height="18" alt="" class="img-responsive center-block"></div>
                           </div>
                           <div class="unit-body offset-top-4 offset-xs-top-0">
                             <div>
@@ -288,7 +283,7 @@ fieldset {
                   <div class="owl-item">
                     <!-- Team Member-->
                     <div class="team-member">
-                      <div class="team-member-img-wrap"><img src="static/img/users/user-01-100x100.jpg" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
+                      <div class="team-member-img-wrap"><img src="{% static 'img/users/user-01-100x100.jpg' %}" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
                       <div class="team-member-body">
                         <div class="offset-top-20">
                           <div class="team-member-title text-small text-ubold text-uppercase text-spacing-200 text-gray-base">James smith</div>
@@ -306,7 +301,7 @@ fieldset {
                   <div class="owl-item">
                     <!-- Team Member-->
                     <div class="team-member">
-                      <div class="team-member-img-wrap"><img src="static/img/users/user-02-100x100.jpg" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
+                      <div class="team-member-img-wrap"><img src="{% static 'img/users/user-02-100x100.jpg' %}" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
                       <div class="team-member-body">
                         <div class="offset-top-20">
                           <div class="team-member-title text-small text-ubold text-uppercase text-spacing-200 text-gray-base">Mary Anderson</div>
@@ -324,7 +319,7 @@ fieldset {
                   <div class="owl-item">
                     <!-- Team Member-->
                     <div class="team-member">
-                      <div class="team-member-img-wrap"><img src="static/img/users/user-03-100x100.jpg" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
+                      <div class="team-member-img-wrap"><img src="{% static 'img/users/user-03-100x100.jpg' %}" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
                       <div class="team-member-body">
                         <div class="offset-top-20">
                           <div class="team-member-title text-small text-ubold text-uppercase text-spacing-200 text-gray-base">Will Johnson</div>
@@ -342,7 +337,7 @@ fieldset {
                   <div class="owl-item">
                     <!-- Team Member-->
                     <div class="team-member">
-                      <div class="team-member-img-wrap"><img src="static/img/users/user-01-100x100.jpg" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
+                      <div class="team-member-img-wrap"><img src="{% static 'img/users/user-01-100x100.jpg' %}" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
                       <div class="team-member-body">
                         <div class="offset-top-20">
                           <div class="team-member-title text-small text-ubold text-uppercase text-spacing-200 text-gray-base">James smith</div>
@@ -360,14 +355,14 @@ fieldset {
                 </div>
               </div>
             </div>
-            <div class="offset-top-40"><a href="testimonials.html" class="btn btn-primary">View More</a></div>
+            <!-- <div class="offset-top-40"><a href="testimonials.html" class="btn btn-primary">View More</a></div> -->
           </div>
         </section>
         <!-- Find Travel Perfection With the Professionalism of Experts-->
         <section data-wow-delay=".2s" class="context-dark wow fadeIn">
           <!-- RD Parallax-->
           <div data-on="false" data-md-on="true" class="rd-parallax">
-            <div data-speed="0.05" data-type="media" data-url="static/img/backgrounds/background-17-1920x900.jpg" class="rd-parallax-layer"></div>
+            <div data-speed="0.05" data-type="media" data-url="{% static 'img/backgrounds/background-17-1920x900.jpg' %}" class="rd-parallax-layer"></div>
             <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
               <div class="bg-overlay-inverse-md-darker">
                 <div class="shell section-80 section-lg-top-145 section-lg-bottom-295">
@@ -380,9 +375,7 @@ fieldset {
               </div>
             </div>
           </div>
-        </section>
-
-     
+        </section>   
       </main>
       <!-- Modal-->
       <div id="teamMember" tabindex="-1" role="dialog" class="modal modal-custom modal-team-member fade text-sm-left">
@@ -400,7 +393,7 @@ fieldset {
                   <div class="cell-sm-7">
                     <div class="modal-body-column-content">
                       <div class="team-member">
-                        <div class="team-member-img-wrap veil-sm"><img src="{% static 'img/users/user-01-100x100.jpg' %}" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
+                        <div class="team-member-img-wrap veil-sm"><img src="{% static 'img/users/user-01-300x385.jpg' %}" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
                         <div class="offset-top-15 offset-sm-top-0">
                           <div class="team-member-title text-small text-ubold text-uppercase text-spacing-200 text-gray-base">James Smith</div>
                         </div>
@@ -428,6 +421,10 @@ fieldset {
           </div>
         </div>
       </div>
+    </div>
+</body>
+
+
 
 
 

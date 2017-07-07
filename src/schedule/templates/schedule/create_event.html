@@ -1,44 +1,60 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block extrahead %}
 
 {% endblock extrahead %}
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 
   <!-- Date Picker -->
 {% block content %}
 
 {% include 'navbar.html' %}
-<div class="container">
 
 
-<div class=" col-sm-offset-3 col-md-10">
-<b>{% trans "Create or change event. All fields are required." %}</b>
-<br><br>
-<form action="" method="post">
-  {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-  </table>
-  <br>
-  <input type="submit" value="{% trans 'Save' %}">
-  <input type="submit" name="cancel" value="Cancel">
-</form>
 
-</div>
-</div>
+    <!-- Page-->
+    <div class="page text-center">
+      <main class="page-content">
+        <!-- Login-->
+        <section>
+          <!-- RD Parallax-->
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-26-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+              <div class="shell section-80 section-md-top-135 section-md-bottom-145">
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-5">
+                    <!-- Box-->
+                    <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
+                      <h5 class="text-ubold text-sm-left">Create or change event. All fields are required.</h5>
+                      <div class="offset-top-25">
+                        <div class="form-group form-group-xs">
+                            <form method="post" action="">
+                              {% csrf_token %}
+                              {{ form|crispy }}
+                                <input class="btn btn-block btn-icon btn-icon-right btn-primary" type="submit" value="{% trans 'Save' %}">
+                                <input class="btn btn-block btn-icon btn-icon-right btn-primary" type="submit" name="cancel" value="Cancel">
+                            </form>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
 
 
-<script src="{% static 'jquery-timepicker/jquery.ui.timepicker.js' %}"></script>
 <script>
       {% block jquery %}
-			$('#id_start_1').timepicker();
-			$('#id_end_1').timepicker();
+      document.getElementById('id_description').style.height="200px";
       {% endblock %}
 </script>
-
 
 {% endblock content %}

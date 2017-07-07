@@ -25,19 +25,10 @@
     pointer-events:none;
   }
 
-  .modal-content {
-    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
-    width:inherit;
-    height:inherit;
-    /* To center horizontally */
-    margin: 0 auto;
-    pointer-events: all;
-  }
-
-.modal-body { 
-    position: static; 
+.class-of-select {
+    position:relative; // or absolute/fixed
+    z-index: 5000; // or > 1050
 }
-
   {% endblock style %}
 </style>
 
@@ -55,44 +46,69 @@
 {% include "schedule/_dialogs.html" %}
 
 
-<div class="container" id="main-body">
-  <br>
-  <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-    <li><a data-toggle="tab" href="#menu1">Schedule</a></li>
-    <li><a data-toggle="tab" href="#menu2">Reviews</a></li>
+    <div class="page text-center">
+      <main class="page-content">
+        <section>
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-09-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+              <div class="shell section-80 section-md-top-135 section-md-bottom-145">
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-12">
+                    <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
+                      <h5 class="text-ubold text-sm-left">{{instance.first_name}} {{instance.last_name}}</h5>
+                      <div class="offset-top-25">
+                        <div class="form-group form-group-xs">
+                           <div class="container">
+                            <br>
+                            {% if object.get_image_url %}
+                            {% total_review_average object 100 as percentage %}
+                            <div class="col-sm-3">
+                              <div>
+                                <img id='img' class='img-responsive' src='{{ object.get_image_url }}' />
+                              </div> 
+                              <h3>{{instance.first_name}} {{instance.last_name}}</h3>
+                              <hr>
+                              <p>
+                              <br><br>
+                                Speaks: {{instance.language}}<br>
+                                <!-- Personality: {{instance.language}}<br> -->  <!-- Add this later for ranking the guides peronality -->
+                                Rating: {{ percentage|floatformat:"0" }}/100
+                              </p>
+                              <br>
+                            </div>
+                            {% endif %}
+                            <div class="col-sm-offset-1 col-sm-7">
+                              <h1>Tour Description</h1>
+                              <hr>
+                              <p class="lead">{{instance.tour_description|linebreaks }}</p>
+                            </div>
+                            <a data-toggle="modal" href="#myModal2" class="btn btn-primary">Book Tour</a>
+                            <br><br>
+                            <h4>Tour Help</h4>
+                              <p>{{instance.remember|linebreaks }}</p>
+                            </div>
+                          </div>
+                          <div class="container">
 
-  </ul>
-  <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-      <div class="container">
-        <br>
-        {% if object.get_image_url %}
-        {% total_review_average object 100 as percentage %}
-        <div class="col-sm-3">
-          <div>
-            <img id='img' class='img-responsive' src='{{ object.get_image_url }}' />
-          </div> 
-          <h3>{{instance.first_name}} {{instance.last_name}}</h3>
-          <hr>
-          <p>
-            Language: {{instance.language}}<br>
-            Personality: {{instance.language}}<br>
-            Rating: {{ percentage|floatformat:"0" }}/100
-          </p>
-          <br>
-        </div>
-        {% endif %}
-        <div class="col-sm-offset-1 col-sm-7">
-          <h1>Tour Description</h1>
-          <hr>
-          <p class="lead">{{instance.tour_description|linebreaks }}</p>
-        </div>
-      </div>
+
+
+ 
+
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
 
 
       <!-- 2nd MODAL -->
-      <a data-toggle="modal" href="#myModal2" class="btn btn-primary">Book Tour</a>
       <div class="modal fade offset-top-35 " id="myModal2">
         <div class="modal-dialog offset-top-35">
           <div class="modal-content offset-top-35">
@@ -132,61 +148,13 @@
       </div>
       <!-- 2nd MODAL -->
       
-      <hr>
+
+
+
+
       <div class="container">
-        <h1>Reviews</h1>
-        <div class="container">
-          {% user_has_reviewed instance request.user.id as has_reviewed %}
-          {% if has_reviewed %}
-          <em><p>You have already reviewed {{ instance.first_name }}.</p></em>
-          {% else %}
-          <p><a href="{% url 'review_create' content_type='guide' object_id=instance.pk %}">Review {{ instance.first_name }}</a></p>
-          {% endif %}
-          <div class="col-sm-11">
-            {% get_review_count object as review_count %}
-            <strong><p>{{ review_count }} users have reviewed {{instance.first_name}} so far & {% total_review_average object 100 as percentage %}
-              {{ percentage|floatformat:"0" }}% of our users recommend {{instance.first_name}}!</p></strong>
-              <hr>
-            </div>
-          </div>
-          <br>
-          <div class="container" >
-            {% get_review_count object as review_count %}
-            <div class="col-sm-11">
-              {% get_reviews object as reviews %}
-              {% for review in reviews|slice:":8" %}
-              <br>
-              <div class="col-sm-6">
-                <p>
-                  {% if review.content %}
-                  By <strong>{{ review.user}}</strong> <br>
-                  <font size="3">{{ review.content|truncatewords:'50'|linebreaks }}</font>
-                  {% else %}
-                  Reviewed without description.
-                  {% endif %}
-                </p>
-                <a href="{% url 'review_detail' pk=review.pk %}">Read More...</a>
-                <hr>
-              </div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-        <div class="container">
-          <div class="col-sm-11">
-            <hr>
-          </div>
-        </div>
-        <div class="container">
-          <h1>Things to Remember</h1>
-          <div class="col-sm-10">
-            <p>{{instance.remember|linebreaks }}</p>
-          </div>
-        </div> 
-      </div>
-
-
-      <div id="menu1" class="tab-pane fade">
+      <br>
+      <h3>Schedule</h3>
         <br>
         {% if instance.guide_name == request.user  %}
         <a name="schedule" href="{{calendar}}">Update Schedule
@@ -200,50 +168,72 @@
 
 
 
-
-      <div id="menu2" class="tab-pane fade">
-        <div class="container">
-          <br>     
-          <div class="container">
-            {% user_has_reviewed instance request.user.id as has_reviewed %}
-            {% if has_reviewed %}
-            <em><p>You have already reviewed {{ instance.first_name }}.</p></em>
-            {% else %}
-            <p><a href="{% url 'review_create' content_type='guide' object_id=instance.pk %}">Review {{ instance.first_name }}</a></p>
-            {% endif %}
-            <div class="col-sm-11">
-              {% get_review_count object as review_count %}
-              <strong><p>{{ review_count }} users have reviewed {{instance.first_name}} so far & {% total_review_average object 100 as percentage %}
-                {{ percentage|floatformat:"0" }}% of our users recommend {{instance.first_name}}!</p></strong>
-                <hr>
-              </div>
-            </div>
-            <br>
-            <div class="container">
-              {% get_review_count object as review_count %}
-              <div class="col-sm-11">
-                {% get_reviews object as reviews %}
-                {% for review in reviews %}
-                <br>
-                <div class="col-sm-6">
-                  <p>
-                    {% if review.content %}
-                    By <strong>{{ review.user}}</strong> <br>
-                    <font size="3">{{ review.content|truncatewords:'50'|linebreaks }}</font>
-                    {% else %}
-                    Reviewed without description.
-                    {% endif %}
-                  </p>
-                  <a href="{% url 'review_detail' pk=review.pk %}">Read More...</a>
-                  <hr>
+    <div class="page">
+      <main class="page-content">
+        <section>
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-35-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+              <div class="shell section-80 section-md-top-135 section-md-bottom-145">
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-12">
+                    <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
+                      <h5 class="text-ubold text-sm-left">{{instance.first_name}} {{instance.last_name}}</h5>
+                      <div class="offset-top-25">
+                        <div class="form-group form-group-xs">
+                            {% user_has_reviewed instance request.user.id as has_reviewed %}
+                            {% if has_reviewed %}
+                            <em><p>You have already reviewed {{ instance.first_name }}.</p></em>
+                            {% else %}
+                            <p><a href="{% url 'review_create' content_type='guide' object_id=instance.pk %}">Review {{ instance.first_name }}</a></p>
+                            {% endif %}
+                            <div class="col-sm-11">
+                              {% get_review_count object as review_count %}
+                              <strong><p>{{ review_count }} users have reviewed {{instance.first_name}} and have given a & {% total_review_average object 100 as percentage %}
+                                {{ percentage|floatformat:"0" }}% average rating</p></strong>
+                                <hr>
+                              </div>
+                            <br>
+                              {% get_review_count object as review_count %}
+                                {% get_reviews object as reviews %}
+                                {% for review in reviews %}
+                                  <div class="cell-sm-6 cell-md-4 offset-top-30 offset-md-top-0" style="padding-bottom: 30px; padding-top: 30px;">
+                                    <!-- Box-->
+                                    <div class="box box-sm bg-white reveal-lg-block">
+                                      <div class="unit unit-xs unit-xs-horizontal unit-spacing-sm">
+                                        <div class="unit-body offset-top-4 offset-xs-top-0">
+                                          <div>
+                                          {% if review.content %}
+                                            <p class="text-small text-gray-base text-uppercase text-ubold">By {{ review.user}}</p>
+                                          </div>
+                                          <div class="offset-top-4">
+                                            <p class="text-small text-silver-chalice">{{ review.content|truncatewords:'50'|linebreaks }}
+                                                  {% else %}
+                                                    Reviewed without description.
+                                                  {% endif %}
+                                                </p>
+                                                <a href="{% url 'review_detail' pk=review.pk %}">Read More...</a>
+                                          </div> 
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                {% endfor %}
+                          </div>
+                        </div>
+                    </div>
+                  </div>
                 </div>
-                {% endfor %}
               </div>
             </div>
           </div>
-        </div>
+        </section>
+      </main>
+    </div>
   </div>
 </div>
+</div>
+
 
 
 <script type='text/javascript' src="{% static 'moment/moment.js' %}"></script>

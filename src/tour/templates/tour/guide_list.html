@@ -79,10 +79,34 @@
 
   {% if object_list|length >= 1 %}
 
+      <div class="page text-center">
+      <main class="page-content">
+        <!-- Login-->
+        <section>
+          <!-- RD Parallax-->
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-29-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+              <div class="shell section-80 section-md-top-135 section-md-bottom-145">
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-12">
+                    <!-- Box-->
+                    <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
+                      <h5 class="text-ubold text-sm-left">{% trans "Available Calendars" %}</h5>
+                      <div class="offset-top-25">
+                        <div class="form-group form-group-xs">
+                            </br> <h3 style="text-align: center;">There are <strong>{{object_list|length}}</strong> guides in Condon, OR.</h3>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
 
-    <!-- {% if object_list|length >= 1 %} -->
-    </br> <h3 style="text-align: center;">There are <strong>{{object_list|length}}</strong> guides in Condon, OR.</h3>
-    <!-- {% endif %} -->
 
 
 

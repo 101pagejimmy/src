@@ -3,19 +3,50 @@
 
 {% block content %}
 {% include "navbar.html" %}
+
+
+
+    <div class="page text-center">
+      <main class="page-content">
+        <!-- Login-->
+        <section>
+          <!-- RD Parallax-->
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-20-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+              <div class="shell section-80 section-md-top-135 section-md-bottom-145">
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-12">
+                    <!-- Box-->
+                    <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
+                      <h5 class="text-ubold text-sm-left">Schedule Views</h5>
+                      <div class="offset-top-25">
+                          <div class="navigation">
+                            <a class="btn btn-primary gradient" href="{% url "day_calendar" event.calendar.slug %}{% querystring_for_date event.start 3 %}">
+                              {% trans "Day" %}
+                            </a>
+                            <a class="btn btn-primary gradient" href="{% url "month_calendar" event.calendar.slug %}{% querystring_for_date event.start 2 %}">
+                              {% trans "Month" %}
+                            </a>
+                            <a class="btn btn-primary gradient" href="{% url "year_calendar" event.calendar.slug %}{% querystring_for_date event.start 1 %}">
+                              {% trans "Year" %}
+                            </a>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+
+
 <div class="container">
-<div class="navigation">
-  <a class="btn btn-primary gradient" href="{% url "day_calendar" event.calendar.slug %}{% querystring_for_date event.start 3 %}">
-    {% trans "Day" %}
-  </a>
-  <a class="btn btn-primary gradient" href="{% url "month_calendar" event.calendar.slug %}{% querystring_for_date event.start 2 %}">
-    {% trans "Month" %}
-  </a>
-  <a class="btn btn-primary gradient" href="{% url "year_calendar" event.calendar.slug %}{% querystring_for_date event.start 1 %}">
-    {% trans "Year" %}
-  </a>
-</div>
-<hr>
+<br>
 <div class="event_actions" align="center">
   {% if back_url %}
   <a href="{{ back_url }}">
@@ -49,10 +80,36 @@
 <td>{% trans "Never. This is a 'one time only' event." %}</td>
 {% endif %}
 </tr></table>
-{% if event.description %}
-<h3>{% trans "Description" %}</h3>
-<p>{{event.description}}</p>
-{% endif %}
+<br>
 </div>
+{% if event.description %}
+    <div class="page text-center">
+      <main class="page-content">
+        <!-- Login-->
+        <section>
+          <!-- RD Parallax-->
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-09-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+              <div class="shell section-80 section-md-top-135 section-md-bottom-145">
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-12">
+                    <!-- Box-->
+                    <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
+                      <h5 class="text-ubold text-sm-left">{% trans "Description" %}</h5>
+                      <div class="offset-top-25">
+                          <p>{{event.description}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+{% endif %}
+
 
 {% endblock %}

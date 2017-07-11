@@ -80,19 +80,11 @@
 {% include "navbar.html" %}
 
 
-<!-- <div class="container" id="main-body"> -->
-
-
-
-
-
-
-
       <div class="page text-center">
       <main class="page-content">
-        <!-- <section>
+        <section>
           <div data-on="false" data-md-on="true" class="rd-parallax">
-            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-27-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-29-1920x900.jpg' %}" class="rd-parallax-layer"></div>
             <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
               <div class="shell section-80 section-md-top-135 section-md-bottom-145">
                 <div class="range range-xs-center">
@@ -100,16 +92,16 @@
                     <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
                       <h5 class="text-ubold text-sm-left">{% trans "Guides" %}</h5>
                       <div class="offset-top-25">
-                        <div class="form-group form-group-xs"> -->
+                        <div class="form-group form-group-xs">
                           {% if object_list|length = 1 %}
-                            </br> <h3 style="text-align: center;">There is <strong>{{object_list|length}}</strong> guide in Condon, OR.</h3>
+                            </br> <h3 style="text-align: center;">There is <strong>{{object_list|length}}</strong> guide in {{from}}.</h3>
                           {% elif object_list|length > 1 %}
-                            </br> <h3 style="text-align: center;">There are <strong>{{object_list|length}}</strong> guides in Condon, OR.</h3>
+                            </br> <h3 style="text-align: center;">There are <strong>{{object_list|length}}</strong> guides in {{from}}.</h3>
                           {% else %}
-                            <h3 style="text-align: center;">There are <strong>{{object_list|length}}</strong> guides in Condon, OR.</h3>
+                            <h3 style="text-align: center;">There are <strong>{{object_list|length}}</strong> guides in {{from}}.</h3>
                             </br>  <p style="text-align: center;">There are currently no matches for this search.</p>
                           {% endif %}
-<!--                         </div>
+                        </div>
                     </div>
                   </div>
                 </div>
@@ -118,7 +110,7 @@
           </div>
         </section>
       </main>
-    </div> -->
+    </div>
 
   {% for guide in object_list %}
     {% if guide.guide.is_featured %}
@@ -141,83 +133,63 @@
 
   {% endfor %}
 
-
-
       </div>  
     </div>
 
 
- <div class="container" id="main-body"> 
-
-    <!-- Page Content-->
       <main class="page-content">
-        <!-- Tours List-->
         <section class="section-80 bg-wild-wand">
           <div class="shell">
             <div class="range range-xs-center">
               <div class="cell-sm-11 cell-md-9 cell-md-push-1">
-
                 <div class="range range-xs-center range-sm-left range-md-center offset-top-50 offset-md-top-25">
-                 
-
                   <div class="cell-xs-10 cell-sm-6 cell-lg-12 offset-top-30 offset-lg-top-20">
-                   
-
-
-                    <!-- Box Offer-->
                     <div class="box-offer box-offer-sm box-offer-left">
-
-                    </div>
-                  </div>
-
-
-
-  {% for guide in object_list %}
-		<!-- NEEDS REFACTORED FOR MORE EFFECIENT QUERYING -->
-
-				{% total_review_average guide.guide 100 as percentage %}
-
-
-	                <div class="container">
-	                  <div class="cell-xs-10 cell-sm-6 cell-lg-12 offset-top-30 offset-lg-top-20">
-	                    <!-- Box Offer-->
-	                    <div class="box-offer box-offer-sm box-offer-left">
-	                      <div class="box-offer-img-wrap"><a href="{{ guide.guide.get_absolute_url }}"><img src="{{ guide.guide.get_image_url }}" width="270" height="280" alt="" class="img-responsive center-block"></a></div>
-	                      <div class="box-offer-caption text-left">
-	                        <div class="box-offer-caption-inner-wrap">
-	                          <div class="box-offer-caption-inner-left">
-	                                  <div>
-	                                    <h4 style="color: black"><a href='{{ guide.guide.get_absolute_url }}'>{{ guide.guide.first_name }} {{ guide.guide.last_name }}</a></h4>
-	                                    <p>Language: {{guide.guide.language}}</p>
-	                                    <!-- <p>Personality: {{guide.guide.language}}</p> -->
-	                                    <p>Rating: {{ percentage|floatformat:"0" }}/100</p>
-	                                 </div>
-	                          </div>
-	                          <div class="box-offer-caption-inner-right text-right">
-	                            <div>
-	                              <p class="text-extra-small text-spacing-500 text-silver-chalice">PRICE</p>
-	                            </div>
-	                            <div class="offset-top-4">
-	                              <!-- List Inline-->
-	                              <ul class="list-inline inset-right-5">
-	                                <li class="box-offer-price text-gray-base text-ubold text-primary text-middle">Free</li>
-	                              </ul>
-	                            </div>
-	                          </div>
-	                        </div>
-	                        <div class="clearfix"></div>
-	                        <div class="offset-top-12 box-offer-caption-inner-wrap box-offer-caption-inner-wrap-bottom">
-	                          <div class="box-offer-caption-inner-left box-offer-description">
-	                            <p class="text-small text-silver-chalice">{{guide.guide.description}}</p>
-	                          </div>
-	                          <div class="box-offer-caption-inner-right text-lg-right offset-top-20 offset-lg-top-0"><a href="{{ guide.guide.get_absolute_url }}" class="btn btn-width-110 btn-primary">VIEW {{guide.guide.first_name|capfirst}}</a></div>
-	                        </div>
-	                        <div class="clearfix"></div>
-	                      </div>
-	                    </div>
-	                  </div>
-	                </div>
-	                <br>
+                      </div>
+                        </div>
+                          {% for guide in object_list %}
+                          {% if total_review_average %}
+                  				  {% total_review_average guide.guide 100 as percentage %}
+                          {% endif %}
+        	                <div class="container">
+        	                  <div class="cell-xs-10 cell-sm-6 cell-lg-12 offset-top-30 offset-lg-top-20">
+        	                    <div class="box-offer box-offer-sm box-offer-left">
+        	                      <div class="box-offer-img-wrap"><a href="{{ guide.guide.get_absolute_url }}"><img src="{{ guide.guide.get_image_url }}" width="270" height="280" alt="" class="img-responsive center-block"></a></div>
+        	                      <div class="box-offer-caption text-left">
+        	                        <div class="box-offer-caption-inner-wrap">
+        	                          <div class="box-offer-caption-inner-left">
+        	                                  <div>
+        	                                    <h4 style="color: black"><a href='{{ guide.guide.get_absolute_url }}'>{{ guide.guide.first_name }} {{ guide.guide.last_name }}</a></h4>
+        	                                    <p>Speaks: {{guide.guide.language}}</p>
+                                              {% if total_review_average %}
+        	                                       <p>Rating: {{ percentage|floatformat:"0" }}/100</p>
+                                              {% endif %}
+        	                                 </div>
+        	                          </div>
+        	                          <div class="box-offer-caption-inner-right text-right">
+        	                            <div>
+        	                              <p class="text-extra-small text-spacing-500 text-silver-chalice">PRICE</p>
+        	                            </div>
+        	                            <div class="offset-top-4">
+        	                              <ul class="list-inline inset-right-5">
+        	                                <li class="box-offer-price text-gray-base text-ubold text-primary text-middle">Free</li>
+        	                              </ul>
+        	                            </div>
+        	                          </div>
+        	                        </div>
+        	                        <div class="clearfix"></div>
+        	                        <div class="offset-top-12 box-offer-caption-inner-wrap box-offer-caption-inner-wrap-bottom">
+        	                          <div class="box-offer-caption-inner-left box-offer-description">
+        	                            <p class="text-small text-silver-chalice">{{guide.guide.description}}</p>
+        	                          </div>
+        	                          <div class="box-offer-caption-inner-right text-lg-right offset-top-20 offset-lg-top-0"><a href="{{ guide.guide.get_absolute_url }}" class="btn btn-width-110 btn-primary">VIEW {{guide.guide.first_name|capfirst}}</a></div>
+        	                        </div>
+        	                        <div class="clearfix"></div>
+        	                      </div>
+        	                    </div>
+        	                  </div>
+        	                </div>
+	                    <br>
 
 
   {% endfor %}
@@ -226,7 +198,6 @@
 
                 </div>
                 <div class="offset-top-50">
-                  <!-- Classic Pagination-->
                   <nav>
                     <ul class="pagination-classic">
                       <li class="active"><span>1</span></li>
@@ -239,18 +210,18 @@
                   </nav>
                 </div>
               </div>
+
+
               <div class="cell-sm-10 cell-md-3 offset-top-50 offset-md-top-0 text-md-left">
-                <!-- Aside-->
                 <aside class="blog-aside box box-xs reveal-block bg-white">
                   <p class="text-gray-base text-ubold text-uppercase text-spacing-200">Search</p>
                   <div class="offset-top-20">
-                    <!-- RD Search Form-->
                     <form class="form-inline-search" action="/occurrence_listings" method="get"">
                       <div class="form-blog-search">
                         <button class="form-search-submit"><span><img src="{% static 'img/icons/icon-34-16x21.png' %}" width="16" height="21" alt="" class="img-responsive center-block"></span></button>
                         <div class="form-group form-group-xs">
                           <label for="tours-destination" class="form-label form-search-label form-label-sm"></label>
-                          <input id="index-destination" type="text" name="living" class="form-control" placeholder="Destination" value='{{ request.GET.q }}'>
+                          <input id="tours-destination" type="text" name="living" class="form-control" placeholder="Destination" value='{{ request.GET.q }}'>
                         </div>
                       </div>
                       <div class="form-blog-search">
@@ -281,12 +252,15 @@
                   </div>
                 </aside>
               </div>
+
+
+
             </div>
           </div>
         </section>
       </main>
 
-
+<br>
 <script src="{% static 'jquery-ui/ui/widgets/datepicker.js' %}"></script>
 
 <script>

@@ -41,7 +41,7 @@ import csv
 
 from schedule.models.calendars import Calendar
 import pytz
-
+from django.utils.decorators import method_decorator
 from itertools import chain
 
 # Create your views here.
@@ -55,7 +55,7 @@ def home(request):
 
 #__________________________________________________________________
 
-
+@login_required
 def create_tour_guide(request):
 	form = GuideForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
@@ -140,7 +140,8 @@ class FilterMixin(object):
 			date_dash = date.replace('/', '-')
 			occurrence_list = Occurrence.objects.filter(start__icontains=date_dash[:5])
 			#occurrence_list = Occurrence.objects.filter(event__creator__exact='talia')
-			object_list = list(chain(f, occurrence_list))
+			#object_list = list(chain(f, occurrence_list))
+			object_list = f
 			#____________________IN THE WORKS FOR QUERYING_______
 			context["object_list"] = object_list
 		return context
@@ -158,6 +159,7 @@ class GuideListView(FilterMixin, ListView):
 		context["now"] = timezone.now()
 		context["query"] = self.request.GET.get("q") #None
 		context["filter_form"] = GuideFilterForm(data=self.request.GET or None)
+		context['from'] = self.request.GET.get('living')
 
 		queryset = Guide.objects.get_queryset()
 		
@@ -228,7 +230,7 @@ class OccurenceFilterMixin(object):
 
 class OccurrenceListView(OccurenceFilterMixin, ListView):
 	model = Occurrence
-	queryset = Occurrence.objects.all()
+	queryset = Occurrence.objects.all().distinct()
 	filter_class = OccurenceFilterForm
 
 	def get_context_data(self, *args, **kwargs):
@@ -236,6 +238,9 @@ class OccurrenceListView(OccurenceFilterMixin, ListView):
 		context["query"] = self.request.GET.get("q") #None
 		context["filter_form"] = OccurenceFilterForm(data=self.request.GET or None)
 		queryset = Occurrence.objects.get_queryset()
+		#print(queryset.distinct('guide'))
+		context['from'] = self.request.GET.get('living')
+		context["current_user"] = self.request.user
 		
 		return context
 
@@ -252,6 +257,7 @@ class OccurrenceListView(OccurenceFilterMixin, ListView):
 			Q(living=query)
 				)
 			qs = (qs | qs2).distinct()
+
 		except:
 			pass
 		return qs
@@ -321,6 +327,7 @@ class GuideDetailView(DetailView):
 		context['tours_dates'] = OccurrenceForm(guide=self.get_object().pk)
 		context['other_form'] = OccurrenceBookingForm()
 
+
 		
 		#________CREATES OR GETS TOUR GUIDES CALANDER____________
 		user = self.get_object().guide_name
@@ -349,7 +356,9 @@ class GuideDetailView(DetailView):
 		for tour in tourlist:
 			for occurrence in tour:
 				if occurrence.DoesNotExist:
+					occurrence.guide = self.get_object()
 					occurrence.save()
+
 				else:
 					pass
 

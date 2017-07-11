@@ -57,6 +57,11 @@
   }
 
 
+  textarea:focus, input:focus{
+    outline: none;
+}
+
+
   {% endblock style %}
 </style>
 
@@ -89,9 +94,6 @@
                                 <input class='btn btn-block btn-icon btn-icon-right btn-primary' type="submit" value="{% trans 'SUBMIT' %}" />
                                 <input type="hidden" name="next" value="{{ next }}" />
                             </form>
-                          <div class="offset-top-0">
-                            <p class="text-extra-small">Don`t have an account? <a href="{% url 'registration_register' %}" class="text-primary">Sign Up</a> now!</p>
-                          </div>
                       </div>
                     </div>
                   </div>

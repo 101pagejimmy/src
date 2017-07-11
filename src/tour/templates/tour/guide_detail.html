@@ -38,6 +38,8 @@
 {% endblock extrahead %}
 
 
+
+
 {% block content %}
 
 
@@ -50,13 +52,13 @@
       <main class="page-content">
         <section>
           <div data-on="false" data-md-on="true" class="rd-parallax">
-            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-09-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/portland.jpg' %}" class="rd-parallax-layer"></div>
             <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
               <div class="shell section-80 section-md-top-135 section-md-bottom-145">
                 <div class="range range-xs-center">
                   <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-12">
                     <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
-                      <h5 class="text-ubold text-sm-left">{{instance.first_name}} {{instance.last_name}}</h5>
+                      <h3 class="text-ubold text-sm-left">{{instance.first_name}} {{instance.last_name}}</h3>
                       <div class="offset-top-25">
                         <div class="form-group form-group-xs">
                            <div class="container">
@@ -67,7 +69,7 @@
                               <div>
                                 <img id='img' class='img-responsive' src='{{ object.get_image_url }}' />
                               </div> 
-                              <h3>{{instance.first_name}} {{instance.last_name}}</h3>
+                              <!-- <h3>{{instance.first_name}} {{instance.last_name}}</h3> -->
                               <hr>
                               <p>
                               <br><br>
@@ -88,13 +90,7 @@
                             <h4>Tour Help</h4>
                               <p>{{instance.remember|linebreaks }}</p>
                             </div>
-                          </div>
-                          <div class="container">
-
-
-
- 
-
+                            <br>
                           </div>
                         </div>
                     </div>
@@ -248,9 +244,10 @@
   {% block jquery %}
 
 
+
   $('#calendar').fullCalendar({
 // put your options and callbacks here
-events: '/schedule/api/occurrences?calendar_slug=talia'
+events: '/schedule/api/occurrences?calendar_slug={{instance.guide_name}}'
 })
 
   {% endblock %}

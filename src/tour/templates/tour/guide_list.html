@@ -72,13 +72,6 @@
 {% block content %}
 
 {% include 'navbar.html' %}
-
-<div class="container" id="main-body">
-
-
-
-  {% if object_list|length >= 1 %}
-
       <div class="page text-center">
       <main class="page-content">
         <!-- Login-->
@@ -92,10 +85,10 @@
                   <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-12">
                     <!-- Box-->
                     <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
-                      <h5 class="text-ubold text-sm-left">{% trans "Available Calendars" %}</h5>
+                      <h5 class="text-ubold text-sm-left">Guides</h5>
                       <div class="offset-top-25">
                         <div class="form-group form-group-xs">
-                            </br> <h3 style="text-align: center;">There are <strong>{{object_list|length}}</strong> guides in Condon, OR.</h3>
+                            </br> <h3 style="text-align: center;">There are <strong>{{object_list|length}}</strong> guides in {{from}}.</h3>
                         </div>
                     </div>
                   </div>
@@ -106,6 +99,15 @@
         </section>
       </main>
     </div>
+
+
+
+<div class="container" id="main-body">
+
+
+
+  {% if object_list|length >= 1 %}
+
 
 
 
@@ -163,7 +165,8 @@
 {% for guide in object_list %}
 <!-- NEEDS REFACTORED FOR MORE EFFECIENT QUERYING -->
 
-{% total_review_average guide 100 as percentage %}
+  {% total_review_average guide 100 as percentage %}
+
 
 
                 <div class="container">

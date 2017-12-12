@@ -6,7 +6,6 @@ from django.db import models
 from django.db.models.signals import pre_save, post_save
 from django.utils import timezone
 from django.utils.text import slugify
-from schedule.models.events import Occurrence
 
 # Create your models here.
 #_____________________________________________________________________________
@@ -33,6 +32,8 @@ class Guide(models.Model):
     secondary_language  = models.CharField(max_length=100, null=True, blank=True, choices=CHOICE_FIELDS)
     is_featured         = models.BooleanField(default=False)
     meet_up_point       = models.CharField(max_length=1000, null=True, blank=True)
+    latitude            = models.DecimalField(max_digits=50, decimal_places=10, default=45.2410892)
+    longitude           = models.DecimalField(max_digits=50, decimal_places=10, default=-120.1882163)
     #image              = models.ImageField(upload_to=upload_location, null=True, blank=True, width_field="width_field", height_field="height_field")
     height_field        = models.IntegerField(default=100)
     width_field         = models.IntegerField(default=80)
@@ -40,6 +41,7 @@ class Guide(models.Model):
     updated             = models.DateTimeField(auto_now=True, auto_now_add=False, null=True, blank=True)
     timestamp           = models.DateTimeField(auto_now=False, auto_now_add=True, null=True, blank=True)
     slug                = models.SlugField(unique=True)
+    posistion            = models.CharField(max_length=200, null=True, blank=True)
     
     def __str__(self):
         name = str(self.first_name)

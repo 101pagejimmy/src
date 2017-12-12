@@ -1,7 +1,19 @@
 {% extends "base.html" %}
 {% load scheduletags i18n %}
+
+<style>
+{% block style %}
+.calendarname {
+  text-align: center;
+}
+
+{% endblock %}
+</style>
+
 {% block content %}
 {% include "navbar.html" %}
+
+
 <div class="tablewrapper">
     <div class="calendarname">{{ calendar.name }}</div>
     {% prevnext "year_calendar" calendar period "Y" %}

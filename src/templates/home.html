@@ -5,21 +5,37 @@
 
 <style>
 {% block style %}
+
 fieldset {
     border: 0px solid #dddddd;
     padding: 1.25rem;
     margin: 1.125rem 0;
 }
-
-
 .bg-white {
     background: #fff;
     fill: #fff;
 }
 
+h1 {
+  font-family: 'Lobster', Georgia, Times, serif;
+  font-size: 70px;
+  line-height: 100px;
+}
+ 
+p {
+  font-family: 'Cabin', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 25px;
+}
+
 
 {% endblock style %}
 </style>
+
+{% block extrahead %}
+
+
+{% endblock extrahead %}
 
 
 
@@ -46,7 +62,7 @@ fieldset {
               <div class="rd-navbar-nav-wrap">
                 <!-- RD Navbar Nav-->
                 <ul class="rd-navbar-nav">
-                  <li class="active"><a href="/">Home</a></li>           
+                  <li class="active"><a href="/">Home</a></li>
                   <li><a href="#">About</a></li>
                   <li><a href="#">Contact</a></li>
                   {% if request.user.is_authenticated %}
@@ -62,7 +78,6 @@ fieldset {
             </div>
           </nav>
         </div>
-
         <!-- Swiper-->
 <div data-height="" data-min-height="400px" data-simulate-touch="false" data-slide-effect="fade" class="swiper-container swiper-slider">
           <div class="swiper-wrapper">
@@ -75,10 +90,10 @@ fieldset {
               <div class="range range-xs-center">
                 <div class="cell-lg-10">
                   <div>
-                    <h1 class="text-white">Enjoy Your Free Walking Tour</h1>
+                    <h1 class="text-white">Tours Made Simple</h1>
                   </div>
                   <div class="offset-top-8">
-                    <p class="h6 text-white">Free Walking Tours in Select Cities</p>
+                    <p class="h6 text-white">Search to find a tour near you.</p>
                   </div>
                   <div class="offset-top-30 offset-md-top-60 inset-left-20 inset-right-20 inset-sm-left-0 inset-sm-right-0">
                     <!-- Form-->
@@ -113,7 +128,6 @@ fieldset {
       </header>
       <!-- Page Content-->
       <main class="page-content">
-
         <!-- Best Offers-->
         <section class="section-80 section-md-top-70 bg-wild-wand">
           <div class="shell">
@@ -191,171 +205,7 @@ fieldset {
                 </div>
               </div>
 
-             
             </div>
-            <div class="offset-top-50"><a href="tours-grid.html" class="btn btn-primary">View ALL TOURs</a></div>
-          </div>
-        </section>
-        <!-- Why SunTravel-->
-        <section data-wow-delay=".2s" class="wow fadeIn">
-          <!-- RD Parallax-->
-          <div data-on="false" data-md-on="true" class="rd-parallax">
-            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-18-1920x900.jpg' %}" class="rd-parallax-layer"></div>
-            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
-              <div class="bg-overlay-inverse-md-darker">
-                <div class="shell section-80 section-md-top-70">
-                  <h3 class="text-white">Why Pretium Tours</h3>
-                  <div class="range range-xs-center range-md-left text-xs-left offset-top-35">
-                    <div class="cell-sm-6 cell-md-4" style="padding-bottom: 30px; padding-top: 30px;">
-                      <!-- Box-->
-                      <div class="box box-sm bg-white reveal-lg-block">
-                        <div class="unit unit-xs unit-xs-horizontal unit-spacing-sm">
-                          <div class="unit-left">
-                            <div class="icon-circle icon-circle-lg icon-filled-turquoise center-block"><img src="{% static 'img/icons/icon-11-20x18.png' %}" width="20" height="18" alt="" class="img-responsive center-block"></div>
-                          </div>
-                          <div class="unit-body offset-top-4 offset-xs-top-0">
-                            <div>
-                              <p class="text-small text-gray-base text-uppercase text-ubold">Personalized matching</p>
-                            </div>
-                            <div class="offset-top-4">
-                              <p class="text-small text-silver-chalice">We can provide up to 3 experienced travel specialists who fit best for your trip.</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="cell-sm-6 cell-md-4 offset-top-30 offset-sm-top-0" style="padding-bottom: 30px; padding-top: 30px;">
-                      <!-- Box-->
-                      <div class="box box-sm bg-white reveal-lg-block">
-                        <div class="unit unit-xs unit-xs-horizontal unit-spacing-sm">
-                          <div class="unit-left">
-                            <div class="icon-circle icon-circle-lg icon-filled-turquoise center-block"><img src="{% static 'img/icons/icon-06-14x21.png' %}" width="14" height="21" alt="" class="img-responsive center-block"></div>
-                          </div>
-                          <div class="unit-body offset-top-4 offset-xs-top-0">
-                            <div>
-                              <p class="text-small text-gray-base text-uppercase text-ubold">Currently 3 destinations</p>
-                            </div>
-                            <div class="offset-top-4">
-                              <p class="text-small text-silver-chalice">With Pretium, we’ll find the guide your looking for.</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="cell-sm-6 cell-md-4 offset-top-30 offset-md-top-0" style="padding-bottom: 30px; padding-top: 30px;">
-                      <!-- Box-->
-                      <div class="box box-sm bg-white reveal-lg-block">
-                        <div class="unit unit-xs unit-xs-horizontal unit-spacing-sm">
-                          <div class="unit-left">
-                            <div class="icon-circle icon-circle-lg icon-filled-turquoise center-block"><img src="{% static 'img/icons/icon-07-21x18.png' %}" width="21" height="18" alt="" class="img-responsive center-block"></div>
-                          </div>
-                          <div class="unit-body offset-top-4 offset-xs-top-0">
-                            <div>
-                              <p class="text-small text-gray-base text-uppercase text-ubold">highly qualified service</p>
-                            </div>
-                            <div class="offset-top-4">
-                              <p class="text-small text-silver-chalice">Our high level of service is officially recognized by thousands of clients.</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <!-- What Customers Say-->
-        <section data-wow-delay=".2s" class="section-70 section-md-bottom-80 wow fadeIn">
-          <div class="shell">
-            <div>
-              <h3>What Customers Say</h3>
-            </div>
-            <div class="offset-top-10">
-              <p>Our clients’ testimonials are the best proof of our high level of service</p>
-            </div>
-            <div class="range range-xs-center offset-top-40">
-              <div class="cell-md-10 cell-lg-12">
-                <!-- Owl Carousel-->
-                <div data-items="1" data-sm-items="2" data-lg-items="3" data-stage-padding="5" data-loop="false" data-margin="30" data-mouse-drag="false" data-dots="true" data-nav="true" class="owl-carousel owl-dots-primary">
-                  <div class="owl-item">
-                    <!-- Team Member-->
-                    <div class="team-member">
-                      <div class="team-member-img-wrap"><img src="{% static 'img/users/user-01-100x100.jpg' %}" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
-                      <div class="team-member-body">
-                        <div class="offset-top-20">
-                          <div class="team-member-title text-small text-ubold text-uppercase text-spacing-200 text-gray-base">James smith</div>
-                        </div>
-                        <div class="offset-top-20">
-                          <p class="text-small text-italic text-silver-chalice">“It is awesome!”</p>
-                        </div>
-                      </div>
-                      <div class="team-member-hover-content offset-top-20 offset-lg-top-0">
-                        <!-- Button trigger modal-->
-                        <button type="button" data-toggle="modal" data-target="#teamMember" class="btn btn-primary">View FULL INFO</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="owl-item">
-                    <!-- Team Member-->
-                    <div class="team-member">
-                      <div class="team-member-img-wrap"><img src="{% static 'img/users/user-02-100x100.jpg' %}" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
-                      <div class="team-member-body">
-                        <div class="offset-top-20">
-                          <div class="team-member-title text-small text-ubold text-uppercase text-spacing-200 text-gray-base">Mary Anderson</div>
-                        </div>
-                        <div class="offset-top-20">
-                          <p class="text-small text-italic text-silver-chalice">“Good job!”</p>
-                        </div>
-                      </div>
-                      <div class="team-member-hover-content offset-top-20 offset-lg-top-0">
-                        <!-- Button trigger modal-->
-                        <button type="button" data-toggle="modal" data-target="#teamMember" class="btn btn-primary">View FULL INFO</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="owl-item">
-                    <!-- Team Member-->
-                    <div class="team-member">
-                      <div class="team-member-img-wrap"><img src="{% static 'img/users/user-03-100x100.jpg' %}" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
-                      <div class="team-member-body">
-                        <div class="offset-top-20">
-                          <div class="team-member-title text-small text-ubold text-uppercase text-spacing-200 text-gray-base">Will Johnson</div>
-                        </div>
-                        <div class="offset-top-20">
-                          <p class="text-small text-italic text-silver-chalice">“I had a great tour.”</p>
-                        </div>
-                      </div>
-                      <div class="team-member-hover-content offset-top-20 offset-lg-top-0">
-                        <!-- Button trigger modal-->
-                        <button type="button" data-toggle="modal" data-target="#teamMember" class="btn btn-primary">View FULL INFO</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="owl-item">
-                    <!-- Team Member-->
-                    <div class="team-member">
-                      <div class="team-member-img-wrap"><img src="{% static 'img/users/user-01-100x100.jpg' %}" width="100" height="100" alt="" class="img-circle img-responsive center-block"></div>
-                      <div class="team-member-body">
-                        <div class="offset-top-20">
-                          <div class="team-member-title text-small text-ubold text-uppercase text-spacing-200 text-gray-base">James smith</div>
-                        </div>
-                        <div class="offset-top-20">
-                          <p class="text-small text-italic text-silver-chalice">“Wonderul tour.”</p>
-                        </div>
-                      </div>
-                      <div class="team-member-hover-content offset-top-20 offset-lg-top-0">
-                        <!-- Button trigger modal-->
-                        <button type="button" data-toggle="modal" data-target="#teamMember" class="btn btn-primary">View FULL INFO</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- <div class="offset-top-40"><a href="testimonials.html" class="btn btn-primary">View More</a></div> -->
           </div>
         </section>
         <!-- Find Travel Perfection With the Professionalism of Experts-->
@@ -369,13 +219,12 @@ fieldset {
                   <div class="range range-xs-center range-md-right text-md-right">
                     <div class="cell-sm-10 cell-md-7">
                       <h2>Find Travel Perfection With the Professionalism of Experts</h2>
-
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </section>   
+        </section>
       </main>
       <!-- Modal-->
       <div id="teamMember" tabindex="-1" role="dialog" class="modal modal-custom modal-team-member fade text-sm-left">
@@ -424,21 +273,10 @@ fieldset {
     </div>
 </body>
 
-
-
-
-
 <script src="{% static 'jquery-ui/ui/widgets/datepicker.js' %}"></script>
-
 <script>
       {% block jquery %}
       $('#index-departure').datepicker();
       {% endblock %}
 </script>
-
-
-
 {% endblock %}
-
-
-

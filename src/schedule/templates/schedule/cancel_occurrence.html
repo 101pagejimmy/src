@@ -21,20 +21,19 @@
                   <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-5">
                     <!-- Box-->
                     <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
-                    <h1>{% trans "Delete" %}</h1>
-                    {% trans "Are you sure that you really want to cancel this occurrence?" %}
-                      <h5 class="text-ubold text-sm-left">Become a Guide</h5>
+                    <p class="lead">{% trans "Cancel Occurrence" %}</p>
+                    {% trans "Are you sure you want to cancel this occurrence?" %}
                       <div class="offset-top-25">
                           <div class="form-group form-group-xs">
                             <form action="" method="post">{% csrf_token %}
-							  <h3>{{ occurrence.title }}</h2>
-							  {% blocktrans with start_date=occurrence.start|date:_("DATETIME_FORMAT") end_date=occurrence.end|date:_("DATETIME_FORMAT") %}
-							  <strong>From</strong> {{ start_date }}
-							  <strong>to</strong> {{ end_date }}<br>
-							  {% endblocktrans %}
-							  <input class="btn btn-block btn-icon btn-icon-right btn-primary" type="submit" value="Confirm">
-							  <input class="btn btn-block btn-icon btn-icon-right btn-primary" type="submit" name="cancel" value="Cancel">
-							</form>
+              							  <h4>{{ occurrence.title }}</h4><br>
+              							  {% blocktrans with start_date=occurrence.start|date:_("DATETIME_FORMAT") end_date=occurrence.end|date:_("DATETIME_FORMAT") %}
+              							  <strong>From</strong> {{ start_date }}<br>
+              							  <strong>to</strong> {{ end_date }}<br>
+              							  {% endblocktrans %}
+              							  <input class="btn btn-block btn-icon btn-icon-right btn-primary" type="submit" value="Confirm">
+              							  <input class="btn btn-block btn-icon btn-icon-right btn-primary" type="submit" name="cancel" value="Cancel">
+              							</form>
                       </div>
                     </div>
                   </div>

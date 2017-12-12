@@ -94,11 +94,11 @@
                       <div class="offset-top-25">
                         <div class="form-group form-group-xs">
                           {% if object_list|length = 1 %}
-                            </br> <h3 style="text-align: center;">There is <strong>{{object_list|length}}</strong> guide in {{from}}.</h3>
+                            </br> <h3 style="text-align: center;">There is <strong>{{object_list|length}}</strong> guide in {{from}} touring this day!</h3>
                           {% elif object_list|length > 1 %}
-                            </br> <h3 style="text-align: center;">There are <strong>{{object_list|length}}</strong> guides in {{from}}.</h3>
+                            </br> <h3 style="text-align: center;">There are <strong>{{object_list|length}}</strong> guides in {{from}} touring this day!</h3>
                           {% else %}
-                            <h3 style="text-align: center;">There are <strong>{{object_list|length}}</strong> guides in {{from}}.</h3>
+                            <h3 style="text-align: center;">There are <strong>{{object_list|length}}</strong> guides that match your search. Try a different day?</h3>
                             </br>  <p style="text-align: center;">There are currently no matches for this search.</p>
                           {% endif %}
                         </div>
@@ -261,6 +261,80 @@
       </main>
 
 <br>
+
+
+
+
+<!--     <div class="container-fluid col-lg-10">
+        <table class="table">
+            <thead class="thead-default">
+                <tr>
+                    <th>Title</th>
+                    <th>Class Code</th>
+                    <th>Description</th>
+                    <th style="text-align: right; padding-right: 30px">Teacher</th>
+                </tr>
+            </thead>
+
+
+            {% for documents in document.guide %}
+                <tbody>
+                    <tr>
+                        <td><a href="http://www.freeosu.com/books/{{documents.slug}}"/>{{documents.title|truncatechars:30}}</a></td>
+                        <td>{{documents.class_description|truncatechars:7}}</td>
+                        <td>{{documents.description}}</td>
+                        <td style="text-align: right; padding-right: 30px">{{documents.teacher}}</td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table><br />
+
+        <div style="text-align: right;">
+            <ul class="pagination">
+                    <li class="page-item">
+                {% if document.has_previous %}
+                    <a class="page-link" href="?page={{ document.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                {% else %}
+                    <a class="page-link" aria-label="Previous">
+                        <span aria-hidden="true">Start</span>
+                        <span class="sr-only">Start</span>
+                    </a>
+                {% endif %}
+
+
+                {% for num in document.paginator.page_range %}
+                  {% ifequal num document.number %}
+                    <span class="current"><b>{{ num }}</b></span>
+                  {% else %}
+                    <a href="?page={{ num }}"> {{ num }}</a>
+                  {% endifequal %} 
+                {% endfor %}
+
+                    <li class="page-item"> 
+                {% if document.has_next %} 
+                    <a class="page-link" href="?page={{ document.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                {% else %}
+                    <a aria-label="Next" style="transition: background-color .0s">
+                        <span aria-hidden="true">End</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                {% endif %} 
+                </li>
+            </ul>
+        </div>
+    </div> -->
+
+
+
+    </div>
+
+
 <script src="{% static 'jquery-ui/ui/widgets/datepicker.js' %}"></script>
 
 <script>

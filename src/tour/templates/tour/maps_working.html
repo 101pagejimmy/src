@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% load static %}
+{% load review_tags %}
+
+{% block extrahead %}{% endblock %}
+
+
+<style>
+  {% block style %}
+#map_wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+#map_canvas {
+    width: 100%;
+    height: 100%;
+}
+  {% endblock style %}
+</style>
+
+
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<div id="map_wrapper">
+    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div id="map_canvas" class="mapping"></div>
+</div>
+
+
+<script>
+{% block jquery %}
+        jQuery(function($) {
+    // Asynchronously Load the map API 
+    var script = document.createElement('script');
+    script.src = "//maps.googleapis.com/maps/api/js?sensor=false&callback=initialize&libraries=places";
+    document.body.appendChild(script);
+});
+
+function initialize() {
+
+    var map;
+    var bounds = new google.maps.LatLngBounds();
+    var mapOptions = {
+        mapTypeId: 'roadmap'
+    };
+
+                    
+    // Display a map on the page
+    map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    map.setTilt(45);
+
+      var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+        var icons = {
+          sail: {
+            icon: iconBase + 'sailing.png'
+          },
+          trail: {
+            icon: iconBase + 'trail.png'
+          },
+          hike: {
+            icon: iconBase + 'hiker.png'
+          }
+        };
+
+
+    var markers = [
+    {% for point in occurrence_list %}
+        {% if point.latitude == None %}
+        {% else %}
+            ["{{point.title}}", {{ point.latitude }}, {{ point.longitude }}, "{{point.tour_icon}}"],
+        {% endif %}
+    {% endfor%}
+    ]
+
+    // Multiple Markers
+    var infoWindowContent = [
+    {% for point in occurrence_list %}
+        {% if point.latitude == None %}
+        {% else %}
+       ['<div class="info_content">' +
+        '<h3>{{point.title}}</h3>' +
+        '<p>{{point.description}}</p>' + '</div>'],
+        {% endif %}
+    {% endfor%}
+
+    ];
+venture deals = 
+                                
+    // Display multiple markers on a map
+    var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+    // Loop through our array of markers & place each one on the map  
+
+        for( i = 0; i < markers.length; i++ ) {
+
+        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+        bounds.extend(position);
+        marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            icon: icons[markers[i][3]].icon,
+            title: markers[i][0],
+        });
+        // Allow each marker to have an info window    
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infoWindow.setContent(infoWindowContent[i][0]);
+                infoWindow.open(map, marker);
+            }
+        })(marker, i));
+
+        // Automatically center the map fitting all markers on the screen
+        map.fitBounds(bounds);
+        
+    }
+
+    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+        this.setZoom(10);
+        google.maps.event.removeListener(boundsListener);
+    });
+    
+}
+{% endblock %}
+</script>
+
+
+{{locations_near}}
+
+
+
+
+{% endblock content %}
+</html>
+
+

@@ -34,7 +34,6 @@
     border-radius: 10%;
   }
 
-
   #button {
     background-color: #4CAF50; /* Green */
     border: none;
@@ -61,6 +60,19 @@
     outline: none;
 }
 
+
+.select2-container--bootstrap .select2-selection {
+    font-size: 12px;
+    border-color: #dadada;
+}
+
+.select2-container--bootstrap .select2-selection--single {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 30px;
+    line-height: 40px;
+    height: 40px;
+}
 
   {% endblock style %}
 </style>
@@ -93,6 +105,38 @@
                               {{ form|crispy }}
                                 <input class='btn btn-block btn-icon btn-icon-right btn-primary' type="submit" value="{% trans 'SUBMIT' %}" />
                                 <input type="hidden" name="next" value="{{ next }}" />
+                            </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+
+
+    <div class="page text-center">
+      <main class="page-content">
+        <!-- Login-->
+        <section>
+          <!-- RD Parallax-->
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-26-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+              <div class="shell section-80 section-md-top-135 section-md-bottom-145">
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-5">
+                    <!-- Box-->
+                    <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
+                      <h5 class="text-ubold text-sm-left">Become a Guide</h5>
+                      <div class="offset-top-25">
+                          <div class="form-group form-group-xs">
+                            <form method="post">
+                              {{ geocode_result }}
                             </form>
                       </div>
                     </div>

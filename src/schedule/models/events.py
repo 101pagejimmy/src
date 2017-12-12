@@ -21,6 +21,8 @@ from schedule.models.rules import Rule
 from schedule.models.calendars import Calendar
 from schedule.utils import OccurrenceReplacer
 from schedule.utils import get_model_bases
+from django.utils.safestring import mark_safe
+from django.db.models.signals import pre_save, post_save
 
 freq_dict_order = {
     'YEARLY': 0,
@@ -56,17 +58,41 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
     This model stores meta data for a date.  You can relate this data to many
     other models.
     '''
+    TOUR_FIELDS = [('Boat', 'Boat'), ('Bike', 'Bike'), ('Walk', 'Walk')]
     NUMBER_FIELDS = [(5, 5), (10,10), (15, 15), (20, 20), (25, 25), (30, 30), (35, 35), (50, 50)]
 
     start = models.DateTimeField(_("start"), db_index=True)
     end = models.DateTimeField(_("end"), db_index=True, help_text=_("The end time must be later than the start time."))
     title = models.CharField(_("title"), max_length=255)
-    #__________________IN THE WORKS FOR BOOKING__________
+    
+    #BOOKING
     reservation_spots = models.IntegerField(_("reservation_spots"), null=True, \
-        blank=True, choices=NUMBER_FIELDS, 
+        blank=True, choices=NUMBER_FIELDS,
         help_text=_("How large is your tour group?"),
         db_index=True,)
-    #__________________IN THE WORKS FOR BOOKING__________
+    #ENDBOOKING
+
+    #__________________IN THE WORKS FOR PRICING__________
+    price = models.DecimalField(max_digits=100, decimal_places=2, default=0.00)
+    sale_price = models.DecimalField(decimal_places=2, max_digits=20, null=True, blank=True)
+
+
+
+    #GEOCODING: MAKE SO THAT the POSTSAVERECEIVER SAVES THE SPOT AND THEN PUTS PUTS IT IN A GEOLOCATION POINT.
+    location = models.CharField(_("location_point"), null=True, \
+        blank=True, 
+        help_text=_("Where does the tour meetup? Please enter like such. 331 NW 26th St, Corvallis OR, 97330"),
+        db_index=True, \
+        max_length=200)
+    latitude            = models.DecimalField(max_digits=50, decimal_places=10, blank=True, null=True)
+    longitude           = models.DecimalField(max_digits=50, decimal_places=10, blank=True, null=True)
+    tour_type = models.CharField(_("tour_type"), max_length=255, null=True, \
+        blank=True, choices=TOUR_FIELDS, help_text=_("What type of tour is this?"), db_index=True,)
+    tour_icon = models.CharField(_("tour_icon"), max_length=255, blank=True, null=True)
+    #ENDGEOCODING
+
+
+
     description = models.TextField(_("description"), blank=True)
     creator = models.ForeignKey(
         django_settings.AUTH_USER_MODEL,
@@ -427,6 +453,32 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
         return None
 
 
+# Used to geocode the location of the tour when the user initially creates the event.
+def pre_save_post_receiver(sender, instance, *args, **kwargs):
+    if not instance.latitude and not instance.longitude:
+        import googlemaps
+        from datetime import datetime
+        import requests
+
+        # Geocoding an address
+        address = instance.location
+        api_key = django_settings.GOOGLE_MAPS_API_KEY
+        api_response = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address={0}&key={1}'.format(address, api_key))
+        api_response_dict = api_response.json()
+
+        if api_response_dict['status'] == 'OK':
+            latitude = api_response_dict['results'][0]['geometry']['location']['lat']
+            longitude = api_response_dict['results'][0]['geometry']['location']['lng']
+
+        instance.latitude = latitude
+        instance.longitude = longitude
+
+
+
+pre_save.connect(pre_save_post_receiver, sender=Event)
+
+ #__________________IN THE WORKS FOR GEOCODING__________ 
+
 class EventRelationManager(models.Manager):
     '''
     >>> import datetime
@@ -579,23 +631,40 @@ class EventRelation(with_metaclass(ModelBase, *get_model_bases('EventRelation'))
 
 @python_2_unicode_compatible
 class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
+
+    #ORIGINAL
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_("event"))
     title = models.CharField(_("title"), max_length=255, blank=True)
-    #creator = models.CharField(_("creator"), null=True)
-    #__________________IN THE WORKS FOR BOOKING__________
-    reservation_spots = models.IntegerField(_("reservation_spots"), null=True)
-    spots_free = models.IntegerField(null=True, default=35)
-    description = models.TextField(_("description"), blank=True)
-    #__________________IN THE WORKS FOR QUERYING BY DATE_____
-    start = models.DateTimeField(_("start"), db_index=True)
-    guide = models.ForeignKey('tour.Guide', blank=True, null=True, related_name='guide')
-    #__________________IN THE WORKS FOR QUERYING BY DATE_____
     end = models.DateTimeField(_("end"), db_index=True)
     cancelled = models.BooleanField(_("cancelled"), default=False)
     original_start = models.DateTimeField(_("original start"))
     original_end = models.DateTimeField(_("original end"))
     created_on = models.DateTimeField(_("created on"), auto_now_add=True)
     updated_on = models.DateTimeField(_("updated on"), auto_now=True)
+
+    #BOOKING 
+    reservation_spots = models.IntegerField(_("reservation_spots"), null=True)
+    spots_free = models.IntegerField(null=True, default=35)
+    description = models.TextField(_("description"), blank=True)
+
+
+    #PRICING
+    price = models.DecimalField(_("price"), max_digits=100, decimal_places=2, default=0.00)
+    sale_price = models.DecimalField(_("sale_price"), decimal_places=2, max_digits=20, null=True, blank=True)
+    
+    #QUERYING BY DATE
+    start = models.DateTimeField(_("start"), db_index=True)
+    guide = models.ForeignKey('tour.Guide', blank=True, null=True, related_name='guide')
+
+
+    #GOOGLE MAPS
+    latitude = models.DecimalField(_("latitude"), max_digits=50, decimal_places=10, blank=True, null=True)
+    longitude = models.DecimalField(_("longitude"), max_digits=50, decimal_places=10, blank=True, null=True)
+    tour_type = models.CharField(_("tour_type"), max_length=255, blank=True)
+    tour_icon = models.CharField(_("tour_icon"), max_length=255, blank=True, null=True)
+    sail =  models.NullBooleanField(_('sail'), default=False)
+    bike =  models.NullBooleanField(_('bike'), default=False)
+    trail =  models.NullBooleanField(_('trail'), default=False)
 
 
     class Meta(object):
@@ -615,11 +684,27 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
         if not self.reservation_spots and self.event_id:
             self.reservation_spots = self.event.reservation_spots
         if not self.spots_free and self.event.id:
-            self.spots_free =self.event.reservation_spots
-        # if not self.creator and self.event.id:
-        #     self.creator =self.event.creator
-
-
+            self.spots_free = self.event.reservation_spots
+        if not self.latitude and self.event.id:
+            self.latitude = self.event.latitude
+        if not self.longitude and self.event.id:
+            self.longitude = self.event.longitude
+        if not self.tour_type and self.event.id:
+            self.tour_type = self.event.longitude
+        if not self.price and self.event_id:
+            self.price = self.event.price
+        if not self.sale_price and self.event_id:
+            self.sale_price = self.event.sale_price
+        if not self.tour_icon and self.event.tour_type:
+            if self.event.tour_type == "Boat":
+                self.tour_icon = "sail"
+                self.sail = True
+            elif self.event.tour_type == "Bike":
+                self.tour_icon = "hike"
+                self.bike = True
+            else: 
+                self.tour_icon = "trail"
+                self.trail = True
 
     def moved(self):
         return self.original_start != self.start or self.original_end != self.end
@@ -681,8 +766,7 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
 
     def get_edit_url(self):
         if self.pk is not None:
-            return reverse('edit_occurrence', kwargs={'occurrence_id': self.pk,
-                                                      'event_id': self.event.id})
+            return reverse('edit_occurrence', kwargs={'occurrence_id': self.pk, 'event_id': self.event.id})
         return reverse('edit_occurrence_by_date', kwargs={
             'event_id': self.event.id,
             'year': self.start.year,
@@ -715,23 +799,72 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
                 self.original_start == other.original_start and
                 self.original_end == other.original_end)
 
-from tour.models import Guide
 
-# def guide(instance, guide=None):
-#     guide = slugify(instance.guide_name)
-#     if new_slug is not None:
-#         slug = new_slug
-#     qs = Guide.objects.filter(slug=slug).order_by("-pk")
-#     exists = qs.exists()
-#     if exists:
-#         new_slug = "%s-%s" %(slug, qs.first().pk)
-#         return create_slug(instance, new_slug=new_slug)
-#     return slug
+    def get_tour_time(self):
+        return ugettext("%(start)s to %(end)s with %(spots_free)s/%(spots_total)s left") % {
+                'start': date(self.start, django_settings.DATE_FORMAT),
+                'end': date(self.end, django_settings.DATE_FORMAT),
+                'spots_free': self.spots_free,
+                'spots_total': self.reservation_spots
+            }
+
+    def get_spots_avaliable(self):
+        if self.spots_free != 0:
+            return ugettext("%(spots_total)s spots avaliable") % {
+                'spots_free': self.spots_free,
+            }
+        else:
+            return ugettext("no spots currently avaliable")
 
 
-# def pre_save_post_receiver(sender, instance, *args, **kwargs):
-#     if not instance.slug:
-#         instance.guide = create_slug(instance)
+    def get_price(self):
+        if self.sale_price is not None:
+            return self.sale_price
+        else:
+            return self.price
 
 
-# pre_save.connect(pre_save_post_receiver, sender=Occurrence)
+    def get_html_price(self):
+        if self.sale_price is not None:
+            html_text = "<span class='sale-price'>%s</span> <span class='og-price'>%s</span>" %(self.sale_price, self.price)
+        else:
+            html_text = "<span class='price'>%s</span>" %(self.price)
+        return mark_safe(html_text)
+
+    #_____IN THE WORKS FOR PRICING TOURS________
+    def add_to_cart(self):
+        return "%s?item=%s&qty=1" %(reverse("cart"), self.id)
+
+    def remove_from_cart(self):
+        return "%s?item=%s&qty=1&delete=True" %(reverse("cart"), self.id)
+
+    def get_tour_title(self):
+        return "%s" %(self.title)
+    #_____IN THE WORKS FOR PRICING TOURS________
+
+
+    #GOOGLE MAPS ONLY FIND A PLACE WITHIN A DISTANCE OF THE TYPED IN LOCATION (NOT WORKING)
+    class LocationManager(models.Manager):
+        def nearby_locations(self, latitude, longitude, radius=10, max_results=100, use_miles=True):
+            if use_miles:
+                distance_unit = 3959
+            else:
+                distance_unit = 6371
+
+            from django.db import connection, transaction
+            from mysite import settings
+            cursor = connection.cursor()
+            if settings.DATABASE_ENGINE == 'sqlite3':
+                connection.connection.create_function('acos', 1, math.acos)
+                connection.connection.create_function('cos', 1, math.cos)
+                connection.connection.create_function('radians', 1, math.radians)
+                connection.connection.create_function('sin', 1, math.sin)
+
+            sql = """SELECT id, (%f * acos( cos( radians(%f) ) * cos( radians( latitude ) ) *
+            cos( radians( longitude ) - radians(%f) ) + sin( radians(%f) ) * sin( radians( latitude ) ) ) )
+            AS distance FROM schedule_occurrence WHERE distance < %d
+            ORDER BY distance LIMIT 0 , %d;""" % (distance_unit, latitude, longitude, latitude, int(radius), max_results)
+            cursor.execute(sql)
+            ids = [row[0] for row in cursor.fetchall()]
+
+            return self.filter(id__in=ids)

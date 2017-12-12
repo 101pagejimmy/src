@@ -11,30 +11,17 @@
 
  {% include 'head_css.html' %}
 
-  .vertical-alignment-helper {
-    display:table;
-    height: 100%;
-    width: 100%;
-    pointer-events:none; /* This makes sure that we can still click outside of the modal to close it */
-  }
 
-  .vertical-align-center {
-    /* To center vertically */
-    display: table-cell;
-    vertical-align: middle;
-    pointer-events:none;
-  }
 
-.class-of-select {
-    position:relative; // or absolute/fixed
-    z-index: 5000; // or > 1050
-}
   {% endblock style %}
 </style>
 
 
 {% block extrahead %}
 <link rel='stylesheet' type='text/css' href="{% static 'fullcalendar/dist/fullcalendar.css' %}" />
+<script src="{% static 'moment/moment.js' %}"></script>
+<script src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
+
 {% endblock extrahead %}
 
 
@@ -54,7 +41,11 @@
           <div data-on="false" data-md-on="true" class="rd-parallax">
             <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/portland.jpg' %}" class="rd-parallax-layer"></div>
             <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+            
               <div class="shell section-80 section-md-top-135 section-md-bottom-145">
+              <a href="#schedule" id="page_buttons" class="btn btn-primary">Schedule</a>
+              <a href="#reviews" id="middle_button" class="btn btn-primary">Reviews</a>
+              <a href="#map" id="page_buttons" class="btn btn-primary">Meeting Place</a>
                 <div class="range range-xs-center">
                   <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-12">
                     <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
@@ -69,12 +60,10 @@
                               <div>
                                 <img id='img' class='img-responsive' src='{{ object.get_image_url }}' />
                               </div> 
-                              <!-- <h3>{{instance.first_name}} {{instance.last_name}}</h3> -->
                               <hr>
                               <p>
                               <br><br>
                                 Speaks: {{instance.language}}<br>
-                                <!-- Personality: {{instance.language}}<br> -->  <!-- Add this later for ranking the guides peronality -->
                                 Rating: {{ percentage|floatformat:"0" }}/100
                               </p>
                               <br>
@@ -122,22 +111,23 @@
                     <label for='tour'><strong>{{event.title}}:</strong></label>
                     <select name="tour" id="tour">
                       {% for tour in tours %}
-                      {% for occurance in tour %}
-                      <option id="{{occurance.start}}" value="{{occurance.start.year}},{{occurance.start.month}},{{occurance.start.day}},{{occurance.start.hour}},{{occurance.start.minute}},{{occurance.start.second}}">{{occurance.start}} - {{occurance.end}} {{occurance.spots_free}} Spots Avaliable</option></option>
-                      {% endfor %}
+                        {% for occurance in tour %}
+                          <option id="{{occurance.start}}" value="{{occurance.start.year}},{{occurance.start.month}},{{occurance.start.day}},{{occurance.start.hour}},{{occurance.start.minute}},{{occurance.start.second}}">{{occurance.start}} - {{occurance.end}} <strong>|</strong> {{occurance.spots_free}} Spots Avaliable</option>
+                        {% endfor %}
                       {% endfor %}
                     </select>
                     {% endfor %}
                   </form>
-                  <br><br>
-                  {{other_form.as_table}}                           
+                  <br>
+
+             {{other_form}} 
+
                 </div>     
               </form>
             </div>
-
             <div class="modal-footer">
               <a href="#" data-dismiss="modal" class="btn">Close</a>
-              <input id="button" type="submit" class="btn btn-primary" value="Book">     
+              <input id="button" form='post-form-occurrence' type="submit" class="btn btn-primary" value="Book">     
             </div>
           </div>
         </div>
@@ -145,32 +135,13 @@
       <!-- 2nd MODAL -->
       
 
-
-
-
-      <div class="container">
-      <br>
-      <h3>Schedule</h3>
-        <br>
-        {% if instance.guide_name == request.user  %}
-        <a name="schedule" href="{{calendar}}">Update Schedule
-          <span class="glyphicon glyphicon-plus" ></span>
-        </a>
-        {% endif %}
-        <div class="col-sm-12">
-          <div id="calendar"></div><br>
-        </div>
-      </div>
-
-
-
-    <div class="page">
+    <div class="page" id='reviews'>
       <main class="page-content">
         <section>
           <div data-on="false" data-md-on="true" class="rd-parallax">
-            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-35-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-31-1920x900.jpg' %}" class="rd-parallax-layer"></div>
             <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
-              <div class="shell section-80 section-md-top-135 section-md-bottom-145">
+              <div class="shell section-80 section-md-top-145 section-md-bottom-145">
                 <div class="range range-xs-center">
                   <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-12">
                     <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
@@ -226,31 +197,5 @@
         </section>
       </main>
     </div>
-  </div>
-</div>
-</div>
-
-
-
-<script type='text/javascript' src="{% static 'moment/moment.js' %}"></script>
-<script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
-
-
-
-<script type="text/javascript" src="{% static 'schedule.js' %}"></script>
-
-
-<script>
-  {% block jquery %}
-
-
-
-  $('#calendar').fullCalendar({
-// put your options and callbacks here
-events: '/schedule/api/occurrences?calendar_slug={{instance.guide_name}}'
-})
-
-  {% endblock %}
-</script>
-
+    
 {% endblock %}

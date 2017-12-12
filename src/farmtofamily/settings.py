@@ -61,6 +61,14 @@ INSTALLED_APPS = (
 
     #tour app
     'tour',
+
+    #'mapwidgets',   #: pip install django-map-widgets
+    #"geoposition",
+
+    #pricing
+    'carts',
+    'orders',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -72,9 +80,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #'django.middleware.security.SecurityMiddleware',
-    
-
-
 )
 
 
@@ -125,11 +130,23 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "SpotOn",
+#         "USER": "hardiet",
+#         "PASSWORD": "",
+#         "HOST": "localhost",
+#         "PORT": "5432",
+#     }
+# }
+
 
 # add this
 # import dj_database_url
 # db_from_env = dj_database_url.config()
 # DATABASES['default'].update(db_from_env)
+
 
 
 
@@ -152,12 +169,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-
-
 
 
 STATIC_URL = '/static/'
@@ -193,7 +204,9 @@ BOWER_INSTALLED_APPS = (
     'jquery-timepicker',
     'bootstrap-datepicker',
     'mdi',
-    'fontawesome'
+    'fontawesome',
+    'geocomplete',
+    'react'
 )
 
 
@@ -212,3 +225,19 @@ ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
+
+GOOGLE_MAPS_API_KEY = "AIzaSyDyfNaXGaPZ_gq9eF1n38bEatS6R0aO_D4"
+GEOPOSITION_GOOGLE_MAPS_API_KEY = "AIzaSyDyfNaXGaPZ_gq9eF1n38bEatS6R0aO_D4"
+
+
+
+GEOS_LIBRARY_PATH = 'C:/Program Files/GDAL/geos_c.dll'
+
+
+#BRAINTREE CONFIGURATION KEYS
+
+BRAINTREE_PUBLIC = '872z6b4yvvf6f734'
+BRAINTREE_PRIVATE = '14cd6207a042e052c31b6d1fb7a5b88b'
+BRAINTREE_MERCHANT_ID = '872z6b4yvvf6f734'
+BRAINTREE_ENVIRONMENT = 'Sandbox'
+

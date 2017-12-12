@@ -159,9 +159,17 @@ def check_occurrence_permissions(function):
             return HttpResponseRedirect(settings.LOGIN_URL)
         occurrence, event, calendar = get_objects(request, *args, **kwargs)
         if calendar and event:
-            allowed = (CHECK_EVENT_PERM_FUNC(event, user) and
-                       CHECK_CALENDAR_PERM_FUNC(calendar, user) and
-                       CHECK_OCCURRENCE_PERM_FUNC(occurrence, user))
+            #____________________IN THE WORKS FOR PERMISSIONS CHECKING_____
+            if event.creator == user:
+            #____________________IN THE WORKS FOR PERMISSIONS CHECKING_____
+                allowed = (CHECK_EVENT_PERM_FUNC(event, user) and
+                           CHECK_CALENDAR_PERM_FUNC(calendar, user) and
+                           CHECK_OCCURRENCE_PERM_FUNC(occurrence, user))
+            #____________________IN THE WORKS FOR PERMISSIONS CHECKING_____
+            else:
+                # return HttpResponseRedirect('<h1 style="text-align:center">You do not have permission to edit this guides schedule</h1>')
+                return HttpResponseRedirect('/')
+            #____________________IN THE WORKS FOR PERMISSIONS CHECKING_____ 
             if not allowed:
                 return HttpResponseRedirect(settings.LOGIN_URL)
             # all checks passed
@@ -178,9 +186,15 @@ def check_event_permissions(function):
             return HttpResponseRedirect(settings.LOGIN_URL)
         occurrence, event, calendar = get_objects(request, *args, **kwargs)
         if calendar:
-            print(calendar)
-            allowed = (CHECK_EVENT_PERM_FUNC(event, user) and
-                       CHECK_CALENDAR_PERM_FUNC(calendar, user))
+            #____________________IN THE WORKS FOR PERMISSIONS CHECKING_____
+            strUserLowered = str(user).lower()
+            if calendar.name == strUserLowered:
+            #____________________IN THE WORKS FOR PERMISSIONS CHECKING_____
+                allowed = (CHECK_EVENT_PERM_FUNC(event, user) and
+                           CHECK_CALENDAR_PERM_FUNC(calendar, user))
+            else:
+                return HttpResponseRedirect('/')
+        #____________________IN THE WORKS FOR PERMISSIONS CHECKING_____ 
             if not allowed:
                 return HttpResponseRedirect(settings.LOGIN_URL)
             # all checks passed

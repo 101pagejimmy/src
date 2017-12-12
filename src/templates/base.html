@@ -1,5 +1,4 @@
-{% load staticfiles %}
-{% load i18n static %}
+{% load i18n static staticfiles %}
 
 <html lang="en" class="wide wow-animation smoothscroll">
 <head>
@@ -18,45 +17,73 @@
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <!-- Stylesheets CSS -->
 
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+<!-- Fonts -->
 
-<!-- Django-Shedular -->
+
+<!--django-Shedular -->
 <script type="text/javascript" src="{% static 'jquery/dist/jquery.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'jquery-ui/jquery-ui.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'schedule.js' %}"></script>
-<script type="text/javascript" src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
-<!-- Django-Shedular -->
+<!-- Caused Modal Issue -->
+<!-- <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script> -->
+<!-- Caused Modal Issue also caused me to lose my timepicker-->
+<!--django-Shedular -->
 
 
 
 
 
 {% block extrahead %}
+
 {% endblock extrahead %}
 
 
 <style>
-{% block style %}{% endblock style %}
+
+h1 {
+	font-family: 'Lobster', Georgia, Times, serif;
+	font-size: 70px;
+	line-height: 100px;
+}
+ 
+p {
+	font-family: 'Cabin', Helvetica, Arial, sans-serif;
+	font-size: 15px;
+	line-height: 25px;
+}
+
+{% block style %}
+
+
+
+
+{% endblock style %}
 </style>
 
 </head>
 
 <body>
 
-    
+
 <div id="fb-root"></div>
 {% block content %}{% endblock content %}
-</div>
+
 {% include 'footer.html' %}
 
 
 <script src="{% static 'js/core.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
 
+
 <script>
 
 	$(document).ready(function(){
-		$.noConflict();
+		// $.noConflict();
 		{% block jquery %}
+
 
 		{% endblock %}
 	});

@@ -43,13 +43,13 @@ class EventEditPermissionMixin(object):
         view = super(EventEditPermissionMixin, cls).as_view(**initkwargs)
         return check_event_permissions(view)
 
-
+#_______IN THE WORKS FOR ONLY ONE EDITOR__________
 class OccurrenceEditPermissionMixin(object):
     @classmethod
     def as_view(cls, **initkwargs):
         view = super(OccurrenceEditPermissionMixin, cls).as_view(**initkwargs)
         return check_occurrence_permissions(view)
-
+#_______IN THE WORKS FOR ONLY ONE EDITOR__________
 
 class CancelButtonMixin(object):
     def post(self, request, *args, **kwargs):

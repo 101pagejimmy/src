@@ -22,11 +22,11 @@
                   <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-5">
                     <!-- Box-->
                     <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
-                      <h2 class="text-ubold text-sm-left">{% trans "Delete" %}</h2>
+                      <p class="lead">{% trans "Delete" %}</p>
                       <div class="offset-top-25">
                           <div class="form-group form-group-xs">
                             <form method="post" action="">
-                            <b>{% trans "Are you sure that you really want to delete it?" %}</b>
+                            <b>{% trans "Delete this tour?" %}</b><br><br>
                               {% csrf_token %}
                               {{ form|crispy }}
                                 <input class='btn btn-block btn-icon btn-icon-right btn-primary' type="submit" value="Confirm">

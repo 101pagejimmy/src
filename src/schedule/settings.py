@@ -17,7 +17,7 @@ if not CHECK_EVENT_PERM_FUNC:
     CHECK_EVENT_PERM_FUNC = check_event_permission
 
 # Callable used to check if a user has edit permissions to occurrence
-CHECK_OCCURRENCE_PERM_FUNC = get_config('CHECK_OCCURRENCE_PERM_FUNC', None)
+CHECK_OCCURRENCE_PERM_FUNC = get_config('CHECK_OCCURRENCE_PERM_FUNC', False)
 
 if not CHECK_OCCURRENCE_PERM_FUNC:
     def check_occurrence_permission(ob, user):

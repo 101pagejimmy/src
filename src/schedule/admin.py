@@ -31,28 +31,27 @@ class CalendarRelationAdmin(admin.ModelAdmin):
     )
 
 
-# class EventAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'start', 'end')
-#     list_filter = ('start',)
-#     ordering = ('-start',)
-#     date_hierarchy = 'start'
-#     search_fields = ('title', 'description')
-#     fieldsets = (
-#         (None, {
-#             'fields': [
-#                 ('title', 'color_event'),
-#                 ('description',),
-#                 ('tour_type',),
-#                 ('start', 'end'),
-#                 ('reservation_spots'),
-#                 ('creator', 'calendar'),
-#                 ('rule', 'end_recurring_period'),
-#                 ('location', 'latitude', 'longitude'),
-#                 ('tour_type'),
-#             ]
-#         }),
-#     )
-#     form = EventAdminForm
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('title', 'start', 'end')
+    list_filter = ('start',)
+    ordering = ('-start',)
+    date_hierarchy = 'start'
+    search_fields = ('title', 'description')
+    fieldsets = (
+        (None, {
+            'fields': [
+                ('title', 'color_event'),
+                ('description',),
+                ('tour_type',),
+                ('start', 'end'),
+                ('reservation_spots'),
+                ('creator', 'calendar'),
+                ('rule', 'end_recurring_period'),
+                ('location', 'latitude', 'longitude'),
+            ]
+        }),
+    )
+    form = EventAdminForm
 
 
 class RuleAdmin(admin.ModelAdmin):
@@ -62,7 +61,7 @@ class RuleAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Calendar, CalendarAdminOptions)
-# admin.site.register(Event, EventAdmin)
+admin.site.register(Event, EventAdmin)
 admin.site.register(Rule, RuleAdmin)
 admin.site.register(Occurrence, admin.ModelAdmin)
 admin.site.register(CalendarRelation, CalendarRelationAdmin)

@@ -80,11 +80,11 @@ def options(context, occurrence):
         'occurrence': occurrence,
         'MEDIA_URL': getattr(settings, 'MEDIA_URL'),
     })
-    context['view_occurrence'] = occurrence.get_absolute_url()
+    context['view_occurrence'] = occurrence.get_absolute_url
     user = context['request'].user
     if CHECK_EVENT_PERM_FUNC(occurrence.event, user) and CHECK_CALENDAR_PERM_FUNC(occurrence.event.calendar, user):
-        context['edit_occurrence'] = occurrence.get_edit_url()
-        context['cancel_occurrence'] = occurrence.get_cancel_url()
+        context['edit_occurrence'] = occurrence.get_edit_url
+        context['cancel_occurrence'] = occurrence.get_cancel_url
         context['delete_event'] = reverse('delete_event', args=(occurrence.event.id,))
         context['edit_event'] = reverse('edit_event', args=(occurrence.event.calendar.slug, occurrence.event.id,))
     else:

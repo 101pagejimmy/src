@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% load review_tags %}
 {% load scheduletags %}
-{% load scheduletags i18n %}
+{% load i18n %}
 {% load staticfiles %}
 {% load static %}
 
@@ -15,17 +15,6 @@
 
   {% endblock style %}
 </style>
-
-
-{% block extrahead %}
-<link rel='stylesheet' type='text/css' href="{% static 'fullcalendar/dist/fullcalendar.css' %}" />
-<script src="{% static 'moment/moment.js' %}"></script>
-<script src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
-
-{% endblock extrahead %}
-
-
-
 
 {% block content %}
 

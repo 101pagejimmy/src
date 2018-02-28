@@ -21,8 +21,6 @@ class GuestCheckoutForm(forms.Form):
 			raise forms.ValidationError("Please confirm emails are the same")
 
 
-
-
 class AddressForm(forms.Form):
 	billing_address = forms.ModelChoiceField(
 			queryset=UserAddress.objects.filter(type="billing"),

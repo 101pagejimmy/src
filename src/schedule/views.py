@@ -156,7 +156,7 @@ class CancelOccurrenceView(OccurrenceEditMixin, ModelFormMixin, ProcessFormView)
         event, occurrence = get_occurrence(**kwargs)
         self.success_url = kwargs.get(
             'next',
-            get_next_url(request, event.get_absolute_url()))
+            get_next_url(request, event.get_absolute_url))
         if 'cancel' not in request.POST:
             occurrence.cancel()
         return HttpResponseRedirect(self.success_url)
@@ -221,7 +221,7 @@ class CreateEventView(EventEditMixin, CreateView):
         event.creator = self.request.user
         event.calendar = get_object_or_404(Calendar, slug=self.kwargs['calendar_slug'])
         event.save()
-        return HttpResponseRedirect(event.get_absolute_url())
+        return HttpResponseRedirect('/calendar')
 
 
 class DeleteEventView(EventEditMixin, DeleteView):

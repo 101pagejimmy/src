@@ -19,7 +19,7 @@ class UpcomingEventsFeed(Feed):
     def link(self, obj):
         if not obj:
             raise FeedDoesNotExist
-        return obj.get_absolute_url()
+        return obj.get_absolute_url
 
     def items(self, obj):
         return itertools.islice(

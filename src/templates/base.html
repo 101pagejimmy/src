@@ -1,6 +1,7 @@
 {% load i18n static staticfiles %}
+<!DOCTYPE html>
 
-<html lang="en" class="wide wow-animation smoothscroll">
+<html>
 <head>
 <title>PretiumTours {% block head_title %}{% endblock head_title %}</title>
 
@@ -15,21 +16,23 @@
 <link rel="stylesheet" href="{% static 'jquery-ui/themes/flick/jquery-ui.min.css' %}">
 <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
 <!-- Stylesheets CSS -->
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+<link src="{% static 'font-awesome/css/font-awesome.css/font-awesome.min.css' %}" rel="stylesheet">
 <!-- Fonts -->
 
 
 <!--django-Shedular -->
+
+<!-- Causes modals to shift -->
 <script type="text/javascript" src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+<!-- Causes modals to shift -->
 <script type="text/javascript" src="{% static 'jquery-ui/jquery-ui.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'schedule.js' %}"></script>
-<!-- Caused Modal Issue -->
-<!-- <script src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script> -->
-<!-- Caused Modal Issue also caused me to lose my timepicker-->
 <!--django-Shedular -->
 
 
@@ -59,7 +62,6 @@ p {
 
 
 
-
 {% endblock style %}
 </style>
 
@@ -69,27 +71,39 @@ p {
 
 
 <div id="fb-root"></div>
-{% block content %}{% endblock content %}
+
+{% block content %}
+{% include 'messages.html' %}|
+
+
+    {% if messages %}
+		<div class='container'>
+			<div class='alert alert-success text-center alert-dismissible'>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				{% for message in messages %}
+				  <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p><br/>
+				{% endfor %}
+			</div>
+		</div>
+	{% endif %}
+
+{% endblock content %}
+
+
+
+
 
 {% include 'footer.html' %}
-
-
-<script src="{% static 'js/core.min.js' %}"></script>
-<script src="{% static 'js/script.js' %}"></script>
+{% include "javascript.html" %}
 
 
 <script>
-
 	$(document).ready(function(){
-		// $.noConflict();
+		$.noConflict();
 		{% block jquery %}
-
-
+            updateCartItemCount();
 		{% endblock %}
 	});
 </script>
-
-
 </body>
-
 </html>

@@ -23,6 +23,7 @@ from schedule.utils import OccurrenceReplacer
 from schedule.utils import get_model_bases
 from django.utils.safestring import mark_safe
 from django.db.models.signals import pre_save, post_save
+import math
 
 freq_dict_order = {
     'YEARLY': 0,
@@ -61,12 +62,12 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
     TOUR_FIELDS = [('Boat', 'Boat'), ('Bike', 'Bike'), ('Walk', 'Walk')]
     NUMBER_FIELDS = [(5, 5), (10,10), (15, 15), (20, 20), (25, 25), (30, 30), (35, 35), (50, 50)]
 
-    start = models.DateTimeField(_("start"), db_index=True)
-    end = models.DateTimeField(_("end"), db_index=True, help_text=_("The end time must be later than the start time."))
-    title = models.CharField(_("title"), max_length=255)
+    start = models.DateTimeField(_("Start"), db_index=True)
+    end = models.DateTimeField(_("End"), db_index=True, help_text=_("The end time must be later than the start time."))
+    title = models.CharField(_("Title"), max_length=255)
     
     #BOOKING
-    reservation_spots = models.IntegerField(_("reservation_spots"), null=True, \
+    reservation_spots = models.IntegerField(_("Reservation Spots"), null=True, \
         blank=True, choices=NUMBER_FIELDS,
         help_text=_("How large is your tour group?"),
         db_index=True,)
@@ -79,14 +80,13 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
 
 
     #GEOCODING: MAKE SO THAT the POSTSAVERECEIVER SAVES THE SPOT AND THEN PUTS PUTS IT IN A GEOLOCATION POINT.
-    location = models.CharField(_("location_point"), null=True, \
+    location = models.CharField(_("Location Point"), null=True, \
         blank=True, 
         help_text=_("Where does the tour meetup? Please enter like such. 331 NW 26th St, Corvallis OR, 97330"),
-        db_index=True, \
-        max_length=200)
+        db_index=True, max_length=200)
     latitude            = models.DecimalField(max_digits=50, decimal_places=10, blank=True, null=True)
     longitude           = models.DecimalField(max_digits=50, decimal_places=10, blank=True, null=True)
-    tour_type = models.CharField(_("tour_type"), max_length=255, null=True, \
+    tour_type = models.CharField(_("Meetup Location"), max_length=255, null=True, \
         blank=True, choices=TOUR_FIELDS, help_text=_("What type of tour is this?"), db_index=True,)
     tour_icon = models.CharField(_("tour_icon"), max_length=255, blank=True, null=True)
     #ENDGEOCODING
@@ -454,9 +454,8 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
 
 
 # Used to geocode the location of the tour when the user initially creates the event.
-def pre_save_post_receiver(sender, instance, *args, **kwargs):
+def pre_save_post_receiver(instance, *args, **kwargs):
     if not instance.latitude and not instance.longitude:
-        import googlemaps
         from datetime import datetime
         import requests
 
@@ -480,29 +479,29 @@ pre_save.connect(pre_save_post_receiver, sender=Event)
  #__________________IN THE WORKS FOR GEOCODING__________ 
 
 class EventRelationManager(models.Manager):
-    '''
-    >>> import datetime
-    >>> EventRelation.objects.all().delete()
-    >>> CalendarRelation.objects.all().delete()
-    >>> data = {
-    ...         'title': 'Test1',
-    ...         'start': datetime.datetime(2008, 1, 1),
-    ...         'end': datetime.datetime(2008, 1, 11)
-    ...        }
-    >>> Event.objects.all().delete()
-    >>> event1 = Event(**data)
-    >>> event1.save()
-    >>> data['title'] = 'Test2'
-    >>> event2 = Event(**data)
-    >>> event2.save()
-    >>> user1 = User(username='alice')
-    >>> user1.save()
-    >>> user2 = User(username='bob')
-    >>> user2.save()
-    >>> event1.create_relation(user1, 'owner')
-    >>> event1.create_relation(user2, 'viewer')
-    >>> event2.create_relation(user1, 'viewer')
-    '''
+
+    # >>> import datetime
+    # >>> EventRelation.objects.all().delete()
+    # >>> CalendarRelation.objects.all().delete()
+    # >>> data = {
+    # ...         'title': 'Test1',
+    # ...         'start': datetime.datetime(2008, 1, 1),
+    # ...         'end': datetime.datetime(2008, 1, 11)
+    # ...        }
+    # >>> Event.objects.all().delete()
+    # >>> event1 = Event(**data)
+    # >>> event1.save()
+    # >>> data['title'] = 'Test2'
+    # >>> event2 = Event(**data)
+    # >>> event2.save()
+    # >>> user1 = User(username='alice')
+    # >>> user1.save()
+    # >>> user2 = User(username='bob')
+    # >>> user2.save()
+    # >>> event1.create_relation(user1, 'owner')
+    # >>> event1.create_relation(user2, 'viewer')
+    # >>> event2.create_relation(user1, 'viewer')
+
     # Currently not supported
     # Multiple level reverse lookups of generic relations appears to be
     # unsupported in Django, which makes sense.
@@ -629,13 +628,16 @@ class EventRelation(with_metaclass(ModelBase, *get_model_bases('EventRelation'))
         return '%s(%s)-%s' % (self.event.title, self.distinction, self.content_object)
 
 
+
+
+
 @python_2_unicode_compatible
 class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
 
     #ORIGINAL
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_("event"))
-    title = models.CharField(_("title"), max_length=255, blank=True)
-    end = models.DateTimeField(_("end"), db_index=True)
+    title = models.CharField(_("Title"), max_length=255, blank=True)
+    end = models.DateTimeField(_("End"), db_index=True)
     cancelled = models.BooleanField(_("cancelled"), default=False)
     original_start = models.DateTimeField(_("original start"))
     original_end = models.DateTimeField(_("original end"))
@@ -643,14 +645,14 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
     updated_on = models.DateTimeField(_("updated on"), auto_now=True)
 
     #BOOKING 
-    reservation_spots = models.IntegerField(_("reservation_spots"), null=True)
+    reservation_spots = models.IntegerField(_("Reservation Spots"), null=True)
     spots_free = models.IntegerField(null=True, default=35)
     description = models.TextField(_("description"), blank=True)
 
 
     #PRICING
     price = models.DecimalField(_("price"), max_digits=100, decimal_places=2, default=0.00)
-    sale_price = models.DecimalField(_("sale_price"), decimal_places=2, max_digits=20, null=True, blank=True)
+    sale_price = models.DecimalField(_("Sale Price"), decimal_places=2, max_digits=20, null=True, blank=True)
     
     #QUERYING BY DATE
     start = models.DateTimeField(_("start"), db_index=True)
@@ -665,6 +667,8 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
     sail =  models.NullBooleanField(_('sail'), default=False)
     bike =  models.NullBooleanField(_('bike'), default=False)
     trail =  models.NullBooleanField(_('trail'), default=False)
+
+    #TOURS SEARCH BY RADIUS
 
 
     class Meta(object):
@@ -750,6 +754,7 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
             'second': self.start.second,
         })
 
+    @property
     def get_cancel_url(self):
         if self.pk is not None:
             return reverse('cancel_occurrence', kwargs={'occurrence_id': self.pk,
@@ -764,6 +769,7 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
             'second': self.start.second,
         })
 
+    @property
     def get_edit_url(self):
         if self.pk is not None:
             return reverse('edit_occurrence', kwargs={'occurrence_id': self.pk, 'event_id': self.event.id})
@@ -843,28 +849,27 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
     #_____IN THE WORKS FOR PRICING TOURS________
 
 
-    #GOOGLE MAPS ONLY FIND A PLACE WITHIN A DISTANCE OF THE TYPED IN LOCATION (NOT WORKING)
-    class LocationManager(models.Manager):
-        def nearby_locations(self, latitude, longitude, radius=10, max_results=100, use_miles=True):
-            if use_miles:
-                distance_unit = 3959
-            else:
-                distance_unit = 6371
+#GOOGLE MAPS ONLY FIND A PLACE WITHIN A DISTANCE OF THE TYPED IN LOCATION (NOT WORKING)
+class LocationManager(models.Manager):
+    def nearby_locations(self, latitude=0, longitude=0, radius=10, max_results=100, use_miles=True):
+        if use_miles:
+            distance_unit = 3959
+        else:
+            distance_unit = 6371
 
-            from django.db import connection, transaction
-            from mysite import settings
-            cursor = connection.cursor()
-            if settings.DATABASE_ENGINE == 'sqlite3':
-                connection.connection.create_function('acos', 1, math.acos)
-                connection.connection.create_function('cos', 1, math.cos)
-                connection.connection.create_function('radians', 1, math.radians)
-                connection.connection.create_function('sin', 1, math.sin)
+        from django.db import connection, transaction
+        cursor = connection.cursor()
+        if django_settings.DATABASE_ENGINE == 'sqlite3':
+            connection.connection.create_function('acos', 1, math.acos)
+            connection.connection.create_function('cos', 1, math.cos)
+            connection.connection.create_function('radians', 1, math.radians)
+            connection.connection.create_function('sin', 1, math.sin)
 
-            sql = """SELECT id, (%f * acos( cos( radians(%f) ) * cos( radians( latitude ) ) *
-            cos( radians( longitude ) - radians(%f) ) + sin( radians(%f) ) * sin( radians( latitude ) ) ) )
-            AS distance FROM schedule_occurrence WHERE distance < %d
-            ORDER BY distance LIMIT 0 , %d;""" % (distance_unit, latitude, longitude, latitude, int(radius), max_results)
-            cursor.execute(sql)
-            ids = [row[0] for row in cursor.fetchall()]
+        sql = """SELECT id, (%f * acos( cos( math.radians(%f) ) * cos( math.radians( latitude ) ) *
+        cos( math.radians( longitude ) - math.radians(%f) ) + sin( math.radians(%f) ) * sin( math.radians( latitude ) ) ) )
+        AS distance FROM schedule_occurrence WHERE distance < %d
+        ORDER BY distance LIMIT 0 , %d;""" % (distance_unit, latitude, longitude, latitude, int(radius), max_results)
+        cursor.execute(sql)
+        ids = [row[0] for row in cursor.fetchall()]
 
-            return self.filter(id__in=ids)
+        return self.filter(id__in=ids)

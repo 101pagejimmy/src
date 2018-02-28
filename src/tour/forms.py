@@ -14,9 +14,6 @@ class OccurrenceForm(ModelForm):
         event = Event.objects.filter(creator = guide)
         #self.fields['event'].queryset = event
 
-    # class Meta:
-    #     model = Occurrence
-    #     fields = ['event']
 
     class Meta:
         model = Event
@@ -26,7 +23,7 @@ class OccurrenceForm(ModelForm):
 class GuideForm(ModelForm):
     class Meta:
         model = Guide
-        fields = ['first_name','last_name', 'tour_description', 'remember', 'language', 'living', 'tourSize']
+        fields = ['first_name','last_name', 'tour_description', 'language', 'tourSize']
 
 
 

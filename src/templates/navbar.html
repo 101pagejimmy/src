@@ -1,4 +1,4 @@
- {% load static %}
+{% load static %}
 
  <style>
 {% block style %}
@@ -26,16 +26,17 @@
                 <!-- RD Navbar Brand-->
                 <div class="rd-navbar-brand veil reveal-md-block"><a href="/" class="brand-name"><img width="70" height="30" src="{% static 'img/pretiumlogo.png' %}" alt=""></a></div>
                 <!-- RD Navbar Brand-->
-                <div class="rd-navbar-braFnd veil-md reveal-tablet-md-inline-block"><a href="index.html" class="brand-name"><img width="70" height="30" src="" alt=""></a></div>
+                <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block"><a href="index.html" class="brand-name"><img width="70" height="30" src="" alt=""></a></div>
               </div>
               <div class="rd-navbar-nav-wrap">
                 <!-- RD Navbar Nav-->
                 <ul class="rd-navbar-nav">
                   <li class="active"><a href="/">Home</a></li>
-                  <li><a href="#">About</a></li>
+                  <li><a href="/about">About</a></li>
                   <li><a href="#">Contact</a></li>
                   {% if request.user.is_authenticated %}
                     <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                    <li><a href='/calendar/calendar/daily/{{request.user}}/'>My Schedule</a></li>
                     {% else %}
                     <li><a href="{% url 'registration_register' %}">Register</a></li>
                       {% if not request.user.is_authenticated and not "/accounts/login" in request.get_full_path %}
@@ -43,8 +44,9 @@
                          {% endif %}
                     {% endif %}
 
+                    <li> <a href='/maps'>Maps</a></li>
+                    <li> <a href='{% url "cart" %}'><i class="fa fa-shopping-cart fa-navbar-cart"></i> <span id="cart-count-badge" class='badge'>{{ request.session.cart_item_count }}</span></a></li>\
 
-                    <li> <a href='{% url "cart" %}'><i class="fa fa-shopping-cart fa-navbar-cart"></i> <span id="cart-count-badge" class='badge'>{{ request.session.cart_item_count }}</span></a></li>
 
 
                 </ul>

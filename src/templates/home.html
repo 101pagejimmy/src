@@ -22,7 +22,7 @@ h1 {
   line-height: 100px;
 }
  
-p {
+p, a {
   font-family: 'Cabin', Helvetica, Arial, sans-serif;
   font-size: 15px;
   line-height: 25px;
@@ -42,6 +42,8 @@ p {
 {% block content %}
 
 
+
+
 <body>
     <!-- Page-->
     <div class="page text-center">
@@ -57,22 +59,26 @@ p {
                 <!-- RD Navbar Brand-->
                 <div class="rd-navbar-brand veil reveal-md-block"><a href="/" class="brand-name"><img width="70" height="30" src="{% static 'img/pretiumlogo.png' %}" alt=""></a></div>
                 <!-- RD Navbar Brand-->
-                <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block"><a href="/" class="brand-name"><img width="70" height="30"" src="" alt=""></a></div>
+                <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block"><a href="/" class="brand-name"><img width="70" height="30" src="" alt=""></a></div>
               </div>
               <div class="rd-navbar-nav-wrap">
                 <!-- RD Navbar Nav-->
                 <ul class="rd-navbar-nav">
                   <li class="active"><a href="/">Home</a></li>
-                  <li><a href="#">About</a></li>
+                  <li><a href="/about">About</a></li>
                   <li><a href="#">Contact</a></li>
                   {% if request.user.is_authenticated %}
                     <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                    <li><a href='/calendar/calendar/daily/{{request.user}}/'>My Schedule</a></li>
                     {% else %}
                     <li><a href="{% url 'registration_register' %}">Register</a></li>
                       {% if not request.user.is_authenticated and not "/accounts/login" in request.get_full_path %}
                         <li><a href="{% url 'auth_login' %}">Login</a></li>
                          {% endif %}
                     {% endif %}
+                  <li> <a href="/maps">Maps</a></li>
+                  <li> <a href='{% url "cart" %}'><i class="fa fa-shopping-cart fa-navbar-cart"></i> <span id="cart-count-badge" class='badge'>{{ request.session.cart_item_count }}</span></a></li>
+
                 </ul>
               </div>
             </div>
@@ -88,23 +94,24 @@ p {
           <div class="swiper-caption-absolute">
             <div class="shell">
               <div class="range range-xs-center">
-                <div class="cell-lg-10">
+                <div id="former" style="display:none" class="cell-lg-10">
                   <div>
-                    <h1 class="text-white">Tours Made Simple</h1>
+                    <h1 id="slogan" class="text-white">Tours Made Simple</h1>
+                    
                   </div>
                   <div class="offset-top-8">
                     <p class="h6 text-white">Search to find a tour near you.</p>
                   </div>
                   <div class="offset-top-30 offset-md-top-60 inset-left-20 inset-right-20 inset-sm-left-0 inset-sm-right-0">
                     <!-- Form-->
-                    <form class="form-inline-search" action="/occurrence_listings" method="get">
+                    <form class="form-inline-search" action="/maps" method="get">
                       <div class="form-group form-group-xs form-inline-item">
-                        <label for="index-destination" class="form-label">Your Destination</label>
-                        <input  id="index-destination" type="text" name="living" class="form-control" value='{{ request.GET.q }}'>
+                        <label for="index-destination" class="form-label"></label>
+                        <input  id="index-destination" type="text" name="living" class="form form-control" value='{{ request.GET.q }}'>
                       </div>
                       <div class="form-group form-group-xs form-inline-item form-inline-item">
-                        <label for="index-departure" id="datepicker" type='text' class="form-label datepicker"></label>
-                        <input id="index-departure" type="text" name="start" class="form-control" placeholder="Travel Date" value='{{ request.GET.q }}'>
+                        <label for="index-departure" type='text' class="form-label"></label>
+                        <input id="index-departure" name="start" class="form-control" placeholder="Travel Date" value='{{ request.GET.q }}'>
                       </div>
                       <div class="form-group form-group-xs form-inline-item">
                         <label for="index-language" class="form-label" placeholder=''>Language</label>
@@ -122,11 +129,13 @@ p {
           <!-- Swiper Pagination-->
           <div class="swiper-pagination"></div>
           <!-- Swiper Navigation-->
-          <div class="swiper-button-prev"><span class="icon icon-xxs icon-circle icon-filled-white mdi mdi-chevron-left text-gray"></span></div>
-          <div class="swiper-button-next"><span class="icon icon-xxs icon-circle icon-filled-white mdi mdi-chevron-right text-gray"></span></div>
+
+          <div id="former" style="display:none" class="swiper-button-prev"><span class="icon icon-xxs icon-circle icon-filled-white mdi mdi-chevron-left text-gray"></span></div>
+          <div id="former" style="display:none" class="swiper-button-next"><span class="icon icon-xxs icon-circle icon-filled-white mdi mdi-chevron-right text-gray"></span></div>
         </div>
       </header>
       <!-- Page Content-->
+      <button id="buttonor" type="submit" class="btn btn-primary">Search</button>
       <main class="page-content">
         <!-- Best Offers-->
         <section class="section-80 section-md-top-70 bg-wild-wand">
@@ -140,7 +149,7 @@ p {
             <div class="range range-xs-center offset-top-45">
               <div class="cell-sm-5 cell-md-4">
                 <!-- Box Offer-->
-                <div data-wow-delay=".2s" class="box-offer wow fadeInLeft">
+                <div data-wow-delay=".2s" class="box-offer wow bounceIn">
                   <div class="box-offer-img-wrap"><a href="/"><img src="{% static 'img/backgrounds/seattle.jpg' %}" width="370" height="310" alt="" class="img-responsive center-block"></a></div>
                   <div class="box-offer-caption text-left">
                     <div class="pull-left">
@@ -184,7 +193,7 @@ p {
               </div>
               <div class="cell-sm-5 cell-md-4 offset-top-30 offset-md-top-0">
                 <!-- Box Offer-->
-                <div data-wow-delay=".2s" class="box-offer wow fadeInRight">
+                <div data-wow-delay=".2s" class="box-offer wow bounceIn">
                   <div class="box-offer-img-wrap"><a href="/"><img src="{% static 'img/backgrounds/sanfrancisco.jpg' %}" width="370" height="310" alt="" class="img-responsive center-block"></a></div>
                   <div class="box-offer-caption text-left">
                     <div class="pull-left">
@@ -222,6 +231,7 @@ p {
                   </div>
                 </div>
               </div>
+            </div>
             </div>
           </div>
         </section>
@@ -273,10 +283,21 @@ p {
     </div>
 </body>
 
-<script src="{% static 'jquery-ui/ui/widgets/datepicker.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+
 <script>
+var searchBox = new google.maps.places.SearchBox(document.getElementById('index-destination'));
+</script>
+
+
+<!-- <script src="{% static 'jquery-ui/ui/widgets/datepicker.js' %}"></script> -->
+<script>
+
+  // $("#slogan").fadeIn(50);
+      $("#former").fadeIn(1000);
       {% block jquery %}
-      $('#index-departure').datepicker();
       {% endblock %}
 </script>
+
+
 {% endblock %}

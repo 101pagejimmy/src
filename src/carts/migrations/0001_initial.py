@@ -2,14 +2,11 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('schedule', '0005_auto_20171208_2215'),
     ]
 
     operations = [
@@ -32,17 +29,6 @@ class Migration(migrations.Migration):
                 ('quantity', models.PositiveIntegerField(default=1)),
                 ('line_item_total', models.DecimalField(max_digits=10, decimal_places=2)),
                 ('cart', models.ForeignKey(to='carts.Cart')),
-                ('item', models.ForeignKey(to='schedule.Occurrence')),
             ],
-        ),
-        migrations.AddField(
-            model_name='cart',
-            name='items',
-            field=models.ManyToManyField(to='schedule.Occurrence', through='carts.CartItem'),
-        ),
-        migrations.AddField(
-            model_name='cart',
-            name='user',
-            field=models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True),
         ),
     ]

@@ -26,7 +26,7 @@ class UserCheckout(models.Model):
 		return self.email
 
 	@property
-	def get_braintree_id(self,):
+	def get_braintree_id(self):
 		instance = self
 		if not instance.braintree_id:
 			result = braintree.Customer.create({
@@ -44,6 +44,7 @@ class UserCheckout(models.Model):
 			    "customer_id": customer_id
 			})
 			return client_token
+
 		return None
 
 
@@ -118,9 +119,3 @@ def order_pre_save(sender, instance, *args, **kwargs):
 	instance.order_total = order_total
 
 pre_save.connect(order_pre_save, sender=Order)
-
-# #if status == "refunded":
-# 	braintree refud
-# post_save.connect()
-
-# 	

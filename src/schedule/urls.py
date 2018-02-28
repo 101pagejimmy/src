@@ -52,6 +52,8 @@ urlpatterns = [
         FullCalendarView.as_view(),
         name='fullcalendar'),
 
+
+
     # Event Urls
     url(r'^event/create/(?P<calendar_slug>[-\w]+)/$',
         CreateEventView.as_view(),

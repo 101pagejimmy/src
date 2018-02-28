@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load review_tags %}
+{% load review_tags static %}
 
 {% block extrahead %}{% endblock %}
 
@@ -19,26 +19,26 @@ body,
     margin-top: 30px;
     width: 50%;
     height: 50px;
-    font-size: 20;
+    font-size: medium;
 }
 
 #buttons {
-
-position: absolute;
-z-index: 50000;
+  position: absolute;
+  z-index: 500;
+  color: white;
 }
 
 
 label {
-background:#e88600;
+ background: #cf8d19;
  border:1px solid #ccc;
  padding:10px;
  margin:0 0 10px;
- display:block; 
+ display:block;
 }
 
 label:hover {
- background:#cf7700;
+ background: #cf8d19;
  cursor:pointer;
 }
 
@@ -47,34 +47,57 @@ label:hover {
   visibility: hidden;
 }
 
+.pac-container {
+    margin-top: 10px;
+    border-radius: 20px;
+}
+
+.pac-item {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
 
 
   {% endblock style %}
 </style>
 
 
-<body >
+
+<script>
+{% block jquery %}
+
+
+{% endblock %}
+</script>
+
+
+
+
+<body>
 {% block content %}
 {% include 'navbar.html' %}
 
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 
-<!-- Need to update the look and feel of the filters. Currentyl using text-danger -->
-<div id="buttons">
-  <br><br><br>
-  <input type="checkbox" name="filter" id="sail" class='chk-btn'>
-  <label class="text-danger" for='sail'><strong>Water Tours</strong></label>
+<!-- Need to update the look and feel of the filters. Currently using text-danger -->
+<div class="container col-sm-2">
+  <div id="buttons">
+    <br><br><br>
+    <input type="checkbox" name="filter" id="sail" class='chk-btn'>
+    <label for='sail'><strong>Water Tours</strong></label>
 
-  <input type="checkbox" name="filter" id="trail" class='chk-btn'>
-  <label class="text-danger" for='trail'><strong>Trail Tours</strong></label>
+    <input type="checkbox" name="filter" id="trail" class='chk-btn'>
+    <label for='trail'><strong>Trail Tours</strong></label>
 
-  <input type="checkbox" name="filter" id="bike" class='chk-btn'>
-  <label class="text-danger" for='bike'><strong>Hiking Tours</strong></label>
+    <input type="checkbox" name="filter" id="bike" class='chk-btn'>
+    <label for='bike'><strong>Hiking Tours</strong></label>
 
+  </div>
 </div>
 
 <div class="container" id="map-canvas"></div>
+<input id="pac-input" type="text" class="controls form-control" placeholder="Search Locations">
 
 <script>
 
@@ -84,10 +107,11 @@ label:hover {
 
 
 
-    var markers = []
+    var markers = [];
 
     var data = {{json_list|safe}};
     var filters = {bike:false, trail:false, sail:false};
+    console.log({{json_list|safe}});
 
 
     var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
@@ -98,7 +122,7 @@ label:hover {
 
 
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
-    center: {lat: 12.9715987, lng: 77.59456269999998}, zoom: 10});
+    center: {lat: {{latitude}}, lng: {{longitude}}}, zoom: 10});
 
     var searchBox = new google.maps.places.SearchBox(document.getElementById('pac-input'));
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(document.getElementById('pac-input'));
@@ -119,8 +143,7 @@ label:hover {
          ['<div class="info_content">' +
           '<h3>{{point.title}}</h3>' +
           '<p>{{point.description}}</p>' + 
-          '</div>'
-          +
+          '</div>' +
           '<a href={{point.get_absolute_url}}>Click here to view the tour</a>'
           ],
           {% endif %}
@@ -130,21 +153,17 @@ label:hover {
     // Display multiple markers on a map
     var infoWindow = new google.maps.InfoWindow(), marker, i;
 
-
 for (i = 0; i < data.length; i++) {
-        var titleText = data[i]['fields']['title'];
-        var descriptionText = data[i]['fields']['description'];
         var json_tour_icon = data[i]['fields']['tour_icon'];
         var position = new google.maps.LatLng(data[i]['fields']['latitude'], data[i]['fields']['longitude']);
         var properties = data[i]['fields'];
-        
         //the makeup of the marker
-        var marker = new google.maps.Marker({
-          position: position, 
+        marker = new google.maps.Marker({
+          position: position,
           map: map,
           icon: icons[json_tour_icon.toString()].icon,
-          properties: properties,
-        })
+          properties: properties
+        });
 
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
@@ -168,20 +187,20 @@ for (i = 0; i < data.length; i++) {
     $('input[name=filter]').change(function (e) {
      map_filter(this.id);
       filter_markers()});
-    })
+    });
 
     var get_set_options = function() {
-      ret_array = []
+      ret_array = [];
       for (option in filters) {
         if (filters[option]) {
           ret_array.push(option)
         }
       }
       return ret_array;
-    }
+    };
 
     var filter_markers = function() {  
-      set_filters = get_set_options()
+      set_filters = get_set_options();
       
       // for each marker, check to see if all required options are set
       for (i = 0; i < markers.length; i++) {
@@ -190,7 +209,7 @@ for (i = 0; i < data.length; i++) {
         // start the filter check assuming the marker will be displayed
         // if any of the required features are missing, set 'keep' to false
         // to discard this marker
-        keep=true
+        keep=true;
             //initialize - expression, increment
         for (opt=0; opt<set_filters.length; opt++) {
 
@@ -200,16 +219,20 @@ for (i = 0; i < data.length; i++) {
         }
         marker.setVisible(keep)
       }
-    }
+    };
 
     var map_filter = function(id_val) {
        if (filters[id_val]) 
-          filters[id_val] = false
+          filters[id_val] = false;
        else
-          filters[id_val] = true
-    }
+          filters[id_val] = true;
+    };
 
-  };
+
+ // AUtofocus on the input after 4 seconds
+    setTimeout(function() { $('#pac-input').focus() }, 3000);
+
+  }
 
 
  google.maps.event.addDomListener(window, 'load', init);
@@ -217,12 +240,7 @@ for (i = 0; i < data.length; i++) {
 
 </script>
 
-<input id="pac-input" class="controls" type="text" class="form-control" placeholder="Search Box">
-
-
-
-
 {% endblock content %}
-</html>
+</body>
 
 

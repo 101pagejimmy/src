@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     #third party apps
     'crispy_forms',
 
@@ -48,26 +49,20 @@ INSTALLED_APPS = (
     'user_media',
     'generic_positions',
 
-    
-    #cities
-    #'cities',
 
     #schedule Calander app
-    'schedule',
-    'djangobower',
-   
-    'corsheaders', 
-    'rest_framework',
+    "schedule",
+    "djangobower",
+
+    "corsheaders",
+    "rest_framework",
 
     #tour app
-    'tour',
+    "tour",
 
-    #'mapwidgets',   #: pip install django-map-widgets
-    #"geoposition",
-
-    #pricing
-    'carts',
-    'orders',
+    #pricing and booking tours
+    "carts",
+    "orders",
 
 )
 
@@ -79,7 +74,7 @@ MIDDLEWARE_CLASSES = (
     #'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'django.middleware.security.SecurityMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 )
 
 
@@ -107,7 +102,6 @@ TEMPLATES = [
                 'django.core.context_processors.request',
             ],
             'loaders': [
-                # PyJade part:   ##############################
                 ('pyjade.ext.django.Loader', (
                     'django.template.loaders.filesystem.Loader',
                     'django.template.loaders.app_directories.Loader',
@@ -147,9 +141,6 @@ DATABASES = {
 # db_from_env = dj_database_url.config()
 # DATABASES['default'].update(db_from_env)
 
-
-
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -183,7 +174,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static', 'sass', 'bootstrap' ),
     os.path.join(BASE_DIR, 'static', 'sass', 'custom' ),
     os.path.join(BASE_DIR, 'static', 'sass', 'plugins', 'rd-navbar_includes' ),
-
                     )
 
 
@@ -196,17 +186,10 @@ STATICFILES_FINDERS = (
 )
 
 BOWER_INSTALLED_APPS = (
-    'jquery',
-    'jquery-ui',
-    'bootstrap',
-    'fullcalendar',
-    'moment',
-    'jquery-timepicker',
-    'bootstrap-datepicker',
-    'mdi',
-    'fontawesome',
-    'geocomplete',
-    'react'
+    "jquery",
+    "jquery-ui",
+    "bootstrap",
+    "fontawesome",
 )
 
 
@@ -216,7 +199,7 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env", "media_roo
 
 
 
-#Crispy FORM TAGs SETTINGS
+#CRISPY FORM TAGS SETTINGS
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 
@@ -236,8 +219,7 @@ GEOS_LIBRARY_PATH = 'C:/Program Files/GDAL/geos_c.dll'
 
 #BRAINTREE CONFIGURATION KEYS
 
-BRAINTREE_PUBLIC = '872z6b4yvvf6f734'
+BRAINTREE_PUBLIC = '3yywt6ngxhwf3zm4'
 BRAINTREE_PRIVATE = '14cd6207a042e052c31b6d1fb7a5b88b'
 BRAINTREE_MERCHANT_ID = '872z6b4yvvf6f734'
 BRAINTREE_ENVIRONMENT = 'Sandbox'
-

@@ -1,9 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth.decorators import login_required
-
 from django.conf import settings
-
 from django import forms
 from schedule.views import Event
 
@@ -11,6 +9,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.contrib import messages
 from django.db.models import Q
 from django.http import Http404, HttpResponse, HttpResponseRedirect
+
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
@@ -20,6 +19,7 @@ from django_filters import FilterSet, CharFilter, NumberFilter, DateFilter, Date
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.contrib.auth.models import User
+import googlemaps
 
 from schedule.models.events import Event, EventRelation, Occurrence
 from .serializers import GuideSerializer
@@ -30,12 +30,13 @@ from .forms import GuideForm, GuideBookingForm, OccurrenceForm, OccurrenceBookin
 from dateutil.relativedelta import relativedelta
 
 from io import StringIO
+from calendar import monthrange
 
 from schedule.models.calendars import Calendar
 from django.utils.decorators import method_decorator
 from itertools import chain
 
-import os, string, json, datetime, pytz, csv
+import os, string, json, datetime, pytz, csv, calendar
 
 
 # Create your views here.
@@ -46,6 +47,11 @@ def home(request):
 	context = {"guides": guides}
 	template = 'home.html'
 	return render(request, template, context)
+
+
+def about(request):
+	template = 'about.html'
+	return render(request, template)
 
 #__________________________________________________________________
 
@@ -59,11 +65,12 @@ def create_tour_guide(request):
 		instance.guide_name = request.user
 		instance.timestamp = timezone.now().date()
 		user = request.user
-		user_calendar = Calendar.objects.get_or_create_calendar_for_object(user, name = user)
+		# get or create teh calender upon the person creating a tour.
+		user_calendar = Calendar.objects.get_or_create_calendar_for_object(user, name=user)
 		instance.save()
-		# message success
-		# messages.success(request, "Successfully Created")
-		return HttpResponseRedirect(instance.get_absolute_url())
+
+		messages.success(request, "Successfully Created")
+		return HttpResponseRedirect(instance.get_absolute_url)
 	context = {
 		"form": form,
 		"OccurrenceForm": OccurrenceForm,
@@ -91,7 +98,7 @@ def guide_profile_update(request, pk=None):
 		guide_profile = form.save(commit=False)
 		guide_profile.save()
 		#messages.success(request, "<a href='#'>Item</a> Saved", extra_tags='html_safe')
-		return HttpResponseRedirect(guide_profile.get_absolute_url())
+		return HttpResponseRedirect(guide_profile.get_absolute_url)
 
 	context = {
 		"guide_profile": guide_profile,
@@ -308,15 +315,6 @@ class GuideDetailView(DetailView):
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(GuideDetailView, self).get_context_data(*args, **kwargs)
-		# form = OccurrenceForm
-		# context["instance"] = self.get_object()
-		# context["current_user"] = self.request.user
-		# context['form'] = GuideBookingForm()
-		# context['guide_tours'] = OccurrenceForm(guide=self.get_object().pk)
-		# context['tours_dates'] = OccurrenceForm(guide=self.get_object().pk)
-		# context['other_form'] = OccurrenceBookingForm()
-
-
 
 		#________CREATES OR GETS TOUR GUIDES CALANDER____________
 		user = self.get_object().guide_name
@@ -338,7 +336,7 @@ class GuideDetailView(DetailView):
 			tourlist.append(tour.get_occurrences(\
 				pytz.utc.localize(datetime.datetime(now.year, now.month, now.day)),\
 				#datetime.datetime(2013, 1, 5, 9, 0, tzinfo=pytz.utc),
-				pytz.utc.localize(datetime.datetime(now.year, 12, 30,))\
+				pytz.utc.localize(datetime.datetime(now.year, 12, 31,))\
 				))
 		context['tours'] = tourlist
 		#________GETS OCCURENCES FOR FOR THE USERS CALANDER____________
@@ -354,9 +352,6 @@ class GuideDetailView(DetailView):
 		context["instance"] = self.get_object()
 		context["current_user"] = self.request.user
 		context['form'] = GuideBookingForm()
-		# context['guide_tours'] = OccurrenceForm(guide=self.get_object().pk)
-		# context['tours_dates'] = OccurrenceForm(guide=self.get_object().pk)
-		# context['other_form'] = OccurrenceBookingForm()
 
 		return context
 
@@ -386,9 +381,7 @@ class GuideDetailView(DetailView):
 			minute = int(occurrence_list[0][4])
 			second = int(occurrence_list[0][5])
 
-
 			booking_email(request.user, request.user.email, spots_free)
-
 
 			tours = EventRelation.objects.get_events_for_object(user)
 			for tour in tours:
@@ -412,7 +405,37 @@ def obj_dict(obj):
     return obj.__dict__
 
 import itertools
+
+
+
+
+
 def tour_map(request):
+	import requests
+
+	API_KEY =settings.GOOGLE_MAPS_API_KEY
+
+
+	# Geocoding an address
+
+	if request.GET.get('living'):
+		address = request.GET.get('living')
+
+		api_response = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address={0}&key={1}'.format(address, API_KEY))
+		api_response_dict = api_response.json()
+
+		if api_response_dict['status'] == 'OK':
+		    latitude = api_response_dict['results'][0]['geometry']['location']['lat']
+		    longitude = api_response_dict['results'][0]['geometry']['location']['lng']
+
+		latitude = latitude
+		longitude = longitude
+	else:
+		latitude = 122.676556
+		longitude = 45.5230645
+
+
+
 	now = datetime.datetime.now()
 	from django.core import serializers
 
@@ -423,11 +446,7 @@ def tour_map(request):
 	tours_list = []
 	tour_locations = Event.objects.all()
 	for tour in tour_locations:
-		tours_list.append(tour.get_occurrences(\
-			pytz.utc.localize(datetime.datetime(now.year, now.month, now.day)), \
-			# This below line can cause a blank google maps screen
-			pytz.utc.localize(datetime.datetime(now.year, 12, 30))))
-			# This above line can cause a blank google maps screen
+		tours_list.append(tour.get_occurrences(pytz.utc.localize(datetime.datetime(now.year, now.month, now.day)), pytz.utc.localize(datetime.datetime(now.year, now.month, calendar.monthrange(now.year, now.month)[1]))))
 
 
 	occurrence_list = []
@@ -439,6 +458,8 @@ def tour_map(request):
 	from django.core.serializers.json import DjangoJSONEncoder
 
 	json_list = serializers.serialize('json', occurrence_list)
+
+
 
 	from django.db import connection
 	cursor = connection.cursor()
@@ -463,6 +484,7 @@ def tour_map(request):
 		"API_KEY": API_KEY,
 		"occurrence_list": occurrence_list,
 		"json_list": json_list,
-		"locations_near": ids,
+		"latitude": latitude,
+		"longitude": longitude,
 	}
 	return render(request, "tour/tour_map.html", context)

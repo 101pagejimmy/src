@@ -23,3 +23,9 @@
     margin: 0px;
     display:none;
 }
+
+
+label {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}

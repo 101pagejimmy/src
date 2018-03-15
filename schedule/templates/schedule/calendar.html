@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load scheduletags i18n %}
+{% load static %}
+
+{% block content %}
+
+{% include "navbar.html" %}
+
+
+<!-- <div class="container"> -->
+<!-- <h1>{% trans "Calendar Views" %}</h1> -->
+<!-- 
+<p>Name: {{calendar_name}} </p>
+<p>{% trans "Slug:" %} {{calendar_slug}} </p>
+<p>{% trans "Event count:" %} {{events_count}} </p> -->
+
+
+ <!-- Page-->
+    <div class="page text-center">
+      <main class="page-content">
+        <!-- Login-->
+        <section>
+          <!-- RD Parallax-->
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-13-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+              <div class="shell section-80 section-md-top-135 section-md-bottom-145">
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-5">
+                    <!-- Box-->
+                    <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
+                      <div class="offset-top-25">
+                        <div class="form-group form-group-xs">
+
+                        <p>{% trans "View as:" %}</p>
+                            <div class="row row-centered">
+                                 <ul>
+                                    <!-- <li><a href="{% url 'compact_calendar' calendar.slug %}">{% trans "Small Month" %}</a></li>
+                                    <li><a href="{% url 'month_calendar' calendar.slug %}">{% trans "1 Month" %}</a></li>
+                                    <li><a href="{% url 'tri_month_calendar' calendar.slug %}">{% trans "3 Months" %}</a></li>
+                                    <li><a href="{% url 'year_calendar' calendar.slug %}">{% trans "This Year" %}</a></li> -->
+                                    <li><a href="{% url 'week_calendar' calendar.slug %}">{% trans "Weekly" %}</a></li>
+                                    <li><a href="{% url 'day_calendar' calendar.slug %}">{% trans "Daily" %}</a></li>
+                                    <!-- <li><a href="{% url 'upcoming_events_feed' calendar_id=calendar.id %}">{% trans "Feed" %}</a></li> -->
+                                </ul>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+
+
+<!-- Different Views I don't want people seeing -->
+<!-- <div>
+    <p>{% trans "See as:" %}</p>
+    <ul>
+        <li><a href="{% url 'compact_calendar' calendar.slug %}">{% trans "Small Month" %}</a></li>
+        <li><a href="{% url 'month_calendar' calendar.slug %}">{% trans "1 Month" %}</a></li>
+        <li><a href="{% url 'tri_month_calendar' calendar.slug %}">{% trans "3 Months" %}</a></li>
+        <li><a href="{% url 'year_calendar' calendar.slug %}">{% trans "This Year" %}</a></li>
+    </ul>
+</div> -->
+
+
+
+<!-- <div><i>{% trans "Now see docstring for schedule.views.calendar" %}</i></div> -->
+
+
+
+{% endblock %}

@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load review_tags %}
+{% load scheduletags %}
+{% load i18n %}
+{% load staticfiles %}
+{% load static %}
+
+<style>
+  {% block style %}
+
+ {% include 'head_css.html' %}
+
+
+
+  {% endblock style %}
+</style>
+
+{% block content %}
+
+
+
+{% include 'navbar.html' %}
+{% include "schedule/_dialogs.html" %}
+
+
+    <div class="page text-center">
+      <main class="page-content">
+        <section>
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/portland.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+            
+              <div class="shell section-80 section-md-top-135 section-md-bottom-145">
+              <a href="#schedule" id="page_buttons" class="btn btn-primary">Schedule</a>
+              <a href="#reviews" id="middle_button" class="btn btn-primary">Reviews</a>
+              <a href="#map" id="page_buttons" class="btn btn-primary">Meeting Place</a>
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-12">
+                    <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
+                      <h3 class="text-ubold text-sm-left">{{instance.first_name}} {{instance.last_name}}</h3>
+                      <div class="offset-top-25">
+                        <div class="form-group form-group-xs">
+                           <div class="container">
+                            <br>
+                            {% if object.get_image_url %}
+                            {% total_review_average object 100 as percentage %}
+                            <div class="col-sm-3">
+                              <div>
+                                <img id='img' class='img-responsive' src='{{ object.get_image_url }}' />
+                              </div> 
+                              <hr>
+                              <p>
+                              <br><br>
+                                Speaks: {{instance.language}}<br>
+                                Rating: {{ percentage|floatformat:"0" }}/100
+                              </p>
+                              <br>
+                            </div>
+                            {% endif %}
+                            <div class="col-sm-offset-1 col-sm-7">
+                              <h1>Tour Description</h1>
+                              <hr>
+                              <p class="lead">{{instance.tour_description|linebreaks }}</p>
+                            </div>
+                            <a data-toggle="modal" href="#myModal2" class="btn btn-primary">Book Tour</a>
+                            <br><br>
+                            <h4>Tour Help</h4>
+                              <p>{{instance.remember|linebreaks }}</p>
+                            </div>
+                            <br>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+
+      <!-- 2nd MODAL -->
+      <div class="modal fade offset-top-35 " id="myModal2">
+        <div class="modal-dialog offset-top-35">
+          <div class="modal-content offset-top-35">
+            <div class="modal-header offset-top-35">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title offset-top-35">Book a Tour</h4>
+            </div>
+            <div class="modal-body offset-top-35">
+              <form method="POST" id="post-form-occurrence">
+                <br>
+                {% csrf_token %}
+                <div class="fieldWrapper" id="the_post_occurrence">
+                  <form>
+                    {% for event in tours_list %}
+                    <label for='tour'><strong>{{event.title}}:</strong></label>
+                    <select name="tour" id="tour">
+                      {% for tour in tours %}
+                        {% for occurance in tour %}
+                          <option id="{{occurance.start}}" value="{{occurance.start.year}},{{occurance.start.month}},{{occurance.start.day}},{{occurance.start.hour}},{{occurance.start.minute}},{{occurance.start.second}}">{{occurance.start}} - {{occurance.end}} <strong>|</strong> {{occurance.spots_free}} Spots Avaliable</option>
+                        {% endfor %}
+                      {% endfor %}
+                    </select>
+                    {% endfor %}
+                  </form>
+                  <br>
+
+             {{other_form}} 
+
+                </div>     
+              </form>
+            </div>
+            <div class="modal-footer">
+              <a href="#" data-dismiss="modal" class="btn">Close</a>
+              <input id="button" form='post-form-occurrence' type="submit" class="btn btn-primary" value="Book">     
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 2nd MODAL -->
+      
+
+    <div class="page" id='reviews'>
+      <main class="page-content">
+        <section>
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-31-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+              <div class="shell section-80 section-md-top-145 section-md-bottom-145">
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-12">
+                    <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
+                      <h5 class="text-ubold text-sm-left">{{instance.first_name}} {{instance.last_name}}</h5>
+                      <div class="offset-top-25">
+                        <div class="form-group form-group-xs">
+                            {% user_has_reviewed instance request.user.id as has_reviewed %}
+                            {% if has_reviewed %}
+                            <em><p>You have already reviewed {{ instance.first_name }}.</p></em>
+                            {% else %}
+                            <p><a href="{% url 'review_create' content_type='guide' object_id=instance.pk %}">Review {{ instance.first_name }}</a></p>
+                            {% endif %}
+                            <div class="col-sm-11">
+                              {% get_review_count object as review_count %}
+                              <strong><p>{{ review_count }} users have reviewed {{instance.first_name}} and have given a & {% total_review_average object 100 as percentage %}
+                                {{ percentage|floatformat:"0" }}% average rating</p></strong>
+                                <hr>
+                              </div>
+                            <br>
+                              {% get_review_count object as review_count %}
+                                {% get_reviews object as reviews %}
+                                {% for review in reviews %}
+                                  <div class="cell-sm-6 cell-md-4 offset-top-30 offset-md-top-0" style="padding-bottom: 30px; padding-top: 30px;">
+                                    <!-- Box-->
+                                    <div class="box box-sm bg-white reveal-lg-block">
+                                      <div class="unit unit-xs unit-xs-horizontal unit-spacing-sm">
+                                        <div class="unit-body offset-top-4 offset-xs-top-0">
+                                          <div>
+                                          {% if review.content %}
+                                            <p class="text-small text-gray-base text-uppercase text-ubold">By {{ review.user}}</p>
+                                          </div>
+                                          <div class="offset-top-4">
+                                            <p class="text-small text-silver-chalice">{{ review.content|truncatewords:'50'|linebreaks }}
+                                                  {% else %}
+                                                    Reviewed without description.
+                                                  {% endif %}
+                                                </p>
+                                                <a href="{% url 'review_detail' pk=review.pk %}">Read More...</a>
+                                          </div> 
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                {% endfor %}
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    
+{% endblock %}

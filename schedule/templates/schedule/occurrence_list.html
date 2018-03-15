@@ -1,0 +1,347 @@
+{% extends "base.html" %}
+{% load review_tags scheduletags %}
+{% load i18n static staticfiles crispy_forms_tags %}
+{% load static %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+
+
+<style>
+  {% block style %}
+  body {
+    background: #f5f5f5;
+
+  }
+
+  h1  {
+    font-family: Century, sans-serif;
+  }
+
+  h2 {
+    font-family:  Century, sans-serif;
+  }
+
+  h3 {
+    font-family:  Century, sans-serif;
+  }
+
+  h4 {
+    font-family:  Century, sans-serif;
+  }
+
+  p {
+    font-family:  Century, sans-serif;
+  }
+
+  a {
+    font-family:  Century, sans-serif;
+  }
+
+
+  a:link {
+    text-decoration: none;
+    text-decoration-color: black;
+    color: black
+  }
+
+  a:link { color:black; text-decoration:none; font-weight:normal; }
+  a:hover { text-decoration:none; font-weight:normal; }
+
+
+.box, .box-md {
+    background-color: white;
+}
+
+.box-offer-left.box-offer .box-offer-caption {
+    padding-bottom: 0px;
+    padding-left: 60px;
+    padding-right: 52px;
+}
+
+
+.form-inline-search .form-group-xs .form-control {
+    border-radius: 30px;
+}
+
+
+.box-xs.blog-aside {
+    padding-bottom: 35px;
+    border-radius: 3px;
+}
+
+  {% endblock style %}
+</style>
+
+{% block content %}
+{% include "navbar.html" %}
+
+
+      <div class="page text-center">
+      <main class="page-content">
+        <section>
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-29-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+              <div class="shell section-80 section-md-top-135 section-md-bottom-145">
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-12">
+                    <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
+                      <h5 class="text-ubold text-sm-left">{% trans "Guides" %}</h5>
+                      <div class="offset-top-25">
+                        <div class="form-group form-group-xs">
+                          {% if object_list|length = 1 %}
+                            </br> <h3 style="text-align: center;">There is <strong>{{object_list|length}}</strong> guide in {{from}} touring this day!</h3>
+                          {% elif object_list|length > 1 %}
+                            </br> <h3 style="text-align: center;">There are <strong>{{object_list|length}}</strong> guides in {{from}} touring this day!</h3>
+                          {% else %}
+                            <h3 style="text-align: center;">There are <strong>{{object_list|length}}</strong> guides that match your search. Try a different day?</h3>
+                            </br>  <p style="text-align: center;">There are currently no matches for this search.</p>
+                          {% endif %}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+  {% for guide in object_list %}
+    {% if guide.guide.is_featured %}
+
+      <div class="container">
+      <h1>Featured Guides</h1>
+      </div>
+
+      <div class="container">
+        <div class='row'>
+          {% for guide in object_list %}
+
+            <div class='col-xs-4'>
+              {% include "tour/guide_thumbnail.html" with guide=guide.guide %}
+            </div>
+            {% cycle '' '' '' '</div><div class="row">' %}
+
+      {% endfor %}
+    {% endif %}
+
+  {% endfor %}
+
+      </div>  
+    </div>
+
+
+      <main class="page-content">
+        <section class="section-80 bg-wild-wand">
+          <div class="shell">
+            <div class="range range-xs-center">
+              <div class="cell-sm-11 cell-md-9 cell-md-push-1">
+                <div class="range range-xs-center range-sm-left range-md-center offset-top-50 offset-md-top-25">
+                  <div class="cell-xs-10 cell-sm-6 cell-lg-12 offset-top-30 offset-lg-top-20">
+                    <div class="box-offer box-offer-sm box-offer-left">
+                      </div>
+                        </div>
+                          {% for guide in object_list %}
+                          {% if total_review_average %}
+                  				  {% total_review_average guide.guide 100 as percentage %}
+                          {% endif %}
+        	                <div class="container">
+        	                  <div class="cell-xs-10 cell-sm-6 cell-lg-12 offset-top-30 offset-lg-top-20">
+        	                    <div class="box-offer box-offer-sm box-offer-left">
+        	                      <div class="box-offer-img-wrap"><a href="{{ guide.guide.get_absolute_url }}"><img src="{{ guide.guide.get_image_url }}" width="270" height="280" alt="" class="img-responsive center-block"></a></div>
+        	                      <div class="box-offer-caption text-left">
+        	                        <div class="box-offer-caption-inner-wrap">
+        	                          <div class="box-offer-caption-inner-left">
+        	                                  <div>
+        	                                    <h4 style="color: black"><a href='{{ guide.guide.get_absolute_url }}'>{{ guide.guide.first_name }} {{ guide.guide.last_name }}</a></h4>
+        	                                    <p>Speaks: {{guide.guide.language}}</p>
+                                              {% if total_review_average %}
+        	                                       <p>Rating: {{ percentage|floatformat:"0" }}/100</p>
+                                              {% endif %}
+        	                                 </div>
+        	                          </div>
+        	                          <div class="box-offer-caption-inner-right text-right">
+        	                            <div>
+        	                              <p class="text-extra-small text-spacing-500 text-silver-chalice">PRICE</p>
+        	                            </div>
+        	                            <div class="offset-top-4">
+        	                              <ul class="list-inline inset-right-5">
+        	                                <li class="box-offer-price text-gray-base text-ubold text-primary text-middle">Free</li>
+        	                              </ul>
+        	                            </div>
+        	                          </div>
+        	                        </div>
+        	                        <div class="clearfix"></div>
+        	                        <div class="offset-top-12 box-offer-caption-inner-wrap box-offer-caption-inner-wrap-bottom">
+        	                          <div class="box-offer-caption-inner-left box-offer-description">
+        	                            <p class="text-small text-silver-chalice">{{guide.guide.description}}</p>
+        	                          </div>
+        	                          <div class="box-offer-caption-inner-right text-lg-right offset-top-20 offset-lg-top-0"><a href="{{ guide.guide.get_absolute_url }}" class="btn btn-width-110 btn-primary">VIEW {{guide.guide.first_name|capfirst}}</a></div>
+        	                        </div>
+        	                        <div class="clearfix"></div>
+        	                      </div>
+        	                    </div>
+        	                  </div>
+        	                </div>
+	                    <br>
+
+
+  {% endfor %}
+
+
+
+                </div>
+                <div class="offset-top-50">
+                  <nav>
+                    <ul class="pagination-classic">
+                      <li class="active"><span>1</span></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">4</a></li>
+                      <li><a href="#">...</a></li>
+                      <li><a href="#">12</a></li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+
+
+              <div class="cell-sm-10 cell-md-3 offset-top-50 offset-md-top-0 text-md-left">
+                <aside class="blog-aside box box-xs reveal-block bg-white">
+                  <p class="text-gray-base text-ubold text-uppercase text-spacing-200">Search</p>
+                  <div class="offset-top-20">
+                    <form class="form-inline-search" action="/occurrence_listings" method="get"">
+                      <div class="form-blog-search">
+                        <button class="form-search-submit"><span><img src="{% static 'img/icons/icon-34-16x21.png' %}" width="16" height="21" alt="" class="img-responsive center-block"></span></button>
+                        <div class="form-group form-group-xs">
+                          <label for="tours-destination" class="form-label form-search-label form-label-sm"></label>
+                          <input id="tours-destination" type="text" name="living" class="form-control" placeholder="Destination" value='{{ request.GET.q }}'>
+                        </div>
+                      </div>
+                      <div class="form-blog-search">
+                        <button class="form-search-submit"><span><img src="{% static 'img/icons/icon-35-19x17.png' %}" width="19" height="17" class="img-responsive center-block"></span></button>
+                        <div class="form-group form-group-xs">
+                          <label for="datepicker" class="form-label form-search-label form-label-sm"></label>
+                          <input id="datepicker" id="datepicker" type="text" class="form-search-input input-sm form-control" placeholder="Arrival" >
+                        </div>
+                      </div>
+                      <div class="form-blog-search">
+                        <button class="form-search-submit"><span><img src="{% static 'img/icons/world-512.png' %}" width="19" height="17" alt="" class="img-responsive center-block"></span></button>
+                        <div class="form-group form-group-xs">
+                          <label for="language" class="form-label form-search-label form-label-sm"></label>
+                          <input id="language" type="text" class="form-search-input input-sm form-control" placeholder="Language">
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="offset-top-40">
+                    <hr class="hr bg-gallery">
+                  </div>
+                  <div class="offset-top-60">
+                    <hr class="hr bg-gallery">
+                  </div>
+                  <br>
+                  <div class="offset-top-30">
+                    <div class="offset-top-25"><a href="#" class="btn btn-primary btn-width-110">Search</a></div>
+                  </div>
+                </aside>
+              </div>
+
+
+
+            </div>
+          </div>
+        </section>
+      </main>
+
+<br>
+
+
+
+
+<!--     <div class="container-fluid col-lg-10">
+        <table class="table">
+            <thead class="thead-default">
+                <tr>
+                    <th>Title</th>
+                    <th>Class Code</th>
+                    <th>Description</th>
+                    <th style="text-align: right; padding-right: 30px">Teacher</th>
+                </tr>
+            </thead>
+
+
+            {% for documents in document.guide %}
+                <tbody>
+                    <tr>
+                        <td><a href="http://www.freeosu.com/books/{{documents.slug}}"/>{{documents.title|truncatechars:30}}</a></td>
+                        <td>{{documents.class_description|truncatechars:7}}</td>
+                        <td>{{documents.description}}</td>
+                        <td style="text-align: right; padding-right: 30px">{{documents.teacher}}</td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table><br />
+
+        <div style="text-align: right;">
+            <ul class="pagination">
+                    <li class="page-item">
+                {% if document.has_previous %}
+                    <a class="page-link" href="?page={{ document.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                {% else %}
+                    <a class="page-link" aria-label="Previous">
+                        <span aria-hidden="true">Start</span>
+                        <span class="sr-only">Start</span>
+                    </a>
+                {% endif %}
+
+
+                {% for num in document.paginator.page_range %}
+                  {% ifequal num document.number %}
+                    <span class="current"><b>{{ num }}</b></span>
+                  {% else %}
+                    <a href="?page={{ num }}"> {{ num }}</a>
+                  {% endifequal %} 
+                {% endfor %}
+
+                    <li class="page-item"> 
+                {% if document.has_next %} 
+                    <a class="page-link" href="?page={{ document.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                {% else %}
+                    <a aria-label="Next" style="transition: background-color .0s">
+                        <span aria-hidden="true">End</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                {% endif %} 
+                </li>
+            </ul>
+        </div>
+    </div> -->
+
+
+
+    </div>
+
+
+<script src="{% static 'jquery-ui/ui/widgets/datepicker.js' %}"></script>
+
+<script>
+{% block jquery %}
+        $('#datepicker').datepicker().noconflict;
+{% endblock %}
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,303 @@
+//
+// Custom Buttons Styles
+// --------------------------------------------------
+
+// Base styles
+// --------------------------------------------------
+
+.btn {
+  min-width: 185px;
+  font-weight: 900;
+  text-transform: uppercase;
+  @include button-size($padding-base-vertical, $padding-base-horizontal, 12px, 21px, 30px);
+  transition: .3s ease-out;
+
+
+  &:focus,
+  &:active,
+  &:active:focus{
+    outline: none;
+  }
+
+
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+
+    }
+  }
+
+  &:hover,
+  &:focus,
+  &.focus {
+
+  }
+
+  &:active,
+  &.active {
+    @include box-shadow(none);
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+
+  }
+}
+
+
+// Alternate buttons
+// --------------------------------------------------
+
+.btn-default {
+  @include button-variant-custom($gray-darker, transparent, $gray, $white, $gray-darker, $gray-darker);
+}
+
+.btn-primary {
+  @include button-variant-custom($white, $brand-primary, $brand-primary, $white, darken($brand-primary, 15%), darken($brand-primary, 15%));
+}
+
+.btn-gray {
+  @include button-variant-custom($brand-silver-chalice, $brand-wild-wand, $brand-mercury, $brand-silver-chalice, $white, $brand-wild-wand);
+}
+
+.btn-transparent {
+  @include button-variant-custom($white, transparent, $brand-primary, $white, darken($brand-primary, 15%), darken($brand-primary, 15%));
+}
+
+.btn-twitter {
+  @include button-variant-custom($white, #55acee, #55acee, $white, darken(#55acee, 15%), darken(#55acee, 15%));
+}
+
+.btn-facebook {
+  @include button-variant-custom($white, #3b5998, #3b5998, $white, darken(#3b5998, 15%), darken(#3b5998, 15%));
+}
+
+.btn-google-plus {
+  @include button-variant-custom($white, #dd4b39, #dd4b39, $white, darken(#dd4b39, 15%), darken(#dd4b39, 15%));
+}
+
+
+// Button Sizes
+// --------------------------------------------------
+
+.btn-xs {
+  @include button-size($padding-base-vertical, $padding-base-horizontal, 10px, 10px, 30px);
+
+  &-variant-2 {
+    font-size: 12px;
+  }
+}
+
+.btn-sm {
+  @include button-size($padding-base-vertical, 13px, 14px, 10px, 30px);
+}
+
+.btn-lg {
+
+}
+
+
+// Button Shapes
+// --------------------------------------------------
+
+.btn-rect {
+  border-radius: 0;
+}
+
+a.btn-more {
+  position: relative;
+  padding: 0 8px;
+  line-height: 1;
+  z-index: 1;
+  cursor: pointer;
+
+  &, &:before {
+    transition: .3s all ease;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    margin-top: -2px;
+    background: $brand-wild-wand;
+    z-index: -1;
+    border-radius: 14px;
+    @include transition(translateY(-50%));
+  }
+
+  &:hover {
+    &, &[class*="text-"] {
+      color: $white;
+      text-decoration: none;
+    }
+
+    &:before {
+      background: $brand-primary;
+    }
+  }
+}
+
+
+// Button Icon styles
+// --------------------------------------------------
+
+.btn{
+
+  &.btn-icon {
+    padding-left: 17px;
+    padding-right: 17px;
+
+    .icon {
+      font-size: 16px;
+      line-height: 22px;
+      vertical-align: middle;
+      transition: 0s;
+
+      &.icon-xxs {
+        font-size: 14px;
+      }
+    }
+
+    &-left{
+      .icon{
+        float: left;
+      }
+    }
+
+    &-right{
+      .icon{
+        float: right;
+        padding-left: 10px;
+      }
+    }
+
+    &-both {
+      @include display-flex;
+      @include justify-content(space-between);
+    }
+  }
+}
+
+.btn {
+  &.btn-img {
+    padding-left: 25px;
+    padding-right: 25px;
+
+    .btn-img-wrap {
+      line-height: 20px;
+      vertical-align: middle;
+      transition: 0s;
+    }
+
+    &-left {
+      .btn-img-wrap {
+        float: left;
+        padding-right: 8px;
+      }
+    }
+  }
+}
+
+
+// Button Width
+// --------------------------------------------------
+
+.btn-width {
+  &-95 {
+    min-width: 95px;
+  }
+  &-100 {
+    min-width: 100px;
+  }
+  &-110 {
+    min-width: 110px;
+  }
+}
+
+
+// Button Tags
+// --------------------------------------------------
+
+.btn-tags {
+  .btn {
+    font-weight: 400;
+    text-transform: none;
+    min-width: 0;
+    border-radius: 0;
+  }
+
+  &-variant-2 {
+    .btn {
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+
+    .btn.btn-icon .icon.icon-xxs {
+      font-size: 12px;
+      padding-right: 5px;
+    }
+
+    .btn-transparent {
+      color: rgba($white, .5);
+      border-color: transparent;
+
+      &:hover, &:focus {
+        color: $white;
+        background: $brand-primary;
+        border-color: $brand-primary;
+
+        .icon {
+          opacity: 1;
+        }
+      }
+    }
+
+    .btn-active {
+      color: $white;
+      background: $brand-primary;
+      border-color: $brand-primary;
+
+      .icon {
+        opacity: 1;
+      }
+    }
+
+    .icon {
+      opacity: 0;
+      transition: .3s all ease;
+    }
+  }
+}
+
+
+// Button Wide Left Icon
+// --------------------------------------------------
+
+.btn-wide-left-icon {
+  position: relative;
+  overflow: hidden;
+  border: none;
+
+  span:nth-child(2) {
+    width: 100%;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 40px;
+    background: rgba($white, .2);
+    transition: .3s all ease;
+  }
+}

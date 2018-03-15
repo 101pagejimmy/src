@@ -1,0 +1,124 @@
+.select2-container--bootstrap .select2-selection {
+    font-size: 12px;
+    border-color: #dadada;
+}
+
+ body {
+    background: #f5f5f5;
+  }
+
+  #main-body {
+    background-color: white
+  }
+
+img {
+    border-radius: 10%;
+  }
+
+#button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+  }
+
+#selection {
+    border-radius: 4px;
+    width:100px;
+  }
+
+a:link {
+    text-decoration: none;
+    text-decoration-color: black;
+    color: black;
+    font-weight:normal;
+  }
+
+a:hover {
+  	text-decoration:none; 
+  	font-weight:normal; 
+  }
+
+
+.box, .box-md {
+    background-color: white;
+}
+
+.box-offer-left.box-offer .box-offer-caption {
+    padding-bottom: 0;
+    padding-left: 60px;
+    padding-right: 52px;
+}
+
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.select2-container--bootstrap .select2-selection--single {
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 40px;
+    height: 40px;
+}
+
+
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none; /* This makes sure that we can still click outside of the modal to close it */
+  }
+
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+  }
+
+.class-of-select {
+    position:relative; // or absolute/fixed
+    z-index: 5000; // or > 1050
+}
+
+.select2-container--bootstrap .select2-selection {
+    font-size: 12px;
+    border-color: #dadada;
+}
+
+
+.select2-search__field {
+    position: absolute;
+    z-index: 200000;
+}
+
+
+.select2-dropdown {
+  z-index: 200000;
+  border-color: #dadada
+}
+
+
+.select2-dropdown--below{
+  z-index: 200000;
+}
+
+.select2-selection .select2-selection--single {
+  border-color: #dadada;
+}
+
+.section-md-top-135 {
+    padding-top: 40px;
+}
+
+#middle_button {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+

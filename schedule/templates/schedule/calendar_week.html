@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load scheduletags i18n %}
+{% load static %}
+
+<style>
+{% block style %}
+fieldset {
+    border: 0px solid #dddddd;
+    padding: 1.25rem;
+    margin: 1.125rem 0;
+}
+
+.btn {
+    min-width: 100px;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 10;
+    border-radius: 30px;
+    transition: .3s ease-out;
+    line-height: 0
+    }
+}
+
+
+{% endblock style %}
+</style>
+
+{% block extrahead %}
+<script type="text/javascript" src="{% static 'schedule.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+{% include "navbar.html" %}
+
+
+    <!-- Page-->
+    <div class="page text-center">
+      <main class="page-content">
+        <!-- Login-->
+        <section>
+          <!-- RD Parallax-->
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-26-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+              <div class="shell section-30 section-md-top-15 section-md-bottom-15">
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-5">
+                    <!-- Box-->
+                    <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
+                      <div class="offset-top-25">
+                        <div class="form-group form-group-xs">
+                        <div class="row row-centered">
+                          <a href="{% url 'month_calendar' calendar.slug %}{% querystring_for_date period.start 2 %}">
+                            {% trans "Month" %}
+                          </a>
+                          <a href="{% url 'year_calendar' calendar.slug %}{% querystring_for_date period.start 1 %}">
+                            {% trans "Year" %}
+                          </a>
+                        </div>
+                          <div class="row row-centered">
+                              <strong><div>{{ calendar.name|title }}'s Schedule</div></strong>
+                              {% prevnext "week_calendar" calendar period "\W\e\ek W, M Y" %}
+                              <div class="now">
+                                <a href="{% url 'week_calendar' calendar.slug %}">
+                                  {% trans "This week" %}
+                                </a>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </section>
+      </main>
+    </div>
+<!--  -->
+
+{% include "schedule/_dialogs.html" %}
+
+<div class="container">
+  <div class="row row-centered">
+  <br>
+    {% for day in period.get_days %}
+    <div class="container">
+      <div class="col-md-3">
+        <div class="row row-centered">
+          <a href="{% url 'day_calendar' calendar.slug %}{% querystring_for_date day.start 3 %}">
+            {{day.start|date:"l, d"}}
+          </a>
+        </div><br>
+        {% if forloop.first %}
+            {% daily_table day %}
+        {% else %}
+            {% daily_table day %}
+        {% endif %}
+      </div>
+      </div>
+      <hr><br>
+    {% endfor %}
+  </div>
+</div>
+
+
+    <script>
+        $('body').on('click', 'button', function(event) {
+            event.preventDefault();
+            var bookingDate = $(event.target).attr('data-date').toString();
+            var data = {newDate: bookingDate};
+        $.ajax({
+             type: "GET",
+             url: "{% url 'calendar_event_creator' %}",
+             data: data,
+             success: function(data){
+                window.location.href = data.url;
+             },
+             error: function(response, error) {
+                 console.log(error)
+             }
+        })
+    });
+    </script>
+
+
+{% endblock %}

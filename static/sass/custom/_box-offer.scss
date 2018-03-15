@@ -1,0 +1,398 @@
+//
+// Box Offer
+// --------------------------------------------------
+
+.box-offer {
+  display: inline-block;
+  border-radius: 4px;
+  box-shadow: $shadow-area-sm;
+
+  img {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+
+  .box-offer-title {
+    font-size: 18px;
+
+    a {
+      transition: .3s all ease;
+
+      &:hover {
+        color: $brand-primary;
+      }
+    }
+  }
+
+  .box-offer-caption {
+    padding: 20px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background: $white;
+  }
+
+  .box-offer-price {
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  @media (min-width: $screen-xs-min) {
+    .box-offer-caption {
+      padding: 20px 30px 17px;
+    }
+  }
+
+  @media (min-width: $screen-lg-min) {
+    transition: .3s all ease;
+
+    &:hover {
+      box-shadow: $shadow-area-lg;
+    }
+  }
+}
+
+
+// Box Offer XS
+// --------------------------------------------------
+
+.box-offer-xs {
+  img {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+
+  .box-offer-caption {
+    .box-offer-title,
+    .box-offer-price,
+    .list-inline {
+      line-height: 1;
+    }
+
+    .box-offer-title,
+    .box-offer-price {
+      font-size: 16px;
+    }
+  }
+  
+  @media (min-width: $screen-xs-min) {
+    .box-offer-caption {
+      padding: 15px 21px;
+    }
+  }
+  @media (min-width: $screen-md-min) and (max-width: $screen-lg-min - 1) {
+    .box-offer-caption {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+}
+
+
+// Box Offer SM
+// --------------------------------------------------
+
+.box-offer-sm {
+  img {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+
+  .box-offer-caption {
+    .text-extra-small {
+      line-height: 1;
+    }
+
+    .box-offer-title,
+    .box-offer-price {
+      font-size: 20px;
+      line-height: 1.3;
+    }
+  }
+
+  @media (min-width: $screen-lg-min) {
+    .box-offer-caption {
+      .box-offer-title,
+      .box-offer-price {
+        font-size: 24px;
+        line-height: 1.2;
+      }
+    }
+  }
+}
+
+
+// Box Offer Centered
+// --------------------------------------------------
+
+.box-offer-centered {
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: rgba($brand-primary, .9);
+    border-radius: 4px;
+    transition: .3s all ease;
+  }
+
+  &-img-wrap {
+    position: relative;
+
+    img, &:before {
+      border-radius: 4px;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+      background: rgba($gray-dark, .3)
+    }
+  }
+
+  &-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    @include transform(translate(-50%, -90%));
+    will-change: content;
+    transition: .3s all ease;
+  }
+
+  &-hover {
+    position: relative;
+    display: block;
+
+    &-caption {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      padding-left: 20px;
+      padding-right: 20px;
+      @include transform(translate(-50%, 30%));
+      transition: .3s all ease;
+    }
+  }
+
+  @media (min-width: $screen-lg-min) and (max-width: $screen-xl-min - 1) {
+    .box-offer-centered-hover-caption {
+      h4 {
+        font-size: 20px;
+      }
+    }
+  }
+  @media (min-width: $screen-lg-min) {
+    &:before {
+      opacity: 0;
+    }
+
+    .box-offer-centered-caption {
+      @include transform(translate(-50%, -50%));
+    }
+
+    .box-offer-centered-hover-caption {
+      @include transform(translate(-50%, 100%));
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    &:hover {
+      &:before {
+        opacity: 1;
+      }
+
+      .box-offer-centered-caption {
+        @include transform(translate(-50%, -90%));
+      }
+
+      .box-offer-centered-hover-caption {
+        opacity: 1;
+        visibility: visible;
+        @include transform(translate(-50%, 30%));
+      }
+    }
+
+    .box-offer-centered-title a {
+      transition: .3s all ease;
+
+      &:hover {
+        color: $gray-base;
+      }
+    }
+  }
+}
+
+
+// Box Offer Variant 2
+// --------------------------------------------------
+
+.box-offer-variant-2 {
+  .box-offer-img-wrap {
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      @include gradient-directional(rgba($gray-base, .5), transparent, 0deg);
+    }
+  }
+
+  .box-offer-price {
+    font-size: 30px;
+    position: absolute;
+    left: 30px;
+    bottom: 25px;
+    will-change: content;
+  }
+
+  @media (min-width: $screen-md-min) {
+    .box-offer-caption {
+      padding-left: 23px;
+      padding-right: 23px;
+      will-change: transform;
+    }
+  }
+  @media (min-width: $screen-lg-min) and  (max-width: $screen-lg-min + 399) {
+    .box-offer-price {
+      left: 40px;
+    }
+  }
+  @media (min-width: $screen-xl-min) {
+    .box-offer-caption {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+  }
+}
+
+
+// Box Offer Variant 3
+// --------------------------------------------------
+
+@media (min-width: $screen-md-min) {
+  .page .box-offer-variant-3 {
+    padding: 20px 10px;
+  }
+
+  .box-offer-wrap {
+    [class*="cell-"] {
+      &+ [class*="cell-"] {
+        .box-offer-variant-3 {
+          border-top: 1px solid $brand-gallery;
+          border-left: 1px solid $brand-gallery;
+        }
+      }
+
+      &:nth-child(2), &:nth-child(3) {
+        .box-offer-variant-3 {
+          border-top: none;
+        }
+      }
+
+      &:nth-child(4), &:nth-child(7) {
+        .box-offer-variant-3 {
+          border-left: none;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-lg-min) {
+  .page .box-offer-variant-3 {
+    padding: 27px 20px 22px 53px;
+  }
+}
+
+
+// Box Offer Left
+// --------------------------------------------------
+
+.box-offer-left {
+  img {
+    width: 100%;
+  }
+
+  .box-offer-caption-inner-wrap {
+    @include display-flex;
+    @include justify-content(space-between);
+    width: 100%;
+  }
+
+  .box-offer-caption-inner-wrap-bottom {
+    display: block;
+    @include align-items(flex-end);
+  }
+  @media (min-width: $screen-sm-min) {
+    &.box-offer .box-offer-caption {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  @media (min-width: $screen-lg-min) {
+    .box-offer-description {
+      max-width: 330px;
+    }
+
+    .box-offer-caption-inner-wrap-bottom {
+      @include display-flex;
+    }
+
+    &,.box-offer-caption {
+      @include display-flex;
+    }
+
+    &.box-offer .box-offer-caption {
+      padding-top: 51px;
+      padding-left: 60px;
+      padding-right: 52px;
+    }
+
+    .box-offer-img-wrap {
+      @include flex-basis(31.7%);
+    }
+
+    .box-offer-title {
+      width: 100%;
+    }
+
+    .box-offer-caption {
+      @include flex-basis(68.3%);
+      @include align-items(center);
+      @include flex-wrap(wrap);
+      padding: 50px 50px 50px 59px;
+    }
+
+    &.box-offer .box-offer-img-wrap img {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 4px;
+    }
+
+    &.box-offer .box-offer-caption {
+      border-bottom-left-radius: 0;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+  }
+}

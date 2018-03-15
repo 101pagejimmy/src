@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load scheduletags i18n %}
+{% load static %}
+
+
+{% block content %}
+{% include "navbar.html" %}
+
+
+    <!-- Page-->
+    <div class="page text-center">
+      <main class="page-content">
+        <!-- Login-->
+        <section>
+          <!-- RD Parallax-->
+          <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-13-1920x900.jpg' %}" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+              <div class="shell section-80 section-md-top-15 section-md-bottom-15">
+                <div class="range range-xs-center">
+                  <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-5">
+                    <!-- Box-->
+                    <div class="box box-lg reveal-block bg-white inset-lg-left-60 inset-lg-right-60">
+                      <div class="offset-top-25">
+                        <div class="form-group form-group-xs">
+                        <div class="row row-centered">
+                          <a href="{% url 'week_calendar' calendar.slug %}{% querystring_for_date period.start 3 %}">
+                            {% trans "Week" %}
+                          </a>
+                          <a href="{% url 'month_calendar' calendar.slug %}{% querystring_for_date period.start 2 %}">
+                            {% trans "Month" %} 
+                          </a>
+                          <a href="{% url 'year_calendar' calendar.slug %}{% querystring_for_date period.start 1 %}">
+                            {% trans "Year" %}
+                          </a>
+
+                        </div>
+                        <div class="row row-centered">
+                            <h5>{{ calendar.name|title }}'s Schedule</h5>
+                            {% prevnext "day_calendar" calendar period "l, F d, Y" %}
+                            <div class="now">
+                            <br>
+                              <a href="{% url 'day_calendar' calendar.slug %}">
+                              <!-- <a class="btn btn-primary gradient" href="{% url 'day_calendar' calendar.slug %}"> -->
+                                {% trans "Today" %}
+                              </a>
+
+                            </div>
+                            </br>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+<br>
+
+
+{% include "schedule/_dialogs.html" %}
+  <div class="row row-centered">
+    <div>
+      {% daily_table period %}
+    </div>
+</div>
+
+
+
+{% endblock %}

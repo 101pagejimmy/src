@@ -86,6 +86,10 @@ class ActivationView(TemplateView):
     template_name = 'registration/activate.html'
 
     def get(self, request, *args, **kwargs):
+        """
+
+        :rtype: 
+        """
         activated_user = self.activate(*args, **kwargs)
         if activated_user:
             success_url = self.get_success_url(activated_user)
@@ -143,6 +147,10 @@ class ApprovalView(TemplateView):
     template_name = 'registration/admin_approve.html'
 
     def get(self, request, *args, **kwargs):
+        """
+
+        :rtype: 
+        """
         approved_user = self.approve(*args, **kwargs)
         if approved_user:
             success_url = self.get_success_url(approved_user)

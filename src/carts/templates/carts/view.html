@@ -71,13 +71,15 @@
 
 
 <script>
-				$("#carttotal").text(data.cart_total);
+
+$("#carttotal").text(data.cart_total);
 			}
 
-			if (data.total_items === 0 ) {
-				$(".table").fadeOut();
-				var template = "{% include 'carts/empty_cart.html' %}";
-				$(".main-content").html(template);
+if (data.total_items === 0 ) {
+    $(".table").fadeOut(2000);
+    var template = "{% include 'carts/empty_cart.html' %}";
+    $(".main-content").html(template);
+}
 {% block jquery %}
 
 

@@ -56,6 +56,7 @@ INSTALLED_APPS = (
 
     "corsheaders",
     "rest_framework",
+    "rest_framework.authtoken",
 
     #tour app
     "tour",
@@ -84,7 +85,14 @@ ROOT_URLCONF = 'farmtofamily.urls'
 
 
 REST_FRAMEWORK = {
-    'UNAUTHENTICATED_USER': None
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    'rest_framework.authentication.TokenAuthentication',
+    ]
 }
 
 
@@ -92,7 +100,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR,"templates"), os.path.join(BASE_DIR, 'tour', 'templates', 'tour'), os.path.join(BASE_DIR, 'review', 'templates', 'review'),],
-        #'APP_DIRS': True,
+        # 'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -116,40 +124,20 @@ WSGI_APPLICATION = 'farmtofamily.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+# Define the database manager to setup the various projects
+# DATABASE_ROUTERS = ['manager.router.DatabaseAppsRouter']
+# DATABASE_APPS_MAPPING = {'latlong_data': 't29_db'}
+
+
+
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    },
+
 }
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": "SpotOn",
-#         "USER": "hardiet",
-#         "PASSWORD": "",
-#         "HOST": "localhost",
-#         "PORT": "5432",
-#     }
-# }
-
-
-# add this
-# import dj_database_url
-# db_from_env = dj_database_url.config()
-# DATABASES['default'].update(db_from_env)
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': "mvpland",
-#         'USER': "cfedeploy",
-#         'PASSWORD': 'FUCKER',
-#     }
-# }
-
 
 
 # Internationalization
@@ -223,3 +211,5 @@ BRAINTREE_PUBLIC = '3yywt6ngxhwf3zm4'
 BRAINTREE_PRIVATE = '14cd6207a042e052c31b6d1fb7a5b88b'
 BRAINTREE_MERCHANT_ID = '872z6b4yvvf6f734'
 BRAINTREE_ENVIRONMENT = 'Sandbox'
+
+

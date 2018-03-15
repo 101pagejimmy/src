@@ -256,6 +256,7 @@ def get_occurrence(event_id, occurrence_id=None, year=None, month=None,
     retrieve it.  This function returns an event and occurrence regardless of
     which method is used.
     """
+
     if(occurrence_id):
         occurrence = get_object_or_404(Occurrence, id=occurrence_id)
         event = occurrence.event

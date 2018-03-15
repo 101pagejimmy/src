@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
-{% load i18n staticfiles scheduletags %}
-{% load static from staticfiles %}
+{% load i18n %}
+{% load static %}
 
 {% block head_title %}Calendar: {{ object.name }}{% endblock %}
 {% block tab_id %}id='home_tab'{% endblock %}
 {% block extra_head %}
-	<link rel="stylesheet" href="{% static 'schedule/css/modal.css' %}" />
     {% include "fullcalendar_script.html" %}
 {% endblock %}
 

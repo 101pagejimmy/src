@@ -19,7 +19,6 @@ fieldset {
     transition: .3s ease-out;
     line-height: 0
     }
-
 }
 
 
@@ -44,7 +43,7 @@ fieldset {
           <div data-on="false" data-md-on="true" class="rd-parallax">
             <div data-speed="0.25" data-type="media" data-url="{% static 'img/backgrounds/background-26-1920x900.jpg' %}" class="rd-parallax-layer"></div>
             <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
-              <div class="shell section-80 section-md-top-135 section-md-bottom-145">
+              <div class="shell section-30 section-md-top-15 section-md-bottom-15">
                 <div class="range range-xs-center">
                   <div class="cell-xs-9 cell-sm-7 cell-md-5 cell-lg-5">
                     <!-- Box-->
@@ -79,8 +78,6 @@ fieldset {
         </section>
       </main>
     </div>
-
-
 <!--  -->
 
 {% include "schedule/_dialogs.html" %}
@@ -108,6 +105,25 @@ fieldset {
   </div>
 </div>
 
+
+    <script>
+        $('body').on('click', 'button', function(event) {
+            event.preventDefault();
+            var bookingDate = $(event.target).attr('data-date').toString();
+            var data = {newDate: bookingDate};
+        $.ajax({
+             type: "GET",
+             url: "{% url 'calendar_event_creator' %}",
+             data: data,
+             success: function(data){
+                window.location.href = data.url;
+             },
+             error: function(response, error) {
+                 console.log(error)
+             }
+        })
+    });
+    </script>
 
 
 {% endblock %}

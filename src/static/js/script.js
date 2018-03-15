@@ -18,7 +18,6 @@ var userAgent = navigator.userAgent.toLowerCase(),
 
     plugins = {
       pointerEvents: isIE < 11 ? "js/pointer-events.min.js" : false,
-      smoothScroll: $html.hasClass("use--smoothscroll") ? "js/smoothscroll.min.js" : false,
       bootstrapTooltip: $("[data-toggle='tooltip']"),
       bootstrapTabs: $(".tabs"),
       rdParallax: $(".rd-parallax"),
@@ -429,14 +428,6 @@ $document.ready(function () {
     $(window).on('resize orientationchange', function () {
       initBootstrapTooltip(tooltipPlacement);
     })
-  }
-
-  /**
-   * Smooth scrolling
-   * @description  Enables a smooth scrolling for Google Chrome (Windows)
-   */
-  if (plugins.smoothScroll) {
-    $.getScript(plugins.smoothScroll);
   }
 
   /**

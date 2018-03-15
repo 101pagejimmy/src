@@ -10,7 +10,7 @@
           <span class="glyphicon glyphicon-pencil"></span>
         </a>
     {% else %}
-        <a href="#" onclick="openEditDialog(this, '{{ edit_occurrence }}?next={{ here }}', '{{ edit_event }}?next={{ here }}', event);">
+        <a href="#" data-date="{{ edit_occurrence }}" onclick="openEditDialog(this, '{{ edit_occurrence }}?next={{ here }}', '{{ edit_event }}?next={{ here }}', event);">
           <span class="glyphicon glyphicon-pencil"></span>
         </a>
     {% endif %}

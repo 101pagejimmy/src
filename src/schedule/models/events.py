@@ -52,6 +52,11 @@ class EventManager(models.Manager):
 
 
 
+def upload_location(instance, filename):
+    EventModel = instance.__class__
+    new_id = EventModel.objects.order_by("pk").last().pk
+    return "%s/%s" %(new_id, filename)
+
 
 @python_2_unicode_compatible
 class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
@@ -61,25 +66,18 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
     '''
     TOUR_FIELDS = [('Boat', 'Boat'), ('Bike', 'Bike'), ('Walk', 'Walk')]
     NUMBER_FIELDS = [(5, 5), (10,10), (15, 15), (20, 20), (25, 25), (30, 30), (35, 35), (50, 50)]
-
     start = models.DateTimeField(_("Start"), db_index=True)
     end = models.DateTimeField(_("End"), db_index=True, help_text=_("The end time must be later than the start time."))
     title = models.CharField(_("Title"), max_length=255)
-    
-    #BOOKING
+    image = models.ImageField(upload_to=upload_location, null=True, blank=True)
     reservation_spots = models.IntegerField(_("Reservation Spots"), null=True, \
         blank=True, choices=NUMBER_FIELDS,
         help_text=_("How large is your tour group?"),
         db_index=True,)
-    #ENDBOOKING
-
-    #__________________IN THE WORKS FOR PRICING__________
     price = models.DecimalField(max_digits=100, decimal_places=2, default=0.00)
     sale_price = models.DecimalField(decimal_places=2, max_digits=20, null=True, blank=True)
-
-
-
     #GEOCODING: MAKE SO THAT the POSTSAVERECEIVER SAVES THE SPOT AND THEN PUTS PUTS IT IN A GEOLOCATION POINT.
+    city = models.TextField(_("City"), blank=True)
     location = models.CharField(_("Location Point"), null=True, \
         blank=True, 
         help_text=_("Where does the tour meetup? Please enter like such. 331 NW 26th St, Corvallis OR, 97330"),
@@ -90,9 +88,6 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
         blank=True, choices=TOUR_FIELDS, help_text=_("What type of tour is this?"), db_index=True,)
     tour_icon = models.CharField(_("tour_icon"), max_length=255, blank=True, null=True)
     #ENDGEOCODING
-
-
-
     description = models.TextField(_("description"), blank=True)
     creator = models.ForeignKey(
         django_settings.AUTH_USER_MODEL,
@@ -136,6 +131,7 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
             'end': date(self.end, django_settings.DATE_FORMAT),
         }
 
+
     @property
     def seconds(self):
         return (self.end - self.start).total_seconds()
@@ -147,6 +143,14 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
     @property
     def hours(self):
         return float(self.seconds) / 3600
+
+    @property
+    def get_image_url(self):
+        img = self.image_set.first()
+        if img:
+            return img.image.url
+        return img 
+
 
     def get_absolute_url(self):
         return reverse('event', args=[self.id])
@@ -235,6 +239,7 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
 
         return rrule.rrule(frequency, dtstart=dtstart, until=until, **params)
 
+
     def _create_occurrence(self, start, end=None):
         if end is None:
             end = start + (self.end - self.start)
@@ -255,14 +260,15 @@ class Event(with_metaclass(ModelBase, *get_model_bases('Event'))):
             next_occurrence = tzinfo.localize(next_occurrence)
         else:
             next_occurrence = self.start
-
         if next_occurrence == date:
             try:
                 return Occurrence.objects.get(event=self, original_start=date)
             except Occurrence.DoesNotExist:
                 if use_naive:
                     next_occurrence = timezone.make_naive(next_occurrence, tzinfo)
-                return self._create_occurrence(next_occurrence)
+                # Was this before I pushed it out.
+                # return self._create_occurrence(next_occurrence)
+        return self._create_occurrence(next_occurrence)
  
 
     def _get_occurrence_list(self, start, end):
@@ -627,16 +633,13 @@ class EventRelation(with_metaclass(ModelBase, *get_model_bases('EventRelation'))
     def __str__(self):
         return '%s(%s)-%s' % (self.event.title, self.distinction, self.content_object)
 
-
-
-
-
 @python_2_unicode_compatible
 class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
 
     #ORIGINAL
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_("event"))
     title = models.CharField(_("Title"), max_length=255, blank=True)
+    start = models.DateTimeField(_("Start"), db_index=True)
     end = models.DateTimeField(_("End"), db_index=True)
     cancelled = models.BooleanField(_("cancelled"), default=False)
     original_start = models.DateTimeField(_("original start"))
@@ -649,19 +652,16 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
     spots_free = models.IntegerField(null=True, default=35)
     description = models.TextField(_("description"), blank=True)
 
-
     #PRICING
     price = models.DecimalField(_("price"), max_digits=100, decimal_places=2, default=0.00)
     sale_price = models.DecimalField(_("Sale Price"), decimal_places=2, max_digits=20, null=True, blank=True)
     
     #QUERYING BY DATE
-    start = models.DateTimeField(_("start"), db_index=True)
     guide = models.ForeignKey('tour.Guide', blank=True, null=True, related_name='guide')
 
-
     #GOOGLE MAPS
-    latitude = models.DecimalField(_("latitude"), max_digits=50, decimal_places=10, blank=True, null=True)
-    longitude = models.DecimalField(_("longitude"), max_digits=50, decimal_places=10, blank=True, null=True)
+    latitude = models.DecimalField(_("latitude"), max_digits=50, decimal_places=10, blank=True, null=True, db_index=True)
+    longitude = models.DecimalField(_("longitude"), max_digits=50, decimal_places=10, blank=True, null=True, db_index=True)
     tour_type = models.CharField(_("tour_type"), max_length=255, blank=True)
     tour_icon = models.CharField(_("tour_icon"), max_length=255, blank=True, null=True)
     sail =  models.NullBooleanField(_('sail'), default=False)
@@ -676,7 +676,7 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
         verbose_name_plural = _("occurrences")
         app_label = 'schedule'
         index_together = (
-            ('start', 'end'),
+            ('start', 'end'), ('latitude', 'longitude')
         )
 
     def __init__(self, *args, **kwargs):
@@ -791,12 +791,6 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
             'spots_total': self.reservation_spots
         }
 
-    # def __str__(self):
-    #     return ugettext("%(start)s to %(end)s") % {
-    #         'start': date(self.start, django_settings.DATE_FORMAT),
-    #         'end': date(self.end, django_settings.DATE_FORMAT)
-    #     }
-
     def __lt__(self, other):
         return self.end < other.end
 
@@ -850,26 +844,26 @@ class Occurrence(with_metaclass(ModelBase, *get_model_bases('Occurrence'))):
 
 
 #GOOGLE MAPS ONLY FIND A PLACE WITHIN A DISTANCE OF THE TYPED IN LOCATION (NOT WORKING)
-class LocationManager(models.Manager):
-    def nearby_locations(self, latitude=0, longitude=0, radius=10, max_results=100, use_miles=True):
-        if use_miles:
-            distance_unit = 3959
-        else:
-            distance_unit = 6371
-
-        from django.db import connection, transaction
-        cursor = connection.cursor()
-        if django_settings.DATABASE_ENGINE == 'sqlite3':
-            connection.connection.create_function('acos', 1, math.acos)
-            connection.connection.create_function('cos', 1, math.cos)
-            connection.connection.create_function('radians', 1, math.radians)
-            connection.connection.create_function('sin', 1, math.sin)
-
-        sql = """SELECT id, (%f * acos( cos( math.radians(%f) ) * cos( math.radians( latitude ) ) *
-        cos( math.radians( longitude ) - math.radians(%f) ) + sin( math.radians(%f) ) * sin( math.radians( latitude ) ) ) )
-        AS distance FROM schedule_occurrence WHERE distance < %d
-        ORDER BY distance LIMIT 0 , %d;""" % (distance_unit, latitude, longitude, latitude, int(radius), max_results)
-        cursor.execute(sql)
-        ids = [row[0] for row in cursor.fetchall()]
-
-        return self.filter(id__in=ids)
+# class LocationManager(models.Manager):
+#     def nearby_locations(self, latitude=0, longitude=0, radius=10, max_results=100, use_miles=True):
+#         if use_miles:
+#             distance_unit = 3959
+#         else:
+#             distance_unit = 6371
+#
+#         from django.db import connection, transaction
+#         cursor = connection.cursor()
+#         if django_settings.DATABASE_ENGINE == 'sqlite3':
+#             connection.connection.create_function('acos', 1, math.acos)
+#             connection.connection.create_function('cos', 1, math.cos)
+#             connection.connection.create_function('radians', 1, math.radians)
+#             connection.connection.create_function('sin', 1, math.sin)
+#
+#         sql = """SELECT id, (%f * acos( cos( math.radians(%f) ) * cos( math.radians( latitude ) ) *
+#         cos( math.radians( longitude ) - math.radians(%f) ) + sin( math.radians(%f) ) * sin( math.radians( latitude ) ) ) )
+#         AS distance FROM schedule_occurrence WHERE distance < %d
+#         ORDER BY distance LIMIT 0 , %d;""" % (distance_unit, latitude, longitude, latitude, int(radius), max_results)
+#         cursor.execute(sql)
+#         ids = [row[0] for row in cursor.fetchall()]
+#
+#         return self.filter(id__in=ids)

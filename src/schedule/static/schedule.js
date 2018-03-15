@@ -7,6 +7,7 @@ function openCancelDialog(node, cancel_url, delete_url, event){
 }
 
 function openEditDialog(event, node, occurrence_url, event_url){
+  alert(event)
   event.stopPropagation();
   var btns = {"This":function(){window.location=occurrence_url;}, "All":function(){window.location=event_url}, "Do nothing":function(){$(this).dialog("destroy");}};
   var dia = $("#edit_dialog").dialog({'buttons': btns, 'modal': true});
@@ -24,5 +25,5 @@ function openDetail(event, node){
 
 function openURL(url, event){
     event.stopPropagation();
-    window.location=url;
+    window.location.href=url;
 }

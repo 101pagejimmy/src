@@ -24,7 +24,7 @@
                 <!-- RD Navbar Toggle-->
                 <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
                 <!-- RD Navbar Brand-->
-                <div class="rd-navbar-brand veil reveal-md-block"><a href="/" class="brand-name"><img width="70" height="30" src="{% static 'img/pretiumlogo.png' %}" alt=""></a></div>
+                <div class="rd-navbar-brand veil reveal-md-block"><a href="/" class="brand-name"><img width="70" height="30" src="{% static 'img/SpotOnLogo.png' %}" alt=""></a></div>
                 <!-- RD Navbar Brand-->
                 <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block"><a href="index.html" class="brand-name"><img width="70" height="30" src="" alt=""></a></div>
               </div>
@@ -43,12 +43,8 @@
                         <li><a href="{% url 'auth_login' %}">Login</a></li>
                          {% endif %}
                     {% endif %}
-
                     <li> <a href='/maps'>Maps</a></li>
                     <li> <a href='{% url "cart" %}'><i class="fa fa-shopping-cart fa-navbar-cart"></i> <span id="cart-count-badge" class='badge'>{{ request.session.cart_item_count }}</span></a></li>\
-
-
-
                 </ul>
               </div>
             </div>

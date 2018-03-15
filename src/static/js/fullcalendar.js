@@ -123,7 +123,7 @@ $.fn.fullCalendar = function(options) {
 
 
 	// method calling
-	if (typeof options == 'string') {
+	if (typeof options === 'string') {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var res;
 		this.each(function() {
@@ -133,7 +133,7 @@ $.fn.fullCalendar = function(options) {
 				if (res === undefined) {
 					res = r;
 				}
-				if (options == 'destroy') {
+				if (options === 'destroy') {
 					$.removeData(this, 'fullCalendar');
 				}
 			}
@@ -181,8 +181,8 @@ function setDefaults(d) {
 }
 
 
-
 ;;
+
 
  
 function Calendar(element, options, eventSources) {
@@ -334,7 +334,7 @@ function Calendar(element, options, eventSources) {
 	
 
 	function changeView(newViewName) {
-		if (!currentView || newViewName != currentView.name) {
+		if (!currentView || newViewName !== currentView.name) {
 			_changeView(newViewName);
 		}
 	}
@@ -458,7 +458,7 @@ function Calendar(element, options, eventSources) {
 				var uid = ++resizeUID;
 				setTimeout(function() { // add a delay
 					if (uid == resizeUID && !ignoreWindowResize && elementVisible()) {
-						if (elementOuterWidth != (elementOuterWidth = element.outerWidth())) {
+						if (elementOuterWidth !== (elementOuterWidth = element.outerWidth())) {
 							ignoreWindowResize++; // in case the windowResize callback changes the height
 							updateSize();
 							currentView.trigger('windowResize', _element);
@@ -675,7 +675,7 @@ function Calendar(element, options, eventSources) {
 		if (value === undefined) {
 			return options[name];
 		}
-		if (name == 'height' || name == 'contentHeight' || name == 'aspectRatio') {
+		if (name == 'height' || name === 'contentHeight' || name === 'aspectRatio') {
 			options[name] = value;
 			updateSize();
 		}
@@ -773,7 +773,7 @@ function Header(calendar, options) {
 				}
 				var prevButton;
 				$.each(this.split(','), function(j, buttonName) {
-					if (buttonName == 'title') {
+					if (buttonName === 'title') {
 						e.append("<span class='fc-header-title'><h2>&nbsp;</h2></span>");
 						if (prevButton) {
 							prevButton.addClass(tm + '-corner-right');

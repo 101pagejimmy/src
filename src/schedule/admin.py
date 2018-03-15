@@ -41,13 +41,15 @@ class EventAdmin(admin.ModelAdmin):
         (None, {
             'fields': [
                 ('title', 'color_event'),
-                ('description',),
+                ('description'),
+                ('city'),
                 ('tour_type',),
                 ('start', 'end'),
                 ('reservation_spots'),
                 ('creator', 'calendar'),
                 ('rule', 'end_recurring_period'),
                 ('location', 'latitude', 'longitude'),
+                ('image'),
             ]
         }),
     )

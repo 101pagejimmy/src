@@ -11,10 +11,6 @@ fieldset {
     padding: 1.25rem;
     margin: 1.125rem 0;
 }
-.bg-white {
-    background: #fff;
-    fill: #fff;
-}
 
 h1 {
   font-family: 'Lobster', Georgia, Times, serif;
@@ -32,16 +28,11 @@ p, a {
 {% endblock style %}
 </style>
 
-{% block extrahead %}
-
-
-{% endblock extrahead %}
+{% block extrahead %}{% endblock extrahead %}
 
 
 
 {% block content %}
-
-
 
 
 <body>
@@ -57,7 +48,7 @@ p, a {
                 <!-- RD Navbar Toggle-->
                 <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
                 <!-- RD Navbar Brand-->
-                <div class="rd-navbar-brand veil reveal-md-block"><a href="/" class="brand-name"><img width="70" height="30" src="{% static 'img/pretiumlogo.png' %}" alt=""></a></div>
+                <div class="rd-navbar-brand veil reveal-md-block"><a href="/" class="brand-name"><img width="70" height="30" src="{% static 'img/SpotOnLogo.png' %}" alt=""></a></div>
                 <!-- RD Navbar Brand-->
                 <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block"><a href="/" class="brand-name"><img width="70" height="30" src="" alt=""></a></div>
               </div>
@@ -135,7 +126,6 @@ p, a {
         </div>
       </header>
       <!-- Page Content-->
-      <button id="buttonor" type="submit" class="btn btn-primary">Search</button>
       <main class="page-content">
         <!-- Best Offers-->
         <section class="section-80 section-md-top-70 bg-wild-wand">

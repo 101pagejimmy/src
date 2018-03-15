@@ -1,7 +1,0 @@
-{% extends "base.html" %}
-{% load scheduletags %}
-{% block content %}
-{% include "navbar.html" %}
-<h1>{{ calendar.name }}</h1>
-{% month_table calendar period "small" %}
-{% endblock %}

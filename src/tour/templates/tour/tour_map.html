@@ -97,33 +97,36 @@ label:hover {
 </div>
 
 <div class="container" id="map-canvas"></div>
-<input id="pac-input" type="text" class="controls form-control" placeholder="Search Locations">
+
+{#    <input id="pac-input" type="text" class="controls form-control" placeholder="Search Locations">#}
+
+                            <div class="offset-top-20">
+                                    <div class="form-blog-search">
+                                      <button class="form-search-submit"><span><img src="{% static 'img/icons/tour-icon-search-19x17.png' %}" width="16" height="21" alt="" class="img-responsive center-block"></span></button>
+                                      <div class="form-group form-group-xs">
+                                        <label for="pac-input" class="form-label form-search-label form-label-sm"></label>
+                                          <input id="pac-input" type="text" class="form-search-input input-sm form-control" placeholder="Search Locations">
+                                      </div>
+                                    </div>
+                                </div>
+
+
 
 <script>
 
 
  function init() {
 
-
-
-
     var markers = [];
-
     var data = {{json_list|safe}};
     var filters = {bike:false, trail:false, sail:false};
-    console.log({{json_list|safe}});
-
-
     var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
     var icons = {
             sail: {icon: iconBase + 'sailing.png'},
             trail: {icon: iconBase + 'trail.png'},
             hike: {icon: iconBase + 'hiker.png'}};
-
-
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
-    center: {lat: {{latitude}}, lng: {{longitude}}}, zoom: 10});
-
+        center: {lat: {{latitude}}, lng: {{longitude}}}, zoom: 12});
     var searchBox = new google.maps.places.SearchBox(document.getElementById('pac-input'));
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(document.getElementById('pac-input'));
 
@@ -133,55 +136,49 @@ label:hover {
       var places = searchBox.getPlaces();
       var bounds = new google.maps.LatLngBounds();
 
-
-
     // Multiple Markers
     var infoWindowContent = [
       {% for point in occurrence_list %}
           {% if point.latitude == None %}
           {% else %}
          ['<div class="info_content">' +
-          '<h3>{{point.title}}</h3>' +
-          '<p>{{point.description}}</p>' + 
+          '<h3>{{point.event.title}}</h3>' +
+          '<p>{{point.event.description}}</p>' + 
           '</div>' +
-          '<a href={{point.get_absolute_url}}>Click here to view the tour</a>'
+          '<a href={{point.event.get_absolute_url}}>Click here to view the tour</a>'
           ],
           {% endif %}
       {% endfor%}
       ];
 
+      console.log(data[1]['fields']['event']);
+
     // Display multiple markers on a map
     var infoWindow = new google.maps.InfoWindow(), marker, i;
-
-for (i = 0; i < data.length; i++) {
-        var json_tour_icon = data[i]['fields']['tour_icon'];
-        var position = new google.maps.LatLng(data[i]['fields']['latitude'], data[i]['fields']['longitude']);
-        var properties = data[i]['fields'];
-        //the makeup of the marker
-        marker = new google.maps.Marker({
-          position: position,
-          map: map,
-          icon: icons[json_tour_icon.toString()].icon,
-          properties: properties
-        });
-
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-                infoWindow.setContent(infoWindowContent[i][0]);
-                infoWindow.open(map, marker);
-            }
-        })(marker, i));
-
-
+        for (i = 0; i < data.length; i++) {
+            var json_tour_icon = data[i]['fields']['tour_icon'];
+            var position = new google.maps.LatLng(data[i]['fields']['latitude'], data[i]['fields']['longitude']);
+            var properties = data[i]['fields'];
+            //the makeup of the marker
+            marker = new google.maps.Marker({
+              position: position,
+              map: map,
+              icon: icons[json_tour_icon.toString()].icon,
+              properties: properties
+            });
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infoWindow.setContent(infoWindowContent[i][0]);
+                    infoWindow.open(map, marker);
+                }
+            })(marker, i));
         markers.push(marker)
       }
-
 
       bounds.extend(places[0].geometry.location);
       map.fitBounds(bounds);
       map.setZoom(Math.min(map.getZoom(),12));
      });
-
 
     $(function () {
     $('input[name=filter]').change(function (e) {
@@ -201,7 +198,6 @@ for (i = 0; i < data.length; i++) {
 
     var filter_markers = function() {  
       set_filters = get_set_options();
-      
       // for each marker, check to see if all required options are set
       for (i = 0; i < markers.length; i++) {
         marker = markers[i];
@@ -229,11 +225,9 @@ for (i = 0; i < data.length; i++) {
     };
 
 
- // AUtofocus on the input after 4 seconds
+    // Autofocus on the input after 4 seconds
     setTimeout(function() { $('#pac-input').focus() }, 3000);
-
-  }
-
+ }
 
  google.maps.event.addDomListener(window, 'load', init);
 

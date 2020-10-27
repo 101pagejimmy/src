@@ -15,7 +15,7 @@ chardet==3.0.4
 click==6.7
 colorama==0.3.7
 colorlog==2.10.0
-cryptography==2.0.3
+cryptography==3.2
 dj-database-url==0.4.2
 Django==1.8.4
 django-annoying==0.10.3

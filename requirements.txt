@@ -81,7 +81,7 @@ PyYAML==3.12
 query-string==0.0.0
 request==0.0.0
 requests==2.18.4
-rsa==3.4.2
+rsa==4.1
 s3transfer==0.1.10
 sendgrid==3.6.3
 setupfiles==0.0.0

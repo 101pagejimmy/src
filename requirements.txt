@@ -1,7 +1,7 @@
 appdirs==1.4.3
 asn1crypto==0.23.0
 awscli==1.11.50
-Babel==2.3.4
+Babel==2.9.1
 BeautifulSoup==3.2.1
 beautifulsoup4==4.5.3
 bootstrap-admin==0.3.7.1
